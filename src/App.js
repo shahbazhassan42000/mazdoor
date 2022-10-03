@@ -8,7 +8,8 @@ function App() {
             <Header/>
             <Router>
                 <Routes>
-                    <Route path="/login" element={<Navigate to="/"/>}/>
+                    <Route path="/" element={}/>
+                    {/*<Route path="/login" element={<Navigate to="/"/>}/>*/}
                 </Routes>
             </Router>
         </>
