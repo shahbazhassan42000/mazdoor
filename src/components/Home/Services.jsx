@@ -3,8 +3,8 @@ import free from '../../assets/icons/2.png'
 import waiters from '../../assets/icons/3.png'
 const Services=()=>{
     return (
-        <div onFocusCapture={()=>{console.log("hi")}} id="services" className="px-20 pt-[100px] flex flex-col items-center">
-            <p className="actNav text-[18px] font-[600] relative">
+        <div id="services" className="px-20 pt-[8.78vw] flex flex-col items-center">
+            <p className="actNav text-[18px] relative">
                 <span className="absolute rotate-[-25deg] bg-[#EB5757] w-[12px] h-[12px] rounded-[3px] bottom-28 left-44"></span>
                 WHAT WE SERVE
             </p>

@@ -1,9 +1,9 @@
 import logo from '../assets/images/mazdoor-logo-file-web 1.png'
 const Header=()=>{
     return (
-        <header className="z-[999] bg-white flex w-full justify-between fixed top-0 py-5 px-20">
-            <a href="#root" className="">
-                <img src={logo} alt="logo"/>
+        <header className="bg-white flex w-full justify-between py-5 px-20">
+            <a href="#root" className="w-[22%]">
+                <img className="object-fill w-[100%] h-[100%]" src={logo} alt="logo"/>
             </a>
             <div>
                 <ul className="flex font-['poppins'] space-x-10 mt-[20px]">
