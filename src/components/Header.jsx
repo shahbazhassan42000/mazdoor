@@ -13,7 +13,7 @@ const Header=()=>{
                     <i className="not-italic"><a className="hover:text-[#EB5757]" href="#team">Team</a></i>
                     <i className="not-italic"><a className="hover:text-[#EB5757]" href="#aboutUs">About Us</a></i>
                     <i className="not-italic"><a className="hover:text-[#EB5757]" href="#search"><span className="fa fa-magnifying-glass"></span></a></i>
-                    <i className="not-italic"><a className="bg-[#EB5757] text-white px-[20px] py-[14px] rounded-[25px]" href="/login"><span className="fa fa-arrow-right-to-bracket mr-2"></span>Login</a></i>
+                    <i className="not-italic"><a className="bg-[#EB5757] hover:bg-[#F2C94C] text-white px-[20px] py-[14px] rounded-[25px]" href="/login"><span className="fa fa-arrow-right-to-bracket mr-2"></span>Login</a></i>
                 </ul>
             </div>
         </header>
