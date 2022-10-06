@@ -27,7 +27,7 @@ const Mazdoor=()=>{
                     <img className="object-fill w-[100%] h-[100%]" src={labour} alt="labour standing with clipboard in hands"/>
                 </div>
             </div>
-            <div className="flex pb-[200px] items-center">
+            <div className="flex items-center">
                 <span
                     onClick={()=>{setIndex(index-8<0?index-8+allMazdoors.length:index-8)}}
                     className="fa fa-angle-left h-[64px] w-[64px] flex items-center justify-center bg-[#E0E0E0] hover:bg-[#EB5757] hover:text-white cursor-pointer rounded-[50%]">

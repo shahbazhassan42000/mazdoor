@@ -42,3 +42,20 @@
   color: #EB5757;
   font-weight: 600;
 }
+.gradBorder{
+  background: linear-gradient(90deg, #EB5757 -0.82%, #EB7357 48.98%, #F2C94C 100.82%);
+}
+.linearBg{
+  background: linear-gradient(90deg, #F2C94C 0%, #EB7357 50.97%, #EB5757 99.94%);
+}
+.img:after{
+  font-family: FontAwesome;
+  content: "abc";
+  display: inline-block;
+}
+.img:hover+.hide{
+  display: block;
+}
+.hide:hover{
+  display: block;
+}

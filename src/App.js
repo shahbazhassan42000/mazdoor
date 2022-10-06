@@ -4,13 +4,14 @@ import Header from "./components/Header";
 import Home from "./components/Home/Home";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
-import {loadMazdoors} from "./store/mazdoor/mazdoorSlice";
+import {loadMazdoors, loadTeam} from "./store/mazdoor/mazdoorSlice";
 
 
 function App() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(loadMazdoors());
+        dispatch(loadTeam());
     }, [])
     return (
         <>

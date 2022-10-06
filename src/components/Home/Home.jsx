@@ -1,6 +1,7 @@
 import drillMan from '../../assets/gifs/8t4M.gif'
 import Services from "./Services";
 import Mazdoor from "./Mazdoor/Mazdoor";
+import Team from "./Our Team/Team";
 
 const Home = () => {
     return (
@@ -33,6 +34,7 @@ const Home = () => {
             </div>
             <Services/>
             <Mazdoor/>
+            <Team/>
         </>
     );
 }
