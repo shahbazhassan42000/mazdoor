@@ -6,9 +6,11 @@ import api from "../middleware/api";
 
 export const store = configureStore({
     reducer: {
-        cards: mazdoorSlice
+        mazdoorStore: mazdoorSlice
     },
     middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), api]
 });
+
+
 
 

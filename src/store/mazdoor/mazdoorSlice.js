@@ -1,15 +1,21 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {apiCallBegan} from "../actions";
-
-
+import mazdoors from '../../assets/data/mazdoors.json'
 
 const mazdoorSlice = createSlice({
     name: "mazdoors",
-    initialState: {loading: true},
+    initialState: {loading: true, mazdoors: []},
     reducers: {
+        loadingToggle(state) {
+            console.log("LOADING TOGGLE");
+            state.loading = !state.loading;
+        },
+        loadMazdoors(state, action) {
+            console.log("LOAD USERS");
+            state.mazdoors=mazdoors;
+        },
         // usersReceived(state, action) {
         //     console.log("USERS RECEIVED");
-        //     state.users = action.payload;
+        //     state.mazdoors = action.payload;
         // },
         // boardsReceived(state, action) {
         //     console.log("BOARDS RECEIVED");
@@ -77,19 +83,16 @@ const mazdoorSlice = createSlice({
         //     console.log("CARD UPDATED");
         //     const card = action.payload;
         //     state.cards[card.id] = card;
-        // },
-        loadingToggle(state) {
-            console.log("LOADING TOGGLE");
-            state.loading = !state.loading;
-        }
+        // }
     }
 });
 
 const {
-    loadingToggle
+    loadingToggle,
+    loadMazdoors
 } = mazdoorSlice.actions;
 export default mazdoorSlice.reducer;
-export {loadingToggle};
+export {loadingToggle, loadMazdoors};
 
 //api data
 // export const headers = {
@@ -103,10 +106,9 @@ const boardURL = "/board";
 
 //action creators
 // export const loadUsers = () => apiCallBegan({
-//     url: userURL + "/all",
+//     url: "src/assets/data/mazdoors.json",
 //     headers,
 //     onSuccess: usersReceived.type
-//
 // })
 //
 //

@@ -18,7 +18,7 @@ const Home = () => {
                         </span>
                     </h1>
                     <p className="text-[18px] leading-[30px] w-[430px] font-[500]">
-                        Our job is to filling your tummy with delicious food and with fast and free delivery
+                        To provide an easy platform for builders to hire the laborers
                     </p>
                     <a className="text-center w-[140px] bg-[#EB5757] hover:bg-[#F2C94C] text-white px-[20px] py-[14px] rounded-[25px]"
                        href="#mazdoors">
