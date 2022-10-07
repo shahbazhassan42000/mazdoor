@@ -9,7 +9,7 @@ const MazdoorCard = ({mazdoor}) => {
                 onClick={() => {
                     setMazdoorInfo(true)
                 }}
-                className="flex cursor-pointer select-none flex-col p-[15px] bg-[#E0E0E0] w-[189px] h-[215px] mr-10 mb-10 rounded-[20px] shadow-[10px_10px_4px_0px_#00000080]">
+                className="flex cursor-pointer  select-none hover:bg-[#091e4214] flex-col p-[15px] bg-[#E0E0E0] w-[189px] h-[215px] mr-10 mb-10 rounded-[20px] shadow-[10px_10px_4px_0px_#00000080]">
                 <div className="h-[60%] flex justify-center items-center">
                     <div className="w-[85px] h-[85px] border-[2px] border-[#EB5757] rounded-[50%]">
                         <img className="object-cover h-[100%] w-[100%] rounded-[50%]" src={mazdoor.img}

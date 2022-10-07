@@ -2,6 +2,7 @@ import drillMan from '../../assets/gifs/8t4M.gif'
 import Services from "./Services";
 import Mazdoor from "./Mazdoor/Mazdoor";
 import Team from "./Our Team/Team";
+import AboutUs from "./AboutUs";
 
 const Home = () => {
     return (
@@ -21,7 +22,7 @@ const Home = () => {
                     <p className="text-[18px] leading-[30px] w-[430px] font-[500]">
                         To provide an easy platform for builders to hire the laborers
                     </p>
-                    <a className="text-center w-[140px] bg-[#EB5757] hover:bg-[#F2C94C] text-white px-[20px] py-[14px] rounded-[25px]"
+                    <a className="text-center w-[140px] bg-[#EB5757] hover:text-black hover:bg-[#F2C94C] text-white px-[20px] py-[14px] rounded-[25px]"
                        href="#mazdoors">
                         Find Mazdoor
                     </a>
@@ -35,6 +36,7 @@ const Home = () => {
             <Services/>
             <Mazdoor/>
             <Team/>
+            <AboutUs/>
         </>
     );
 }

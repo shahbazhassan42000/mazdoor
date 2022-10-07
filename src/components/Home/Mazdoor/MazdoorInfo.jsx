@@ -55,8 +55,8 @@ const MazdoorInfo = ({mazdoor, setMazdoorInfo}) => {
 
             </div>
             <div className="flex justify-center">
-                <a className="text-center w-[100px] bg-[#EB5757] hover:bg-[#F2C94C]  text-white px-[20px] py-[12px] rounded-[25px]"
-                   href="#">
+                <a className="text-center w-[100px] hover:text-black bg-[#EB5757] hover:bg-[#F2C94C]  text-white px-[20px] py-[12px] rounded-[25px]"
+                   href={`tel:+92${mazdoor.phone.slice(1)}`}>
                     CALL
                 </a>
             </div>

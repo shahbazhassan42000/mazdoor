@@ -31,7 +31,7 @@ const Team = () => {
                     Meet Our Team
                 </h2>
             </div>
-            <div className="flex pb-[200px] items-center mt-[80px]">
+            <div className="flex items-center mt-[80px]">
                 <span
                     onClick={() => {
                         setIndex(index - SIZE < 0 ? index - SIZE + allTeam.length : index - SIZE)
