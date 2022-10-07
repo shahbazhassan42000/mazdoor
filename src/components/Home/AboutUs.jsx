@@ -2,7 +2,7 @@ import labor from '../../assets/gifs/manBlowingAMan.gif'
 
 const AboutUs = () => {
     return (
-        <div className="flex flex-col px-20 mt-[200px]">
+        <div id="aboutUS" className="flex flex-col px-20 mt-[200px]">
             <div className="relative">
                 <span
                     className="absolute fa fa-wave-square text-[18px] text-[#EB5757] -top-9 right-0">
