@@ -5,6 +5,7 @@ import Home from "./components/Home/Home";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {loadMazdoors, loadTeam} from "./store/mazdoor/mazdoorSlice";
+import Footer from "./components/Footer";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                     {/*<Route path="/login" element={<Navigate to="/"/>}/>*/}
                 </Routes>
             </Router>
+            <Footer/>
         </>
     );
 }

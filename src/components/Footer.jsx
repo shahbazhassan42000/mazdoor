@@ -1,7 +1,50 @@
+import logo from "../assets/images/mazdoor-logo-file-web 1.png";
+
 const Footer=()=>{
     return (
-        <div>
-
+        <div className="flex flex-col  px-20">
+            <div className="flex justify-between">
+                <div className="flex flex-col space-y-8 w-[270px]">
+                    <div>
+                        <a href="#root" className="w-[22%]">
+                            <img className="object-fill w-[100%] h-[100%]" src={logo} alt="logo"/>
+                        </a>
+                    </div>
+                    <p className="text-[16px] font-[500] text-[#333333] leading-[30px]">
+                        Our job is to find you Mazdoor at your Door Step on just a Phone call free of cost.
+                    </p>
+                    <div className="flex space-x-8">
+                        <span className="text-[#EB5757] text-[24px] hover:text-black fa-brands fa-instagram"></span>
+                        <span className="text-[#EB5757] text-[24px] hover:text-black fa-brands fa-facebook-f"></span>
+                    </div>
+                </div>
+                <div className="flex space-x-8 pt-7">
+                    <div className="flex flex-col space-y-5">
+                        <h4 className="font-[600] text-black text-[20px] leading-[22px]">About</h4>
+                        <a href="#" className="text-[16px] font-[500] leading-[30px]">About Us</a>
+                        <a href="#" className="text-[16px] font-[500] leading-[30px]">Features</a>
+                    </div>
+                    <div className="flex flex-col space-y-5">
+                        <h4 className="font-[600] text-black text-[20px] leading-[22px]">Company</h4>
+                        <a href="#whyMazdoor" className="text-[16px] font-[500] leading-[30px]">Why Mazdoor?</a>
+                        <a href="#" className="text-[16px] font-[500] leading-[30px]">FAQ</a>
+                    </div>
+                    <div className="flex flex-col space-y-5">
+                        <h4 className="font-[600] text-black text-[20px] leading-[22px]">Get in Touch</h4>
+                        <a href="#" className="text-[16px] font-[500] leading-[30px]">Question or feedback?</a>
+                        <a href="#" className="text-[16px] font-[500] leading-[30px]">We’d love to hear from you</a>
+                        <div className="border rounded-[50px] cursor-pointer hover:bg-[#091e4214] w-[140px] flex justify-center items-center space-x-1">
+                            <p className="font-[400] text-[16px] leading-[30px]">Email Address</p>
+                            <span className="fa fa-paper-plane text-[#EB5757] text-[12px] mt-[2px]"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p className="font-[600] text-[16px] py-2 text-center leading-[22px]">
+                    Mazdoor, 2022 © Shahbaz Inc. All rights reserved.
+                </p>
+            </div>
         </div>
     );
 }

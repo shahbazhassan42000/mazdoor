@@ -30,7 +30,7 @@ const AboutUs = () => {
                         Get The App
                     </a>
                 </div>
-                <div className="h-[628px] -mt-20">
+                <div className="h-[628px] -mt-20 -mb-20">
                     <img src={labor} alt="man blowing a man"/>
                 </div>
             </div>
