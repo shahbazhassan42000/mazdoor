@@ -32,23 +32,23 @@ const Team = () => {
                 </h2>
             </div>
             <div className="flex items-center mt-[80px]">
-                <span
-                    onClick={() => {
-                        setIndex(index - SIZE < 0 ? index - SIZE + allTeam.length : index - SIZE)
-                    }}
-                    className="fa fa-angle-left h-[64px] w-[64px] flex items-center justify-center bg-[#E0E0E0] hover:bg-[#EB5757] hover:text-white cursor-pointer rounded-[50%]">
-                </span>
-                <div className="flex w-[90%] space-x-10 justify-center">
+                {/*<span*/}
+                {/*    onClick={() => {*/}
+                {/*        setIndex(index - SIZE < 0 ? index - SIZE + allTeam.length : index - SIZE)*/}
+                {/*    }}*/}
+                {/*    className="fa fa-angle-left h-[64px] w-[64px] flex items-center justify-center bg-[#E0E0E0] hover:bg-[#EB5757] hover:text-white cursor-pointer rounded-[50%]">*/}
+                {/*</span>*/}
+                <div className="flex w-[100%] space-x-10 justify-center">
                     {map(team,(member,index)=>{
                         return <TeamCard key={index} member={member} />
                     })}
                 </div>
-                <span
-                    onClick={() => {
-                        setIndex((index + SIZE) % allTeam.length)
-                    }}
-                    className="fa fa-angle-right h-[64px] w-[64px] flex items-center justify-center bg-[#E0E0E0] hover:bg-[#EB5757] hover:text-white cursor-pointer rounded-[50%]">
-                </span>
+                {/*<span*/}
+                {/*    onClick={() => {*/}
+                {/*        setIndex((index + SIZE) % allTeam.length)*/}
+                {/*    }}*/}
+                {/*    className="fa fa-angle-right h-[64px] w-[64px] flex items-center justify-center bg-[#E0E0E0] hover:bg-[#EB5757] hover:text-white cursor-pointer rounded-[50%]">*/}
+                {/*</span>*/}
             </div>
         </div>
     );
