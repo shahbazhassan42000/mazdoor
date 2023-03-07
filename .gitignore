@@ -24,3 +24,10 @@ yarn-debug.log*
 yarn-error.log*
 
 package-lock.json
+
+dist/
+
+src/config/dev.js
+src/config/prod.js
+src/env
+
