@@ -1,13 +1,18 @@
-import http from 'http';
 import express from 'express';
+import * as path from "path";
+import dotenv from 'dotenv';
+dotenv.config();
+import http from 'http';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import morganBody from 'morgan-body';
-import config from './config';
-import routes from './routes';
-import middlewares from './middlewares';
-import dbConnect from "./utils/db";
-import * as path from "path";
+import routes from './routes/index.js';
+import middlewares from './middlewares/index.js';
+import dbConnect from "./utils/db.js";
+
+
+
+
 
 
 const app = express();
@@ -21,7 +26,7 @@ app.use(cors());
 
 app.use(
     bodyParser.json({
-        limit: config.bodyLimit,
+        limit: process.env.BODY_LIMIT,
     })
 );
 
@@ -32,6 +37,7 @@ if (process.env.NODE_ENV === 'development') {
 
 //connecting db
 dbConnect();
+
 
 // api routes to /api
 app.use('/api', routes);
@@ -45,9 +51,10 @@ if (process.env.NODE_ENV === 'production') {
 
 // global error handler function
 app.use(errorHandler);
-const PORT = process.env.PORT || config.port;
-app.server.listen(PORT);
+app.server.listen(process.env.PORT);
 
 console.log(`Started on 'http://localhost:${app.server.address().port}'`);
+
+
 
 export default app;

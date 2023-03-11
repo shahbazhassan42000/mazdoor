@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import config from "../config"
+
 
 const dbConnect=()=>{
-    const url = process.env.MONGO_URL || config.dbURL;
-
+    const url = process.env.MONGO_URL;
+    console.log(url);
     const connectionParams = {
         useNewUrlParser: true,
         useUnifiedTopology: true

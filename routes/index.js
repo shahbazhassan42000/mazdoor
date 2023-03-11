@@ -1,5 +1,5 @@
 import express from "express";
-import user from "./user";
+import user from "./user.js";
 
 const { Router } = express;
 const api = Router();

@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
-import config from '../config';
 
-const { secretKey } = config;
+const secretKey=process.env.secretKey;
 
 export default {
   authenticate(req, res, next) {

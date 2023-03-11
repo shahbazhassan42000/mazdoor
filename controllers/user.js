@@ -1,10 +1,11 @@
-import {includes, keys, size} from 'lodash';
+import _ from 'lodash';
+const { includes, keys, size } = _;
 import mongoose from 'mongoose';
 import passport from 'passport';
-import role from "../utils/role";
+import role from "../utils/role.js";
 
-require('../models/user');
-require('../utils/passport');
+import '../models/user.js';
+import '../utils/passport.js';
 
 const User = mongoose.model('users');
 

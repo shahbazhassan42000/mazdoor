@@ -1,6 +1,6 @@
 import express from 'express';
-import userController from '../controllers';
-import utils from '../utils';
+import userController from '../controllers/index.js';
+import utils from '../utils/index.js';
 
 const { Router } = express;
 const { user } = userController;
