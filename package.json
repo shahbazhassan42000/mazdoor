@@ -4,14 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "server": "NODE_ENV=development nodemon src --exec \\\"babel-node src\\\"",
     "client": "npm start --prefix client",
+    "clientinstall": "npm install --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "rimraf dist && babel src -s -D -d dist",
-    "start2": "NODE_ENV=production node ./dist/index.js",
-    "lint": "eslint src/**/*.js",
-    "precommit-msg": "echo 'Precommit checks...' && exit 0",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "render-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build -- prefix client"
   },
   "husky": {
     "hooks": {
@@ -45,6 +43,7 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
+    "concurrently": "^7.3.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.2",
     "babel-plugin-transform-runtime": "^6.23.0",
