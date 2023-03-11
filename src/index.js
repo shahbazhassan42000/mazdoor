@@ -3,12 +3,11 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import morganBody from 'morgan-body';
-import swaggerJSDoc from 'swagger-jsdoc';
-import swaggerUi from 'swagger-ui-express';
 import config from './config';
 import routes from './routes';
 import middlewares from './middlewares';
 import dbConnect from "./utils/db";
+import * as path from "path";
 
 
 const app = express();
@@ -36,6 +35,13 @@ dbConnect();
 
 // api routes to /api
 app.use('/api', routes);
+
+if (process.env.NODE_ENV === 'production') {
+    //*Set static folder up in production
+    app.use(express.static('client/build'));
+
+    app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'client', 'build','index.html')));
+}
 
 // global error handler function
 app.use(errorHandler);

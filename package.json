@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon src --exec \\\"babel-node src\\\"",
+    "server": "NODE_ENV=development nodemon src --exec \\\"babel-node src\\\"",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "rimraf dist && babel src -s -D -d dist",
-    "start": "NODE_ENV=production node ./dist/index.js",
+    "start2": "NODE_ENV=production node ./dist/index.js",
     "lint": "eslint src/**/*.js",
     "precommit-msg": "echo 'Precommit checks...' && exit 0",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -40,9 +42,7 @@
     "mongoose-unique-validator": "^3.1.0",
     "morgan-body": "^2.3.1",
     "passport": "^0.6.0",
-    "passport-local": "^1.0.0",
-    "swagger-jsdoc": "^6.2.1",
-    "swagger-ui-express": "^2.0.15"
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
