@@ -45,8 +45,8 @@ if (process.env.NODE_ENV === 'production') {
 
 // global error handler function
 app.use(errorHandler);
-
-app.server.listen(config.port);
+const PORT = process.env.PORT || config.port;
+app.server.listen(PORT);
 
 console.log(`Started on 'http://localhost:${app.server.address().port}'`);
 

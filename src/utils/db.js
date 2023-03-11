@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import config from "../config"
 
 const dbConnect=()=>{
-    const url = config.dbURL;
+    const url = process.env.MONGO_URL || config.dbURL;
 
     const connectionParams = {
         useNewUrlParser: true,
