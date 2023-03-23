@@ -34,3 +34,4 @@ config/dev.js
 config/prod.js
 src/env
 
+!/.env
