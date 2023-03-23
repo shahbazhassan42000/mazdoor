@@ -6,10 +6,12 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
+    "install1": "npm install",
+    "install2": "npm install --prefix client",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "clientinstall": "npm install --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run start\" \"npm run client\"",
     "render-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build -- prefix client"
   },
   "repository": {
