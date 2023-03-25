@@ -11,7 +11,7 @@ const Team = () => {
     const [index, setIndex] = useState(0);
     const team = allTeam.slice(index, index + SIZE);
     return (
-        <div className="flex flex-col px-20 mt-[100px]">
+        <div id="team" className="flex flex-col px-20 mt-[100px]">
             <div className="relative">
                 <span
                     className="absolute rotate-[-25deg] bg-[#F2C94C] w-[12px] h-[12px] rounded-[3px] top-6 right-0">
@@ -32,23 +32,23 @@ const Team = () => {
                 </h2>
             </div>
             <div className="flex items-center mt-[80px]">
-                {/*<span*/}
-                {/*    onClick={() => {*/}
-                {/*        setIndex(index - SIZE < 0 ? index - SIZE + allTeam.length : index - SIZE)*/}
-                {/*    }}*/}
-                {/*    className="fa fa-angle-left h-[64px] w-[64px] flex items-center justify-center bg-[#E0E0E0] hover:bg-[#EB5757] hover:text-white cursor-pointer rounded-[50%]">*/}
-                {/*</span>*/}
+                <span
+                    onClick={() => {
+                        setIndex(index - SIZE < 0 ? index - SIZE + allTeam.length : index - SIZE)
+                    }}
+                    className="lg:hidden fa fa-angle-left h-[64px] w-[64px] flex items-center justify-center bg-[#E0E0E0] hover:bg-[#EB5757] hover:text-white cursor-pointer rounded-[50%]">
+                </span>
                 <div className="flex w-[100%] space-x-10 justify-center">
                     {map(team,(member,index)=>{
                         return <TeamCard key={index} member={member} />
                     })}
                 </div>
-                {/*<span*/}
-                {/*    onClick={() => {*/}
-                {/*        setIndex((index + SIZE) % allTeam.length)*/}
-                {/*    }}*/}
-                {/*    className="fa fa-angle-right h-[64px] w-[64px] flex items-center justify-center bg-[#E0E0E0] hover:bg-[#EB5757] hover:text-white cursor-pointer rounded-[50%]">*/}
-                {/*</span>*/}
+                <span
+                    onClick={() => {
+                        setIndex((index + SIZE) % allTeam.length)
+                    }}
+                    className="lg:hidden fa fa-angle-right h-[64px] w-[64px] flex items-center justify-center bg-[#E0E0E0] hover:bg-[#EB5757] hover:text-white cursor-pointer rounded-[50%]">
+                </span>
             </div>
         </div>
     );

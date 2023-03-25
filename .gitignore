@@ -7,13 +7,18 @@
 .pnp.js
 /client/node_modules
 .env
-./.env
+client/.env
+/client/.env
+
+
 
 # testing
 /coverage
 
 # production
 /build
+/client/build
+
 
 # misc
 .DS_Store
@@ -33,5 +38,3 @@ dist/
 config/dev.js
 config/prod.js
 src/env
-
-!/.env

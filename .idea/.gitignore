@@ -8,3 +8,5 @@
 /dataSources.local.xml
 .env
 ./.env
+client/.env
+/client/.env

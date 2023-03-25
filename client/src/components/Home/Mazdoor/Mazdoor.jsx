@@ -11,7 +11,7 @@ const Mazdoor=()=>{
     const [index,setIndex]=useState(0);
     const mazdoors=allMazdoors.slice(index,index+8);
     return (
-        <div className="flex flex-col px-20 mt-[10px]">
+        <div id="mazdoors" className="flex flex-col px-20 mt-[10px]">
             <div className="flex justify-between w-full">
                 <div className="flex flex-col w-[55%] pt-[130px]">
                     <p className="actNav text-[18px]">MAZDOORS</p>

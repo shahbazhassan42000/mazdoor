@@ -4,30 +4,31 @@ import team from '../../assets/data/team.json'
 
 const mazdoorSlice = createSlice({
     name: "mazdoors",
-    initialState: {loading: true, mazdoors: [],team: []},
+    initialState: {loading: true, mazdoors: [],team: [],popup: false},
     reducers: {
-        loadingToggle(state) {
-            console.log("LOADING TOGGLE");
+        toggleLoading(state) {
             state.loading = !state.loading;
         },
+        togglePopup(state) {
+            state.popup = !state.popup;
+        },
         loadMazdoors(state, action) {
-            console.log("LOAD USERS");
             state.mazdoors=mazdoors;
         },
         loadTeam(state, action) {
-            console.log("LOAD TEAM");
             state.team=team;
         },
     }
 });
 
 const {
-    loadingToggle,
+    toggleLoading,
+    togglePopup,
     loadMazdoors,
     loadTeam
 } = mazdoorSlice.actions;
 export default mazdoorSlice.reducer;
-export {loadingToggle, loadMazdoors,loadTeam};
+export {toggleLoading, loadMazdoors,loadTeam,togglePopup};
 
 
 

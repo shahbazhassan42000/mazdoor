@@ -11,6 +11,8 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), api]
 });
 
+export default store;
+
 
 
 
