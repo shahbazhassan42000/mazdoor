@@ -1,4 +1,5 @@
-export default {
-  Admin: "admin",
-  User: "user",
-};
+export default [
+  "ADMIN",
+  "CUSTOMER",
+  "LABOR",
+];

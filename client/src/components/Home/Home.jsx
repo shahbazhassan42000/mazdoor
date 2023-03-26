@@ -3,8 +3,13 @@ import Services from "./Services";
 import Mazdoor from "./Mazdoor/Mazdoor";
 import Team from "./Our Team/Team";
 import AboutUs from "./AboutUs";
+import { useSelector } from "react-redux";
+import Join from "../Auth/Signup/Join";
+import SelectRole from "../Auth/Signup/SelectRole";
+import SignupPopup from "../Auth/Signup/SignupPopup";
 
 const Home = () => {
+  const popup=useSelector(state=>state.mazdoorStore.popup);
     return (
         <>
             <div id="whyMazdoor" className="flex justify-between px-20">
@@ -37,6 +42,7 @@ const Home = () => {
             <Mazdoor/>
             <Team/>
             <AboutUs/>
+          {popup.status && <SignupPopup/>}
         </>
     );
 }

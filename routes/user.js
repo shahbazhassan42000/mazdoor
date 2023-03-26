@@ -8,6 +8,10 @@ const { auth } = utils;
 
 const api = Router();
 
+//check email
+api.post('/check-email', user.checkEmail);
+
+
 api.post('/login', user.login);
 
 

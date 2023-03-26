@@ -1,79 +1,135 @@
+:root {
+    --primary-color: #EB5757;
+    --secondary-color: #F2C94C;
+    --tertiary-color: #EB7357;
+    --quaternary-color: #F2994A;
+    --quinary-color: #F2C94C;
+    --senary-color: #F2C94C;
+    --septenary-color: #F2C94C;
+    --octonary-color: #F2C94C;
+    --nonary-color: #F2C94C;
+    --denary-color: #F2C94C;
+    --dark-bg-color: #E0E0E0;
+    --light-bg-color: #F2F2F2;
+    --light-black-color: #333333;
+}
+
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /*HEADER*/
-.actNav{
-  color: #EB5757;
-  font-weight: 600;
-}
-.gradBorder{
-  background: linear-gradient(90deg, #EB5757 -0.82%, #EB7357 48.98%, #F2C94C 100.82%);
-}
-.linearBg{
-  background: linear-gradient(90deg, #F2C94C 0%, #EB7357 50.97%, #EB5757 99.94%);
-}
-.img:after{
-  font-family: FontAwesome;
-  content: "abc";
-  display: inline-block;
-}
-.img:hover+.hide{
-  display: block;
-}
-.hide:hover {
-  display: block;
+.actNav {
+    color: #EB5757;
+    font-weight: 600;
 }
 
+.gradBorder {
+    background: linear-gradient(90deg, #EB5757 -0.82%, #EB7357 48.98%, #F2C94C 100.82%);
+}
+
+.linearBg {
+    background: linear-gradient(90deg, #F2C94C 0%, #EB7357 50.97%, #EB5757 99.94%);
+}
+
+.img:after {
+    font-family: FontAwesome, serif;
+    content: "abc";
+    display: inline-block;
+}
+
+.img:hover + .hide {
+    display: block;
+}
+
+.hide:hover {
+    display: block;
+}
 
 .popup-overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 9999;
-  background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.5);
 }
+
 .popup-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+}
+
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.primary-btn:hover{
+    background-color: var(--secondary-color);
+    color: var(--light-black-color);
+}
+.bottom-light-shadow {
+    box-shadow: 0 10px 13px rgba(0, 0, 0, 0.13);
+}
+.inp{
+    padding: 0.5rem;
+    outline-color: var(--primary-color);
+    border: 1px solid var(--light-black-color);
+    border-radius: 6px;
+    color: var(--light-black-color);
+}
+.inp:hover{
+    border: 1px solid var(--tertiary-color);
+}
+.red{
+    color: var(--primary-color);
+}
+.green{
+    color:#61BD4F;
 }

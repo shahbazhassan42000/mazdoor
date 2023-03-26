@@ -5,7 +5,7 @@ const { Router } = express;
 const api = Router();
 
 // user apis
-api.use("/user", user);
+api.use("/users", user);
 
 
 export default api;

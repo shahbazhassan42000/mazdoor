@@ -2,13 +2,12 @@ import mongoose from 'mongoose';
 
 
 const dbConnect=()=>{
-    const url = process.env.MONGO_URL;
-    console.log(url);
+    const DB_URL = process.env.MONGO_URL;
     const connectionParams = {
         useNewUrlParser: true,
         useUnifiedTopology: true
     }
-    mongoose.connect(url, connectionParams)
+    mongoose.connect(DB_URL, connectionParams)
         .then(
             () => {
                 console.log('Database connected successfully');

@@ -16,7 +16,11 @@ Then run:
 $ npm run dev
 ```
 
-The last command automatically runs the API exposed on http://localhost:8080
+The last command automatically runs the API exposed on http://localhost:5000
+
+# Figma Design for the website
+
+Link: https://www.figma.com/file/BKAyOE3BlpacjXehWKqXnc/MAZDOOR?t=YtjcGmJo77LinC9I-1
 
 # Deployment
 

@@ -3,6 +3,8 @@ import uniqueValidator from 'mongoose-unique-validator';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 
+mongoose.set('strictQuery', true);
+
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -17,9 +19,10 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         unique: true,
         required: [true, 'can\'t be blank'],
+        index:true,
         match: [/^[a-z\d!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z\d!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z\d](?:[a-z\d-]*[a-z\d])?\.)+[a-z\d](?:[a-z\d-]*[a-z\d])?$/, 'is invalid']
     },
-    image: {type: String, default: 'https://i.imgur.com/zHNsP0J.png'},
+    image: {type: String, default: 'https://i.ibb.co/3F3XMQR/profile-img.png'},
     role: {type: String, required: [true, 'must have a role']},
     hash: String,
     salt: String
