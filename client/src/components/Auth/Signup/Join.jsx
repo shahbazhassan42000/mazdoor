@@ -71,7 +71,9 @@ const Join = () => {
       <hr className="w-full border border-[#333333]"/>
     </div>
     <p>Already a Member?&nbsp;
-      <button className="text-[#EB5757] font-bold hover:text-[#EB7357]">Sign In</button>
+      <button
+        onClick={() => dispatch(updatePopup({status:true,type:"login",message:""}))}
+        className="text-[#EB5757] font-bold hover:text-[#EB7357]">Login</button>
     </p>
     {loading && <div className="popup-overlay">
       <div className="popup-container">

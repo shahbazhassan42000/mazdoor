@@ -29,7 +29,7 @@ const Signup = () => {
     //adding email and role to formObject
     formObject.email=popup.message.email;
     formObject.role=popup.message.role;
-    //check if email is already registered
+
     axios.request({
       baseURL: apiURL,
       url: signupURL,
@@ -68,7 +68,7 @@ const Signup = () => {
         name="username" className="inp w-full" placeholder="Username" minLength="5" type="text" required/>
       {/*Error message*/}
       {msg.type==='error-u' &&
-        <p className={`-mt-10 -mb-6 ${msg.type === "success" ? "green" : "red"}`}>{msg.msg}</p>
+        <p className={`-mt-10 -mb-6 text-center ${msg.type === "success" ? "green" : "red"}`}>{msg.msg}</p>
       }
       <div className="relative flex flex-col w-full">
         <input
@@ -78,7 +78,7 @@ const Signup = () => {
               className="text-[#5E6C84] absolute top-3 right-2 cursor-pointer fa-solid fa-eye-slash"></span>
         {/*Error message*/}
         {msg.type==='error-p' &&
-          <p className={`-mt-10 -mb-6 ${msg.type === "success" ? "green" : "red"}`}>{msg.msg}</p>
+          <p className={`-mb-6 text-center ${msg.type === "success" ? "green" : "red"}`}>{msg.msg}</p>
         }
       </div>
 
@@ -91,7 +91,9 @@ const Signup = () => {
       </p>
     </div>
     <p>Already a Member?&nbsp;
-      <button className="text-[#EB5757] font-bold hover:text-[#EB7357]">Sign In</button>
+      <button
+        onClick={() => dispatch(updatePopup({status:true,type:"login",message:""}))}
+        className="text-[#EB5757] font-bold hover:text-[#EB7357]">Login</button>
     </p>
     {loading && <div className="popup-overlay">
       <div className="popup-container">

@@ -20,6 +20,7 @@ const Header = () => {
           <i className="not-italic"><a className="nav hover:text-[#EB5757] font-[500]" href="#aboutUS">About Us</a></i>
           <i className="not-italic">
             <a
+              onClick={() => dispatch(updatePopup({status:true,type:"login",message:""}))}
               className="hover:text-black hover:bg-[#F2C94C] cursor-pointer font-[500] text-black px-[20px] py-[14px] rounded-[25px]">Login
             </a>
           </i>

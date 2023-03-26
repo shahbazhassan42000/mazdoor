@@ -35,12 +35,11 @@ export default {
         return next(err);
       }
       if (user) {
-        console.log("user:", user);
         user.token = user.generateJWT();
-        return res.status(200).json({ user: user.toAuthJSON() });
+        return res.status(200).json(user.token);
       } else {
         console.log("error:", info);
-        return res.status(422).json(info);
+        return res.status(400).json(info);
       }
     })(req, res, next);
   },
