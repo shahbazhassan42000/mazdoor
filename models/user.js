@@ -24,6 +24,18 @@ const userSchema = new mongoose.Schema({
     },
     image: {type: String, default: 'https://i.ibb.co/3F3XMQR/profile-img.png'},
     role: {type: String, required: [true, 'must have a role']},
+    name: {type: String, default: ' '},
+    age: {type: Number, default: 18},
+    CNIC: {type: String, default: ' '},
+    type: {type: String, default: 'user'},
+    area: {type: String, default: ' '},
+    province: {type: String, default: 'Punjab'},
+    city: {type: String, default: 'Lahore'},
+    country: {type: String, default: 'Pakistan'},
+    phone: {type: String, default: '923xxxxxxxxx'},
+    rating: {type: Number, default: 90},
+    linkedin: {type: String, default: ' '},
+    status: {type: String, default: 'unverified'},
     hash: String,
     salt: String
 
@@ -35,6 +47,9 @@ userSchema.methods.setPassword = function (password) {
     this.salt = crypto.randomBytes(16).toString('hex');
     this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
 };
+
+//given address as complete
+userSchema.methods.getAddress = ()=>  `${this.area}, ${this.city}, ${this.province}, ${this.country}`;
 
 userSchema.methods.validatePassword = function (password) {
     const hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');

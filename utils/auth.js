@@ -12,7 +12,6 @@ function getTokenFromHeader(req) {
   return null;
 }
 
-console.log(process.env.SECRET_KEY);
 let auth = {
   required: expressjwt( {
     secret: process.env.SECRET_KEY,

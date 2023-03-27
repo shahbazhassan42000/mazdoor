@@ -1,7 +1,9 @@
 import jwt from 'jsonwebtoken';
+import "../models/user.js";
+import mongoose from "mongoose";
+const User = mongoose.model("users");
 
-const secretKey=process.env.secretKey;
-
+const secretKey=process.env.SECRET_KEY;
 export default {
   authenticate(req, res, next) {
     const authHeader = req.headers['authorization'];
@@ -13,18 +15,33 @@ export default {
       if (err) {
         return res.status(401).json({ message: 'Unauthenticated' });
       }
-      req.user = user;
-      next();
+      //check if user is exists
+      console.log("Find user with id: ", user.id);
+      User.findById(user.id,(err,user)=>{
+        if(user){
+          req.user = user;
+          next();
+        }else{
+          return res.status(401).json({ message: 'Unauthenticated' });
+        }
+      })
+      //   .then((user)=>{
+      //   req.user = user;
+      //   next();
+      // }).catch((err)=>{
+      //   return res.status(401).json({ message: 'Unauthenticated' });
+      // });
     });
   },
   authorize(roles = []) {
-    if (typeof roles === 'string') {
-      roles = [roles];
-    }
 
     return [
       // authorize based on user role
       (req, res, next) => {
+        if (typeof roles === 'string') {
+          roles = [roles];
+        }
+        console.log(roles);
         if (roles.length && !roles.includes(req.user.role)) {
           // user's role is not authorized
           return res.status(403).json({ message: 'Unauthorized' });

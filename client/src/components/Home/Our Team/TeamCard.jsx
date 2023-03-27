@@ -4,7 +4,7 @@ const TeamCard = ({member}) => {
             <div className="z-10 h-[26.4vh] w-full rounded-[40px] gradBorder p-[1px]">
                 <div className="z-20 h-[26vh] bg-white w-full rounded-[40px] p-[15px]">
                     <a href={member.linkedin} className="z-30 h-full rounded-[30px] relative flex justify-center items-center">
-                        <img className="object-cover h-[100%] hover:blur-sm w-[100%] img  rounded-[30px]" src={member.img} alt="member profile"/>
+                        <img className="object-cover h-[100%] hover:blur-sm w-[100%] img  rounded-[30px]" src={member.image} alt="member profile"/>
                         <span className="absolute z-40 hidden hide text-[50px] fa-brands fa-linkedin text-[#0A66C2]"></span>
                     </a>
                 </div>

@@ -37,15 +37,14 @@ const Login = () => {
       },
       data:{user:formObject}
     }).then((res) => {
+      //store token in localstorage
+      localStorage.setItem('token',res.data);
       setMsg({msg:"",type:"success"});
       dispatch(updatePopup({status:false,type:"",message:{}}));
     }).catch((err) => {
-      console.log(err);
-      if(err.response.status===400){
-        setMsg({msg:"Invalid username or password",type:"error-p"});
-      }else{
-        setMsg({msg:"Did your internet connection fail? If it's not you, it's us. Please try again later.",type:"error-p"});
-      }
+      console.clear();
+      if (err.response.status===400)  setMsg({msg:"Invalid username or password",type:"error-p"});
+       else setMsg({msg:"Did your internet connection fail? If it's not you, it's us. Please try again later.",type:"error-p"});
     }).finally(() => {
       setLoading(false);
     });

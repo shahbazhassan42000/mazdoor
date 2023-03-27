@@ -29,7 +29,7 @@ const Join = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      data:{user:formObject}
+      data:{user:{...formObject,role:popup.message.role}}
     }).then((res) => {
       if(res.data.status==='success'){
         setMsg({status:false,msg:"",type:"success"});
