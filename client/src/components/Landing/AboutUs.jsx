@@ -1,4 +1,4 @@
-import labor from '../../assets/gifs/manBlowingAMan.gif'
+import labor from "../../assets/gifs/manBlowingAMan.gif";
 
 const AboutUs = () => {
     return (

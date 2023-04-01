@@ -1,5 +1,6 @@
 import { expressjwt } from "express-jwt";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
+
 dotenv.config();
 
 function getTokenFromHeader(req) {

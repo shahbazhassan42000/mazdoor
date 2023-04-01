@@ -1,6 +1,6 @@
-import {useSelector} from "react-redux";
-import {useState} from "react";
-import {map} from "lodash";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { map } from "lodash";
 import TeamCard from "./TeamCard";
 
 

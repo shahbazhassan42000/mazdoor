@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import MazdoorInfo from "./MazdoorInfo";
 
 const MazdoorCard = ({mazdoor}) => {

@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import loadingGif from '../../assets/gifs/loading.gif'
-import { apiURL, loginURL } from "../../utils/constants";
-import { updatePopup } from "../../store/mazdoor/mazdoorSlice";
+import loadingGif from "../../assets/gifs/loading.gif";
+import { apiURL, headers, loginURL } from "../../utils/constants";
+import { loadUser, updatePopup } from "../../store/mazdoor/mazdoorSlice";
 import { togglePasswd } from "./Signup/Signup";
 
 
@@ -41,6 +41,8 @@ const Login = () => {
       localStorage.setItem('token',res.data);
       setMsg({msg:"",type:"success"});
       dispatch(updatePopup({status:false,type:"",message:{}}));
+      //redirects to /home page
+      window.location.pathname="/home";
     }).catch((err) => {
       console.clear();
       if (err.response.status===400)  setMsg({msg:"Invalid username or password",type:"error-p"});

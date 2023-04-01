@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { apiURL, signupURL } from "../../../utils/constants";
 import { updatePopup } from "../../../store/mazdoor/mazdoorSlice";
-import loadingGif from '../../../assets/gifs/loading.gif'
+import loadingGif from "../../../assets/gifs/loading.gif";
 
 
 const Signup = () => {

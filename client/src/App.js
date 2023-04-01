@@ -1,31 +1,22 @@
-import './App.css';
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import "./App.css";
 import Header from "./components/Header";
-import Home from "./components/Home/Home";
-import {useEffect} from "react";
-import {useDispatch} from "react-redux";
-import {loadMazdoors, loadTeam} from "./store/mazdoor/mazdoorSlice";
+import { Outlet } from "react-router-dom";
 import Footer from "./components/Footer";
-
+import { useSelector } from "react-redux";
+import MainHeader from "./components/MainHeader/MainHeader";
+import Popup from "./components/Auth/Signup/Popup";
 
 function App() {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(loadMazdoors());
-        dispatch(loadTeam());
-    }, [])
-    return (
-        <>
-            <Header/>
-            <Router>
-                <Routes>
-                    <Route path="/" element={<Home/>}/>
-                    {/*<Route path="/login" element={<Navigate to="/"/>}/>*/}
-                </Routes>
-            </Router>
-            <Footer/>
-        </>
-    );
+  const user=useSelector((state) => state.mazdoorStore.user);
+  const popup=useSelector(state=>state.mazdoorStore.popup);
+  return (
+    <>
+      {user ? <MainHeader /> : <Header />}
+      <Outlet/>
+      {popup.status && <Popup/>}
+      <Footer />
+    </>
+  );
 }
 
 export default App;

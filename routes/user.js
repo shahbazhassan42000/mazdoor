@@ -1,10 +1,9 @@
-import express from 'express';
-import userController from '../controllers/index.js';
-import utils from '../utils/index.js';
+import express from "express";
+import userController from "../controllers/index.js";
+import auth from "../middlewares/auth.js";
 
 const { Router } = express;
 const { user } = userController;
-import auth from '../middlewares/auth.js'
 
 const api = Router();
 
@@ -25,6 +24,9 @@ api.post('/signup', user.signup);
 // Get a single user against given username
 api.get('/one/:username',auth.authenticate, user.one);
 
+//get user by token
+api.get('/getByToken',auth.authenticate, user.getByToken);
+
 
 // update a single user against given id
 api.put('/',auth.authenticate, user.update);
@@ -35,7 +37,7 @@ api.delete('/',auth.authenticate,auth.authorize('ADMIN'), user.delete);
 // api.delete('/', user.delete);
 
 //get users by type
-api.get('/getUserByType/:type', user.getUsersByType);
+api.get('/getUserByType/', user.getUsersByType);
 
 
 

@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-
+import mongoose from "mongoose";
 
 const dbConnect=()=>{
     const DB_URL = process.env.MONGO_URL;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as actions from "../actions"
+import * as actions from "../actions";
 import { apiURL } from "../../utils/constants";
 
 const api = ({dispatch}) => next => action => {

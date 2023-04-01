@@ -12,6 +12,7 @@
     --dark-bg-color: #E0E0E0;
     --light-bg-color: #F2F2F2;
     --light-black-color: #333333;
+    --border-color: #C5C6C9;
 }
 
 .App {
@@ -110,26 +111,44 @@
     font-weight: 600;
     cursor: pointer;
 }
-.primary-btn:hover{
+
+.primary-btn:hover {
     background-color: var(--secondary-color);
     color: var(--light-black-color);
 }
+
 .bottom-light-shadow {
     box-shadow: 0 10px 13px rgba(0, 0, 0, 0.13);
 }
-.inp{
+.primary-btn:disabled{
+    background-color: #C5C6C9;
+    color: #333333;
+    cursor: not-allowed;
+}
+
+.inp {
     padding: 0.5rem;
-    outline-color: var(--primary-color);
-    border: 1px solid var(--light-black-color);
+    outline: none;
+    border: 1px solid var(--border-color);
     border-radius: 6px;
     color: var(--light-black-color);
 }
-.inp:hover{
-    border: 1px solid var(--tertiary-color);
+
+.inp:hover {
+    border: 1px solid var(--primary-color);
 }
-.red{
+.inp:focus-visible {
+    border-radius: 6px 0 0 6px !important;
+}
+
+.red {
     color: var(--primary-color);
 }
-.green{
-    color:#61BD4F;
+
+.green {
+    color: #61BD4F;
+}
+.msg:hover .msg-count{
+    color: #333;
+    background-color: var(--secondary-color);
 }

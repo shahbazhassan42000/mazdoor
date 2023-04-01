@@ -1,8 +1,8 @@
-import labour from '../../../assets/gifs/WBPi.gif'
+import labour from "../../../assets/gifs/WBPi.gif";
 import MazdoorCard from "./MazdoorCard";
-import {useSelector} from "react-redux";
-import {useState} from "react";
-import {map} from "lodash";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { map } from "lodash";
 
 
 const Mazdoor=()=>{

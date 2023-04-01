@@ -1,6 +1,7 @@
-import womanSitting from '../../assets/icons/1.png'
-import free from '../../assets/icons/2.png'
-import waiters from '../../assets/icons/3.png'
+import womanSitting from "../../assets/icons/1.png";
+import free from "../../assets/icons/2.png";
+import waiters from "../../assets/icons/3.png";
+
 const Services=()=>{
     return (
         <div id="services" className="px-20 pt-[8.78vw] flex flex-col items-center">

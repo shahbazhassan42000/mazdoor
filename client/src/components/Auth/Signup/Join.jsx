@@ -1,9 +1,9 @@
-import {updatePopup } from "../../../store/mazdoor/mazdoorSlice";
+import { updatePopup } from "../../../store/mazdoor/mazdoorSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import axios from "axios";
 import { apiURL, checkEmailURL } from "../../../utils/constants";
-import loadingGif from '../../../assets/gifs/loading.gif'
+import loadingGif from "../../../assets/gifs/loading.gif";
 
 
 const Join = () => {

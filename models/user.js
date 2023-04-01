@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
-import uniqueValidator from 'mongoose-unique-validator';
-import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
+import mongoose from "mongoose";
+import uniqueValidator from "mongoose-unique-validator";
+import jwt from "jsonwebtoken";
+import crypto from "crypto";
 
 mongoose.set('strictQuery', true);
 

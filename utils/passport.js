@@ -1,6 +1,6 @@
-import passport from 'passport';
-import passport_local from 'passport-local';
-import mongoose from 'mongoose';
+import passport from "passport";
+import passport_local from "passport-local";
+import mongoose from "mongoose";
 
 const User = mongoose.model('users');
 const LocalStrategy = passport_local.Strategy;

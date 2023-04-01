@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import mazdoors from "../../assets/data/mazdoors.json";
-import team from "../../assets/data/team.json";
 import { apiCallBegan } from "../actions";
-import { apiURL } from "../../utils/constants";
-import header from "../../components/Header";
+import { apiURL, headers } from "../../utils/constants";
 
 const mazdoorSlice = createSlice({
   name: "mazdoors",
   initialState: {
-    loading: true, mazdoors: [], team: [],
+    user: null,
+    loading: false,
+    mazdoors: [],
+    team: [],
     popup: {
       status: false,
       type: "",
@@ -27,7 +27,11 @@ const mazdoorSlice = createSlice({
     },
     teamReceived(state, action) {
       state.team = action.payload;
+    },
+    userReceived(state, action) {
+      state.user = action.payload.user;
     }
+
   }
 });
 
@@ -35,26 +39,35 @@ const {
   toggleLoading,
   updatePopup,
   mazdoorReceived,
-  teamReceived
+  teamReceived,
+  userReceived
 } = mazdoorSlice.actions;
 export default mazdoorSlice.reducer;
-export { toggleLoading, updatePopup };
+export { toggleLoading, updatePopup, mazdoorReceived, teamReceived, userReceived};
 
 //api to server
 
 
 export const loadTeam = () => apiCallBegan({
-  url: `${apiURL}users/getUserByType/ADMIN`,
-  header,
+  url: `${apiURL}users/getUserByType/?type=ADMIN`,
+  headers,
   method: "get",
   onSuccess: teamReceived.type
 });
-export const loadMazdoor = () => apiCallBegan({
-  url: `${apiURL}users/getUserByType/LABOR`,
-  header,
+export const loadMazdoors = () => apiCallBegan({
+  url: `${apiURL}users/getUserByType/?type=LABOR`,
+  headers,
   method: "get",
   onSuccess: mazdoorReceived.type
 });
+
+export const loadUser = () => apiCallBegan({
+  url: `${apiURL}users/getByToken`,
+  headers,
+  method: "get",
+  onSuccess: userReceived.type
+});
+
 
 
 

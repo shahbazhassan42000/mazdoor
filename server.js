@@ -1,18 +1,15 @@
-import express from 'express';
+import express from "express";
 import * as path from "path";
-import dotenv from 'dotenv';
-dotenv.config();
-import http from 'http';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import morganBody from 'morgan-body';
-import routes from './routes/index.js';
-import middlewares from './middlewares/index.js';
+import dotenv from "dotenv";
+import http from "http";
+import bodyParser from "body-parser";
+import cors from "cors";
+import morganBody from "morgan-body";
+import routes from "./routes/index.js";
+import middlewares from "./middlewares/index.js";
 import dbConnect from "./utils/db.js";
 
-
-
-
+dotenv.config();
 
 
 const app = express();

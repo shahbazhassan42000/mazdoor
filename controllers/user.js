@@ -1,12 +1,12 @@
 import _ from "lodash";
-
-const { includes, keys, size } = _;
 import mongoose from "mongoose";
 import passport from "passport";
 import role from "../utils/role.js";
 
 import "../models/user.js";
 import "../utils/passport.js";
+
+const { includes, keys, size, omit} = _;
 
 const User = mongoose.model("users");
 
@@ -45,7 +45,7 @@ export default {
     })(req, res, next);
   },
   getUsersByType(req, res, next) {
-    const type = req.params.type;
+    const type = req.query.type;
     User.find({ role: type }).then((users) => {
       if (users)
         return res.status(200).json(users);
@@ -85,6 +85,12 @@ export default {
         msg: error.errors[keys(error.errors)[0]]["properties"]["message"]
       });
     }).catch(next);
+  },
+  getByToken(req, res, next) {
+    const user=req.user;
+    console.log("GET BY TOKEN => user:",user);
+    //return everything except password and salt and hash
+    return res.status(200).json({"user":filterUser(user)});
   },
   one(req, res, next) {
     const username = req.params.username;
@@ -165,4 +171,18 @@ const check_login_requiredFields = (user) => {
     return { password: "can't be blank" };
   }
   return "";
-};
+}
+
+export const filterUser=(user) => {
+  user.hash = undefined;
+  user.salt = undefined;
+  if(user.role==='ADMIN' || user.role==='CUSTOMER'){
+    user.rating=undefined;
+    user.type=undefined;
+  }
+  if(user.role==='ADMIN'){
+    user.status=undefined;
+  }
+  user.__v=undefined;
+  return user;
+}
