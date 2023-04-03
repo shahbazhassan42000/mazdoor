@@ -25,7 +25,7 @@ const Landing = () => {
                     <p className="text-[18px] leading-[30px] w-[430px] font-[500]">
                         To provide an easy platform for builders to hire the laborers
                     </p>
-                    <a className="text-center w-[140px] bg-[#EB5757] hover:text-black hover:bg-[#F2C94C] text-white px-[20px] py-[14px] rounded-[25px]"
+                    <a className="text-center primary-btn w-fit !rounded-[25px]"
                        href="#mazdoors">
                         Find Mazdoor
                     </a>

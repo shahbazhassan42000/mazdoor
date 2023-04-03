@@ -3,8 +3,9 @@ import SelectRole from "./SelectRole";
 import Signup from "./Signup";
 import { useSelector } from "react-redux";
 import Login from "../Login";
+import Logout from "../Logout";
 
-const SignupPopup = () => {
+const Popup = () => {
   const popup=useSelector(state=>state.mazdoorStore.popup);
   return (
     <div className="popup-overlay">
@@ -12,8 +13,9 @@ const SignupPopup = () => {
       {popup.type==="select-role" && <SelectRole/>}
       {popup.type==="signup" && <Signup/>}
       {popup.type==="login" && <Login/>}
+      {popup.type==="logout" && <Logout/>}
     </div>
   );
 };
 
-export default SignupPopup;
+export default Popup;

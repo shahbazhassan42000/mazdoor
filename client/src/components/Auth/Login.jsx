@@ -42,7 +42,7 @@ const Login = () => {
       setMsg({msg:"",type:"success"});
       dispatch(updatePopup({status:false,type:"",message:{}}));
       //redirects to /home page
-      window.location.pathname="/home";
+      window.location.pathname="/";
     }).catch((err) => {
       console.clear();
       if (err.response.status===400)  setMsg({msg:"Invalid username or password",type:"error-p"});
