@@ -11,6 +11,7 @@ import Landing from "./components/Landing/Landing";
 import Home from "./components/Home/Home";
 import { useAuth } from "./Hooks/CustomHooks";
 import { token } from "./utils/constants";
+import Dashboard from "./components/Dashboard";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
     >
       <Route errorElement={<Error />}>
         <Route path="/" element={token ? <Home /> : <Landing />} />
+        <Route path="/dashboard" element={<Dashboard/>}/>
       </Route>
       <Route path="*" element={<Error />} />
     </Route>

@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../actions";
-import { apiURL, headers } from "../../utils/constants";
+import { apiURL, headers, token } from "../../utils/constants";
 
 const mazdoorSlice = createSlice({
   name: "mazdoors",
   initialState: {
-    user: null,
-    loading: false,
+    user: token,
+    loading: true,
     mazdoors: [],
     team: [],
     popup: {
@@ -30,6 +30,7 @@ const mazdoorSlice = createSlice({
     },
     userReceived(state, action) {
       state.user = action.payload.user;
+      state.loading=false;
     }
 
   }

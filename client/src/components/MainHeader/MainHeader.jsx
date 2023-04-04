@@ -3,14 +3,15 @@ import logo from "../../assets/images/mazdoor-logo-file-web 1.png";
 import Msg from "./Msg";
 import Notification from "./Notification";
 import ProfileCircle from "./ProfileCircle";
+import { Link } from "react-router-dom";
 
 const MainHeader = () => {
   const dispatch=useDispatch();
   return (
     <header className="bg-white flex w-full items-center text-[#333] justify-between py-5 px-20">
-      <a href="/" className="w-[22%]">
+      <Link to="/" className="w-[22%]">
         <img className="object-fill w-[100%] h-[100%]" src={logo} alt="logo" />
-      </a>
+      </Link>
       <ul className="flex space-x-5 items-center text-[#333]">
         <div className="flex">
           <input

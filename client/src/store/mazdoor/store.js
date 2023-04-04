@@ -13,9 +13,10 @@ export const store = configureStore({
 
 export default store;
 
+if(token) store.dispatch(loadUser());
 store.dispatch(loadMazdoors());
 store.dispatch(loadTeam());
-if(token) store.dispatch(loadUser());
+
 
 
 

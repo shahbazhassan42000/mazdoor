@@ -42,7 +42,7 @@ const Footer=()=>{
             </div>
             <div>
                 <p className="font-[600] text-[16px] py-2 text-center leading-[22px]">
-                    Mazdoor, 2022 © Shahbaz Inc. All rights reserved.
+                    Mazdoor, 2023 © Shahbaz Inc. All rights reserved.
                 </p>
             </div>
         </div>
