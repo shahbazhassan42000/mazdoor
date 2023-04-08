@@ -47,8 +47,13 @@ export default {
   getUsersByType(req, res, next) {
     const type = req.query.type;
     User.find({ role: type }).then((users) => {
-      if (users)
+      if (users){
+        //filter users
+         users=users.map(user=>{
+          return filterUser(user);
+         });
         return res.status(200).json(users);
+      }
       return res.status(404).json({ msg: "no users found" });
     }, err => {
       return res.status(400).json({ msg: "ERROR!!! While fetching users." });
@@ -88,7 +93,6 @@ export default {
   },
   getByToken(req, res, next) {
     const user=req.user;
-    console.log("GET BY TOKEN => user:",user);
     //return everything except password and salt and hash
     return res.status(200).json({"user":filterUser(user)});
   },

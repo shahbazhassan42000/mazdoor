@@ -1,7 +1,7 @@
 import { useState } from "react";
-import MazdoorInfo from "./MazdoorInfo";
+import LaborInfo from "./LaborInfo";
 
-const MazdoorCard = ({mazdoor}) => {
+const LaborCard = ({mazdoor}) => {
     const [mazdoorInfo, setMazdoorInfo] = useState(false);
     return (
         <>
@@ -9,7 +9,7 @@ const MazdoorCard = ({mazdoor}) => {
                 onClick={() => {
                     setMazdoorInfo(true)
                 }}
-                className="flex cursor-pointer  select-none hover:bg-[#091e4214] flex-col p-[15px] bg-[#E0E0E0] w-[189px] h-[215px] mr-10 mb-10 rounded-[20px] shadow-[10px_10px_4px_0px_#00000080]">
+                className="flex cursor-pointer  select-none bg-[#E0E0E0] flex-col p-[15px] w-[189px] h-[215px] mr-10 mb-10 rounded-[20px] labor-card-shadow-hover">
                 <div className="h-[60%] flex justify-center items-center">
                     <div className="w-[85px] h-[85px] border-[2px] border-[#EB5757] rounded-[50%]">
                         <img className="object-cover h-[100%] w-[100%] rounded-[50%]" src={mazdoor.image}
@@ -36,10 +36,10 @@ const MazdoorCard = ({mazdoor}) => {
             {mazdoorInfo &&
                 <div
                     className="z-[999] fixed top-0 left-0 flex items-start justify-center w-screen h-screen bg-[#000000a3]">
-                    <MazdoorInfo mazdoor={mazdoor} setMazdoorInfo={setMazdoorInfo}/>
+                    <LaborInfo mazdoor={mazdoor} setMazdoorInfo={setMazdoorInfo}/>
                 </div>
             }
         </>
     );
 }
-export default MazdoorCard;
+export default LaborCard;

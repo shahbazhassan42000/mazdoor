@@ -12,7 +12,6 @@ export default {
       return res.status(401).json({ message: 'Unauthenticated' });
     }
     jwt.verify(token, secretKey, (err, user) => {
-      console.log("SECRET KEY:" ,secretKey);
       if (err) {
         console.log("token not valid");
         return res.status(401).json({ message: 'Unauthenticated' });

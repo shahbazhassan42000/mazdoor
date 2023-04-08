@@ -1,22 +1,14 @@
 import plumber from "../../assets/images/plumber-bg.png";
 import labor_1 from "../../assets/images/labors-carousal/labors-1.jpeg"
+import LaborsByTypeNav from "./LaborsByTypeNav";
+import LaborsByType from "./LaborsByType/LaborsByType";
 
 const Home = () => {
   return (
     <div className="flex flex-col">
       {/*hero section*/}
       <div className="flex flex-col h-screen">
-        <nav className="bg-[#EB5757] border-b border-[#333]">
-          <ul className="flex items-center text-[#333] px-20 text-white">
-            <li className="px-5 py-2 flex-1 clicked-shadow-hover cursor-pointer">Plumber</li>
-            <li className="px-5 py-2 flex-1 clicked-shadow-hover cursor-pointer">Electrician</li>
-            <li className="px-5 py-2 flex-1 clicked-shadow-hover  cursor-pointer">Mason</li>
-            <li className="px-5 py-2 flex-1 clicked-shadow-hover cursor-pointer">Labor</li>
-            <li className="px-5 py-2 flex-1 clicked-shadow-hover cursor-pointer">Painter</li>
-            <li className="px-5 py-2 flex-1 clicked-shadow-hover cursor-pointer">Mechanic</li>
-            <li className="px-5 py-2 flex-1 clicked-shadow-hover cursor-pointer">Mechanic</li>
-          </ul>
-        </nav>
+        <LaborsByTypeNav />
         <div className="flex justify-between px-20 bg-[#EB5757]">
           <div className="flex flex-col text-white space-y-[2vw] 2xl:pt-[7vw] pt-[2.19vw] w-[50%]">
 
@@ -31,7 +23,7 @@ const Home = () => {
               </span>
             </h1>
             <p className="text-[18px] leading-[30px] w-[430px] font-[500]">
-              To provide an easy platform for builders to hire the laborers
+              Our job is to filling your provide you mazdoor with fast and free method at doorstep
             </p>
             <a
               className="text-center primary-btn  !text-[#333] !bg-[#F2C94C] w-fit hover:!bg-white hover:!text-[#EB5757] !rounded-[25px]"
@@ -40,12 +32,14 @@ const Home = () => {
             </a>
           </div>
           <div className="w-[50%] flex justify-end relative">
-            <img className="object-fill h-[82vh] w-[95%] " src={plumber} alt="constructor drilling" />
+            <img className="object-fill h-[82vh] w-[95%]" src={plumber} alt="constructor drilling" />
             <span
               className="absolute rotate-[-25deg] bg-[#EB5757] w-[14px] h-[14px] rounded-[3px] bottom-48 right-9"></span>
           </div>
         </div>
       </div>
+      {/*Labors by type*/}
+      <LaborsByType />
       {/*ourself section*/}
       <div className="flex justify-between gap-10 px-20 py-16 bg-[#F9CDCD]">
         <div className="text-[#404145] flex-1">

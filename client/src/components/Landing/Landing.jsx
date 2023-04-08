@@ -1,6 +1,6 @@
 import drillMan from "../../assets/gifs/8t4M.gif";
 import Services from "./Services";
-import Mazdoor from "./Mazdoor/Mazdoor";
+import Labor from "./Labors/Labor";
 import Team from "./Our Team/Team";
 import AboutUs from "./AboutUs";
 import { useSelector } from "react-redux";
@@ -37,7 +37,7 @@ const Landing = () => {
                 </div>
             </div>
             <Services/>
-            <Mazdoor/>
+            <Labor/>
             <Team/>
             <AboutUs/>
         </>

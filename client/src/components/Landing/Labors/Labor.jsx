@@ -1,13 +1,13 @@
 import labour from "../../../assets/gifs/WBPi.gif";
-import MazdoorCard from "./MazdoorCard";
+import LaborCard from "./LaborCard";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { map } from "lodash";
 
 
-const Mazdoor=()=>{
+const Labor=()=>{
 
-    const allMazdoors=useSelector(state => state.mazdoorStore.mazdoors);
+    const allMazdoors=useSelector(state => state.mazdoorStore.labors);
     const [index,setIndex]=useState(0);
     const mazdoors=allMazdoors.slice(index,index+8);
     return (
@@ -34,7 +34,7 @@ const Mazdoor=()=>{
                 </span>
                 <div className="flex flex-wrap w-[90%] justify-center">
                     {map(mazdoors,(mazdoor,index)=>{
-                        return <MazdoorCard key={index} mazdoor={mazdoor} />
+                        return <LaborCard key={index} mazdoor={mazdoor} />
                     })}
                 </div>
                 <span
@@ -46,4 +46,4 @@ const Mazdoor=()=>{
     );
 }
 
-export default Mazdoor;
+export default Labor;

@@ -11,7 +11,7 @@ const Footer=()=>{
                         </a>
                     </div>
                     <p className="text-[16px] font-[500] text-[#333333] leading-[30px]">
-                        Our job is to find you Mazdoor at your Door Step on just a Phone call free of cost.
+                        Our job is to find you Labor at your Door Step on just a Phone call free of cost.
                     </p>
                     <div className="flex space-x-8">
                         <a href="https://www.instagram.com/mazdoor.pk/" className="text-[#EB5757] text-[24px] hover:text-black fa-brands fa-instagram"></a>
@@ -26,7 +26,7 @@ const Footer=()=>{
                     </div>
                     <div className="flex flex-col space-y-5">
                         <h4 className="font-[600] text-black text-[20px] leading-[22px]">Company</h4>
-                        <a href="#whyMazdoor" className="text-[16px] hover:font-[500] leading-[30px]">Why Mazdoor?</a>
+                        <a href="#whyMazdoor" className="text-[16px] hover:font-[500] leading-[30px]">Why Labor?</a>
                         <a href="#" className="text-[16px] hover:font-[500]  leading-[30px]">FAQ</a>
                     </div>
                     <div className="flex flex-col space-y-5">
@@ -42,7 +42,7 @@ const Footer=()=>{
             </div>
             <div>
                 <p className="font-[600] text-[16px] py-2 text-center leading-[22px]">
-                    Mazdoor, 2023 © Shahbaz Inc. All rights reserved.
+                    Labor, 2023 © Shahbaz Inc. All rights reserved.
                 </p>
             </div>
         </div>

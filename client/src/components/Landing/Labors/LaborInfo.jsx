@@ -1,4 +1,4 @@
-const MazdoorInfo = ({mazdoor, setMazdoorInfo}) => {
+const LaborInfo = ({mazdoor, setMazdoorInfo}) => {
 
     return (
         <div
@@ -64,4 +64,4 @@ const MazdoorInfo = ({mazdoor, setMazdoorInfo}) => {
     );
 }
 
-export default MazdoorInfo;
+export default LaborInfo;

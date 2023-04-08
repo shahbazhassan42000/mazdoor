@@ -7,7 +7,7 @@ const mazdoorSlice = createSlice({
   initialState: {
     user: token,
     loading: true,
-    mazdoors: [],
+    labors: [],
     team: [],
     popup: {
       status: false,
@@ -22,8 +22,8 @@ const mazdoorSlice = createSlice({
     updatePopup(state, action) {
       state.popup = action.payload;
     },
-    mazdoorReceived(state, action) {
-      state.mazdoors = action.payload;
+    laborReceived(state, action) {
+      state.labors = action.payload;
     },
     teamReceived(state, action) {
       state.team = action.payload;
@@ -39,12 +39,12 @@ const mazdoorSlice = createSlice({
 const {
   toggleLoading,
   updatePopup,
-  mazdoorReceived,
+  laborReceived,
   teamReceived,
   userReceived
 } = mazdoorSlice.actions;
 export default mazdoorSlice.reducer;
-export { toggleLoading, updatePopup, mazdoorReceived, teamReceived, userReceived};
+export { toggleLoading, updatePopup, laborReceived, teamReceived, userReceived};
 
 //api to server
 
@@ -55,11 +55,11 @@ export const loadTeam = () => apiCallBegan({
   method: "get",
   onSuccess: teamReceived.type
 });
-export const loadMazdoors = () => apiCallBegan({
+export const loadLabors = () => apiCallBegan({
   url: `${apiURL}users/getUserByType/?type=LABOR`,
   headers,
   method: "get",
-  onSuccess: mazdoorReceived.type
+  onSuccess: laborReceived.type
 });
 
 export const loadUser = () => apiCallBegan({

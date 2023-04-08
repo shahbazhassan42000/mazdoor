@@ -14,7 +14,6 @@
     --light-black-color: #333333;
     --border-color: #C5C6C9;
     --light-pink: #F9CDCD;
-    --dark-gray: #E0E0E0
 }
 
 .App {
@@ -59,6 +58,12 @@
 /*HEADER*/
 .actNav {
     color: #EB5757;
+    font-weight: 600;
+}
+
+.actSecond{
+    color: white;
+    background: #EB5757;
     font-weight: 600;
 }
 
@@ -128,6 +133,12 @@
 }
 .clicked-shadow-hover:hover{
     box-shadow: 0 10px 13px rgba(0, 0, 0, 0.13);
+}
+.labor-card-shadow{
+    box-shadow: 0 14px 40px rgba(109, 141, 173, 0.25);
+}
+.labor-card-shadow-hover:hover{
+    box-shadow: 0 14px 40px rgba(109, 141, 173, 0.25);
 }
 
 

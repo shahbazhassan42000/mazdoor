@@ -1,4 +1,4 @@
-# Mazdoor
+# Labor
 
 # Getting start
 
