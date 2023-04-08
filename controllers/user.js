@@ -183,6 +183,7 @@ export const filterUser=(user) => {
   if(user.role==='ADMIN' || user.role==='CUSTOMER'){
     user.rating=undefined;
     user.type=undefined;
+    user.startingWage=undefined;
   }
   if(user.role==='ADMIN'){
     user.status=undefined;

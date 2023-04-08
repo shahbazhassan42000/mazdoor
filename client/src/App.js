@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import Footer from "./components/Footer";
 import { useSelector } from "react-redux";
 import MainHeader from "./components/MainHeader/MainHeader";
-import Popup from "./components/Auth/Signup/Popup";
+import Popup from "./components/Popup";
 import loadingGif from "./assets/gifs/loading.gif";
 
 function App() {

@@ -1,13 +1,17 @@
 import { updatePopup } from "../store/mazdoor/mazdoorSlice";
+import {motion} from "framer-motion";
 
 const LaborCardMini=({labor})=>{
   return(
-    <div
+    <motion.div
+      layout
+      animate={{opacity:1}}
+      initial={{opacity:0}}
+      exit={{opacity:0}}
       title={labor.name}
       className="select-none relative p-2 w-[350px] flex gap-2 h-[120px] rounded-md labor-card-shadow-hover bg-[#E0E0E0]">
       {/* details button */}
       <i
-
         className="fa fa-bars absolute top-2 right-2 rounded-sm text-[#969696] hover:text-[#333] cursor-pointer">
       </i>
       {/* image */}
@@ -35,7 +39,7 @@ const LaborCardMini=({labor})=>{
         <h1 className="text-[#222222] text-[18px] font-bold">1000pkr</h1>
       </div>
 
-    </div>
+    </motion.div>
   );
 }
 export default LaborCardMini;

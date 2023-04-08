@@ -26,7 +26,7 @@ const LaborsByType = () => {
   // Rest of the component
   return (
     <>
-      <div className="relative h-[500px] flex gap-2 text-[#333] px-20 mb-[90px]">
+      <div className="relative min-h-[500px] flex gap-2 text-[#333] px-20 mb-[90px]">
         <VerticalLaborsNav labors={firstKey?Object.entries(labors):[]} selected={selected} setSelected={setSelected} />
         <LaborsList labors={selected?labors[selected]:[]}/>
         {loading && <div className="popup-overlay !absolute !mx-20">

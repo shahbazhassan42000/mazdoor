@@ -4,7 +4,7 @@ import Labor from "./Labors/Labor";
 import Team from "./Our Team/Team";
 import AboutUs from "./AboutUs";
 import { useSelector } from "react-redux";
-import Popup from "../Auth/Signup/Popup";
+import Popup from "../Popup";
 
 const Landing = () => {
   const popup=useSelector(state=>state.mazdoorStore.popup);

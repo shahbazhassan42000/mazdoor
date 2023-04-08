@@ -42,7 +42,10 @@ const Profile = ({ setProfile }) => {
         </div>
       }
       <div className="flex flex-col space-y-2x">
-        <button onClick={() => dispatch(updatePopup({ status: true, type: "logout", message: "" }))}
+        <button onClick={() => {
+          setProfile(false);
+          dispatch(updatePopup({ status: true, type: "logout", message: "" }))
+        }}
                 className="text-[#172b4d]  px-4  text-[14px] text-start py-1 hover:bg-[#091e420a]">
           Log out
         </button>

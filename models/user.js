@@ -36,6 +36,7 @@ const userSchema = new mongoose.Schema({
     rating: {type: Number, default: 90},
     linkedin: {type: String, default: ' '},
     status: {type: String, default: 'unverified'},
+    startingWage: {type: Number, default: 1000},
     hash: String,
     salt: String
 

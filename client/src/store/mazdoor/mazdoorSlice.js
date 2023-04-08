@@ -30,7 +30,17 @@ const mazdoorSlice = createSlice({
     },
     userReceived(state, action) {
       state.user = action.payload.user;
-      state.loading=false;
+      state.loading = false;
+    },
+    redirectToLogin(state, action) {
+      state.user = null;
+      state.loading = false;
+      localStorage.removeItem("token");
+      state.popup = {
+        status: true,
+        type: "login",
+        message: ""
+      };
     }
 
   }
@@ -41,10 +51,11 @@ const {
   updatePopup,
   laborReceived,
   teamReceived,
-  userReceived
+  userReceived,
+  redirectToLogin
 } = mazdoorSlice.actions;
 export default mazdoorSlice.reducer;
-export { toggleLoading, updatePopup, laborReceived, teamReceived, userReceived};
+export { toggleLoading, updatePopup, laborReceived, teamReceived, userReceived, redirectToLogin };
 
 //api to server
 
@@ -66,7 +77,8 @@ export const loadUser = () => apiCallBegan({
   url: `${apiURL}users/getByToken`,
   headers,
   method: "get",
-  onSuccess: userReceived.type
+  onSuccess: userReceived.type,
+  onError: redirectToLogin.type
 });
 
 

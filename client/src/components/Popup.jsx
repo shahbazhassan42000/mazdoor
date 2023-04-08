@@ -1,9 +1,9 @@
-import Join from "./Join";
-import SelectRole from "./SelectRole";
-import Signup from "./Signup";
+import Join from "./Auth/Signup/Join";
+import SelectRole from "./Auth/Signup/SelectRole";
+import Signup from "./Auth/Signup/Signup";
 import { useSelector } from "react-redux";
-import Login from "../Login";
-import Logout from "../Logout";
+import Login from "./Auth/Login";
+import Logout from "./Auth/Logout";
 
 const Popup = () => {
   const popup=useSelector(state=>state.mazdoorStore.popup);

@@ -1,6 +1,6 @@
 import plumber from "../../assets/images/plumber-bg.png";
 import labor_1 from "../../assets/images/labors-carousal/labors-1.jpeg"
-import LaborsByTypeNav from "./LaborsByTypeNav";
+import LaborsByTypeNav from "./LaborsByTypeNav/LaborsByTypeNav";
 import LaborsByType from "./LaborsByType/LaborsByType";
 
 const Home = () => {

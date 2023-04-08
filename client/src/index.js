@@ -7,11 +7,9 @@ import { Provider, useSelector } from "react-redux";
 import store from "./store/mazdoor/store";
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
 import Error from "./components/Error";
-import Landing from "./components/Landing/Landing";
-import Home from "./components/Home/Home";
-import { useAuth } from "./Hooks/CustomHooks";
-import { token } from "./utils/constants";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/Dashboard/Dashboard";
+import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
+import { HomePageRender } from "./components/HomePageRender";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,8 +18,8 @@ const router = createBrowserRouter(
       element={<App />}
     >
       <Route errorElement={<Error />}>
-        <Route path="/" element={token ? <Home /> : <Landing />} />
-        <Route path="/dashboard" element={<Dashboard/>}/>
+        <Route path="/" element={<HomePageRender/>} />
+        <Route path="/dashboard"  element={<ProtectedRoute children={<Dashboard/>}/>}/>
       </Route>
       <Route path="*" element={<Error />} />
     </Route>
