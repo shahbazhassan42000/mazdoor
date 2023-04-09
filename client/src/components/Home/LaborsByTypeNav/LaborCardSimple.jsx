@@ -11,7 +11,7 @@ const LaborCardSimple=({labor})=>{
       className="select-none h-[50px] flex gap-2 pr-2 rounded-md hover:bg-[#F7F4EA] cursor-pointer bg-[#E0E0E0]">
       {/* image */}
       <div className="h-[50px] w-[50px] flex-[0.5] justify-start">
-          <img src={labor.image} className="object-cover rounded-md w-full h-full" alt="labor"/>
+          <img src={labor.image} className="object-cover justify-start items-start justify-self-start rounded-md h-[50px] w-[50px] " alt="labor"/>
       </div>
       {/* Name */}
       <div className="flex justify-center items-center flex-1">

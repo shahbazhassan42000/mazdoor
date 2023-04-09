@@ -23,7 +23,7 @@ window.addEventListener(('load'), () => {
         mazdoor.password="8991";
         // mazdoor.email="mazdoor"+mazdoor.phone.slice(-3) + Math.floor(Math.random() * 1000)+"@gmail.com";
         // mazdoor.role="LABOR";
-        if(mazdoor.role==='LABOR') mazdoor.startingWage=1000;
+        // if(mazdoor.role==='LABOR') mazdoor.startingWage=1000;
         //hitting the server to save the users
         fetch("http://localhost:5000/api/users/signup", {
           method: "POST",

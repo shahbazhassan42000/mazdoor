@@ -15,18 +15,6 @@ const User = mongoose.model("users");
 const Token = mongoose.model("token");
 
 export default {
-  checkEmail(req, res, next) {
-    const user = req.body.user;
-    if (!user || size(user) !== 2) {
-      return res.sendStatus(400);
-    }
-    if (!user.email) return res.status(400).json({ error: "Email can't be blank" });
-    if (!user.role) return res.status(400).json({ error: "Role can't be blank" });
-    User.findOne({ email: user.email, role: user.role }).then(user => {
-      if (user) return res.status(200).json({ status: "error", message: "Email is already taken" });
-      else return res.status(200).json({ status: "success", message: "Email is available" });
-    }).catch(next);
-  },
   login(req, res, next) {
     if (!req.body.user || size(req.body.user) !== 2) {
       return res.sendStatus(400);
@@ -40,7 +28,7 @@ export default {
         return next(err);
       }
       if (user) {
-        if (user.status === "unverified") {
+        if (user.role!=="ADMIN" && user.status === "unverified") {
           let token = await Token.findOne({ userId: user._id });
           if (!token) {
             token = await new Token({ userId: user._id, token: crypto.randomBytes(16).toString("hex") }).save();
@@ -55,32 +43,6 @@ export default {
       }
     })(req, res, next);
   },
-  getUsersByType(req, res, next) {
-    const type = req.query.type;
-    User.find({ role: type }).then((users) => {
-      if (users) {
-        //filter users
-        users = users.map(user => {
-          return filterUser(user);
-        });
-        return res.status(200).json(users);
-      }
-      return res.status(404).json({ msg: "no users found" });
-    }, err => {
-      return res.status(400).json({ msg: "ERROR!!! While fetching users." });
-    });
-  },
-  all(req, res) {
-    User.find({}).then(function(users) {
-      if (users)
-        return res.status(200).json(users);
-      return res.status(404).json({ msg: "no users found" });
-    }, err => {
-      console.log(err);
-      return res.status(400).json({ msg: "ERROR!!! While fetching users." });
-    });
-
-  },
   signup(req, res, next) {
     if (!req.body.user) {
       return res.sendStatus(400);
@@ -91,12 +53,16 @@ export default {
     }
     let user = new User();
     Object.assign(user, req.body.user);
+    if (user.role === "LABOR") Object.assign(user, { rating: 90, startingWage: 1000 });
+    if (user.role !== "ADMIN") Object.assign(user, { status: "unverified", profileCompleted: false });
     user.setPassword(req.body.user.password);
 
     user.save().then(async () => {
       //generating token for email verification
-      const token = await new Token({ userId: user._id, token: crypto.randomBytes(16).toString("hex") }).save();
-      await sendVerificationEmail(user.email, user._id, token.token);
+      if(user.role !== "ADMIN"){
+        const token = await new Token({ userId: user._id, token: crypto.randomBytes(16).toString("hex") }).save();
+        await sendVerificationEmail(user.email, user._id, token.token);
+      }
       return res.status(201).json(`User created successfully with id: ${user._id}`);
     }, error => {
       return res.status(400).json({
@@ -147,6 +113,17 @@ export default {
       else next();
     }).catch(next);
   },
+  all(req, res) {
+    User.find({}).then(function(users) {
+      if (users)
+        return res.status(200).json(users);
+      return res.status(404).json({ msg: "no users found" });
+    }, err => {
+      console.log(err);
+      return res.status(400).json({ msg: "ERROR!!! While fetching users." });
+    });
+
+  },
   update(req, res, next) {
     if (req.body.user) {
       User.findByIdAndUpdate(req.body.user.id, { ...req.body.user },
@@ -179,7 +156,34 @@ export default {
           return res.sendStatus(204);
         }
       });
-  }
+  },
+  checkEmail(req, res, next) {
+    const user = req.body.user;
+    if (!user || size(user) !== 2) {
+      return res.sendStatus(400);
+    }
+    if (!user.email) return res.status(400).json({ error: "Email can't be blank" });
+    if (!user.role) return res.status(400).json({ error: "Role can't be blank" });
+    User.findOne({ email: user.email, role: user.role }).then(user => {
+      if (user) return res.status(200).json({ status: "error", message: "Email is already taken" });
+      else return res.status(200).json({ status: "success", message: "Email is available" });
+    }).catch(next);
+  },
+  getUsersByRole(req, res, next) {
+    const role = req.query.role;
+    User.find({role}).then((users) => {
+      if (users) {
+        //filter users
+        users = users.map(user => {
+          return filterUser(user);
+        });
+        return res.status(200).json(users);
+      }
+      return res.status(404).json({ msg: "no users found" });
+    }, err => {
+      return res.status(400).json({ msg: "ERROR!!! While fetching users." });
+    });
+  },
 };
 
 const check_signup_requiredFields = (user) => {
@@ -213,14 +217,6 @@ const check_login_requiredFields = (user) => {
 export const filterUser = (user) => {
   user.hash = undefined;
   user.salt = undefined;
-  if (user.role === "ADMIN" || user.role === "CUSTOMER") {
-    user.rating = undefined;
-    user.type = undefined;
-    user.startingWage = undefined;
-  }
-  if (user.role === "ADMIN") {
-    user.status = undefined;
-  }
   user.__v = undefined;
   return user;
 };

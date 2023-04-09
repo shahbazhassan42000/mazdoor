@@ -3,7 +3,7 @@ import uniqueValidator from "mongoose-unique-validator";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 
-mongoose.set('strictQuery', true);
+mongoose.set('strictQuery', false);
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         unique: true,
         required: [true, 'can\'t be blank'],
-        match: [/^[a-zA-z\d]+$/, 'is invalid'],
         index: true
     },
     email: {
@@ -24,19 +23,20 @@ const userSchema = new mongoose.Schema({
     },
     image: {type: String, default: 'https://i.ibb.co/3F3XMQR/profile-img.png'},
     role: {type: String, required: [true, 'must have a role']},
-    name: {type: String, default: ' '},
-    age: {type: Number, default: 18},
-    CNIC: {type: String, default: ' '},
-    type: {type: String, default: 'user'},
-    area: {type: String, default: ' '},
-    province: {type: String, default: 'Punjab'},
-    city: {type: String, default: 'Lahore'},
-    country: {type: String, default: 'Pakistan'},
-    phone: {type: String, default: '923xxxxxxxxx'},
-    rating: {type: Number, default: 90},
-    linkedin: {type: String, default: ' '},
-    status: {type: String, default: 'unverified'},
-    startingWage: {type: Number, default: 1000},
+    name: {type: String},
+    age: {type: Number},
+    CNIC: {type: String},
+    type: {type: String},
+    area: {type: String},
+    province: {type: String},
+    city: {type: String},
+    country: {type: String},
+    phone: {type: String},
+    rating: {type: Number},
+    linkedin: {type: String},
+    status: {type: String},
+    startingWage: {type: Number},
+    profileCompleted: {type: Boolean},
     hash: String,
     salt: String
 

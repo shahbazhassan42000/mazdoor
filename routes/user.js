@@ -36,8 +36,8 @@ api.put('/',auth.authenticate, user.update);
 api.delete('/',auth.authenticate,auth.authorize('ADMIN'), user.delete);
 // api.delete('/', user.delete);
 
-//get users by type
-api.get('/getUserByType/', user.getUsersByType);
+//get users by role
+api.get('/getUserByRole/', user.getUsersByRole);
 
 //verify email
 api.get('/verification/:id/verify/:token', user.verifyEmail);

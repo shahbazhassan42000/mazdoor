@@ -30,11 +30,13 @@ const mazdoorSlice = createSlice({
     },
     userReceived(state, action) {
       state.user = action.payload.user;
-      if(state.user.role==='LABOR'){
-        if(state.user.status==='unverified' || !state.user.phone || !state.user.country || !state.user.city || !state.user.address || !state.user.province || !state.user.area || !state.user.image || !state.user.age || !state.user.CNIC || !state.user.name){
-          state.user.profileCompleted=false;
-        }
-      }
+      // if(state.user.role==='LABOR'){
+      //   if(state.user.status==='unverified' || !state.user.phone || !state.user.country || !state.user.city || !state.user.area || !state.user.province || !state.user.image  || !state.user.CNIC || !state.user.name){
+      //     state.user.profileCompleted=false;
+      //   }else{
+      //     state.user.profileCompleted=true;
+      //   }
+      // }
       state.loading = false;
     },
     redirectToLogin(state, action) {
@@ -66,13 +68,13 @@ export { toggleLoading, updatePopup, laborReceived, teamReceived, userReceived, 
 
 
 export const loadTeam = () => apiCallBegan({
-  url: `${apiURL}users/getUserByType/?type=ADMIN`,
+  url: `${apiURL}users/getUserByRole/?role=ADMIN`,
   headers,
   method: "get",
   onSuccess: teamReceived.type
 });
 export const loadLabors = () => apiCallBegan({
-  url: `${apiURL}users/getUserByType/?type=LABOR`,
+  url: `${apiURL}users/getUserByRole/?role=LABOR`,
   headers,
   method: "get",
   onSuccess: laborReceived.type
