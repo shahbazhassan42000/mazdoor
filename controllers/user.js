@@ -2,25 +2,29 @@ import _ from "lodash";
 import mongoose from "mongoose";
 import passport from "passport";
 import role from "../utils/role.js";
+import crypto from "crypto";
 
 import "../models/user.js";
 import "../utils/passport.js";
+import "../models/token.js";
+import { sendEmail } from "../utils/EmailSender.js";
 
-const { includes, keys, size, omit} = _;
+const { includes, keys, size, omit } = _;
 
 const User = mongoose.model("users");
+const Token = mongoose.model("token");
 
 export default {
   checkEmail(req, res, next) {
-    const user=req.body.user;
+    const user = req.body.user;
     if (!user || size(user) !== 2) {
       return res.sendStatus(400);
     }
-    if(!user.email) return res.status(400).json({ error: "Email can't be blank" });
-    if(!user.role) return res.status(400).json({ error: "Role can't be blank" });
-    User.findOne({ email:user.email, role:user.role }).then(user => {
-      if (user) return res.status(200).json({status:'error',message:"Email is already taken"});
-      else return res.status(200).json({status:'success',message:"Email is available"});
+    if (!user.email) return res.status(400).json({ error: "Email can't be blank" });
+    if (!user.role) return res.status(400).json({ error: "Role can't be blank" });
+    User.findOne({ email: user.email, role: user.role }).then(user => {
+      if (user) return res.status(200).json({ status: "error", message: "Email is already taken" });
+      else return res.status(200).json({ status: "success", message: "Email is available" });
     }).catch(next);
   },
   login(req, res, next) {
@@ -31,27 +35,34 @@ export default {
     if (check !== "") {
       return res.status(400).json({ errors: check });
     }
-    passport.authenticate("local", { session: false }, function(err, user, info) {
+    passport.authenticate("local", { session: false }, async function(err, user, info) {
       if (err) {
         return next(err);
       }
       if (user) {
-        user.token = user.generateJWT();
-        return res.status(200).json(user.token);
+        if (user.status === "unverified") {
+          let token = await Token.findOne({ userId: user._id });
+          if (!token) {
+            token = await new Token({ userId: user._id, token: crypto.randomBytes(16).toString("hex") }).save();
+          }
+          await sendVerificationEmail(user.email, user._id, token.token);
+          return res.status(400).json("An email has been sent to your email address. Please verify your email address to login.");
+        }
+        const jwtToken = user.generateJWT();
+        return res.status(200).json(jwtToken);
       } else {
-        console.log("error:", info);
-        return res.status(400).json(info);
+        return res.status(400).json("Invalid username or password");
       }
     })(req, res, next);
   },
   getUsersByType(req, res, next) {
     const type = req.query.type;
     User.find({ role: type }).then((users) => {
-      if (users){
+      if (users) {
         //filter users
-         users=users.map(user=>{
+        users = users.map(user => {
           return filterUser(user);
-         });
+        });
         return res.status(200).json(users);
       }
       return res.status(404).json({ msg: "no users found" });
@@ -82,7 +93,10 @@ export default {
     Object.assign(user, req.body.user);
     user.setPassword(req.body.user.password);
 
-    user.save().then(() => {
+    user.save().then(async () => {
+      //generating token for email verification
+      const token = await new Token({ userId: user._id, token: crypto.randomBytes(16).toString("hex") }).save();
+      await sendVerificationEmail(user.email, user._id, token.token);
       return res.status(201).json(`User created successfully with id: ${user._id}`);
     }, error => {
       return res.status(400).json({
@@ -91,10 +105,36 @@ export default {
       });
     }).catch(next);
   },
+  verifyEmail(req, res, next) {
+    User.findOne({ _id: req.params.id }).then(user => {
+      if (!user) {
+        return res.status(400).json("Invalid link");
+      }
+      Token.findOne({ userId: user._id, token: req.params.token }).then(token => {
+        if (!token) {
+          return res.status(400).json("Invalid link");
+        }
+        // user.status = "verified";
+        User.findByIdAndUpdate(user._id, { status: "verified" },
+          function(err) {
+            if (err) {
+              return res.status(400).json("Error while verifying email, please try again later");
+            } else {
+              token.remove();
+              return res.status(200).json("Email verified successfully");
+            }
+          });
+      }).catch(err => {
+        return res.status(400).json("error while verifying email");
+      });
+    }).catch(err => {
+      return res.status(400).json("ERROR while verifying email");
+    }).catch(next);
+  },
   getByToken(req, res, next) {
-    const user=req.user;
+    const user = req.user;
     //return everything except password and salt and hash
-    return res.status(200).json({"user":filterUser(user)});
+    return res.status(200).json({ "user": filterUser(user) });
   },
   one(req, res, next) {
     const username = req.params.username;
@@ -106,13 +146,6 @@ export default {
       if (user) return res.status(200).json({ user: user.toAuthJSON() });
       else next();
     }).catch(next);
-    // User.findById(req.payload.id).then(function (user) {
-    //     if (!user) {
-    //         return res.sendStatus(401);
-    //     }
-    //     console.log('Fetching a user');
-    //     return res.status(200).json({user: user.toAuthJSON()});
-    // }).catch(next);
   },
   update(req, res, next) {
     if (req.body.user) {
@@ -133,11 +166,11 @@ export default {
       return res.sendStatus(400);
     }
   }, delete(req, res) {
-    const user=req.body.user;
+    const user = req.body.user;
     if (!user || size(user) !== 1) {
       return res.sendStatus(400);
     }
-    if(!user.id) res.sendStatus(400);
+    if (!user.id) res.sendStatus(400);
     User.findByIdAndRemove(user.id,
       function(err) {
         if (err) {
@@ -175,19 +208,26 @@ const check_login_requiredFields = (user) => {
     return { password: "can't be blank" };
   }
   return "";
-}
+};
 
-export const filterUser=(user) => {
+export const filterUser = (user) => {
   user.hash = undefined;
   user.salt = undefined;
-  if(user.role==='ADMIN' || user.role==='CUSTOMER'){
-    user.rating=undefined;
-    user.type=undefined;
-    user.startingWage=undefined;
+  if (user.role === "ADMIN" || user.role === "CUSTOMER") {
+    user.rating = undefined;
+    user.type = undefined;
+    user.startingWage = undefined;
   }
-  if(user.role==='ADMIN'){
-    user.status=undefined;
+  if (user.role === "ADMIN") {
+    user.status = undefined;
   }
-  user.__v=undefined;
+  user.__v = undefined;
   return user;
-}
+};
+
+const sendVerificationEmail = async (email, id, token) => {
+  const URL = `${process.env.CLIENT_URL}/api/users/verification/${id}/verify/${token}`;
+  const subject = "Email Verification";
+  const text = `Please verify your email by clicking on the link: ${URL}`;
+  await sendEmail(email, subject, text);
+};

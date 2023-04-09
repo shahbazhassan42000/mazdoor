@@ -39,6 +39,10 @@ api.delete('/',auth.authenticate,auth.authorize('ADMIN'), user.delete);
 //get users by type
 api.get('/getUserByType/', user.getUsersByType);
 
+//verify email
+api.get('/verification/:id/verify/:token', user.verifyEmail);
+
+
 
 
 export default api;

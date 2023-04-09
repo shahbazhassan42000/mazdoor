@@ -40,15 +40,16 @@ const Signup = () => {
       data:{user:formObject}
     }).then((res) => {
       setMsg({msg:"",type:"success"});
-      dispatch(updatePopup({status:true,type:"login",message:{}}));
+      dispatch(updatePopup({status:true,type:"message",message:{msg:"An Email has been sent to your email address. Please verify your email address to complete the signup process.",type:"success"}}));
     }).catch((err) => {
       console.log(err);
-      if(err.data.type){
-        if(err.data.type==='username') setMsg({msg:"Username already taken",type:"error-u"});
+      if(err.response && err.response.data && err.response.data.type){
+        if(err.response.data.type==='username') setMsg({msg:"Username already taken",type:"error-u"});
       }else{
         setMsg({msg:"Did your internet connection fail? If it's not you, it's us. Please try again later.",type:"error-p"});
       }
     }).finally(() => {
+      console.clear();
       setLoading(false);
     });
   };

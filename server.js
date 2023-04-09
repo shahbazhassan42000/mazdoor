@@ -50,7 +50,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use(errorHandler);
 app.server.listen(process.env.PORT);
 
-console.log(`Started on 'http://localhost:${app.server.address().port}'`);
+console.log(`Started on ${process.env.BASE_URL}`);
 
 
 

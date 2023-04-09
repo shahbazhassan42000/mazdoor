@@ -44,11 +44,11 @@ const Login = () => {
       //redirects to /home page
       window.location.pathname="/";
     }).catch((err) => {
-      console.clear();
-      if (err.response.status===400)  setMsg({msg:"Invalid username or password",type:"error-p"});
+      if (err.response.status===400)  setMsg({msg:err.response.data,type:"error-p"});
        else setMsg({msg:"Did your internet connection fail? If it's not you, it's us. Please try again later.",type:"error-p"});
     }).finally(() => {
       setLoading(false);
+      console.clear();
     });
   };
 

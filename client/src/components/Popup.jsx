@@ -4,6 +4,7 @@ import Signup from "./Auth/Signup/Signup";
 import { useSelector } from "react-redux";
 import Login from "./Auth/Login";
 import Logout from "./Auth/Logout";
+import { Message } from "./Message";
 
 const Popup = () => {
   const popup=useSelector(state=>state.mazdoorStore.popup);
@@ -14,6 +15,7 @@ const Popup = () => {
       {popup.type==="signup" && <Signup/>}
       {popup.type==="login" && <Login/>}
       {popup.type==="logout" && <Logout/>}
+      {popup.type==="message" && <Message/>}
     </div>
   );
 };

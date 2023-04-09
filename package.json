@@ -20,6 +20,7 @@
   "homepage": "https://github.com/shahbazhassan42000/mazdoor.git#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "concurrently": "^7.3.0",
     "cors": "^2.8.4",
     "dotenv": "^16.0.3",
     "express": "^4.16.2",
@@ -29,9 +30,11 @@
     "mongoose": "^6.4.4",
     "mongoose-unique-validator": "^3.1.0",
     "morgan-body": "^2.3.1",
+    "nodemon": "^2.0.16",
     "passport": "^0.6.0",
-    "passport-local": "^1.0.0",
-    "concurrently": "^7.3.0",
-    "nodemon": "^2.0.16"
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemailer": "^6.9.1"
   }
 }

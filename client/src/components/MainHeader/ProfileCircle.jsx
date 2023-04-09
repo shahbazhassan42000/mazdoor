@@ -6,9 +6,9 @@ const ProfileCircle = () => {
   const [profile, setProfile] = useState(false);
   const user= useSelector(state => state.mazdoorStore.user);
   return(
-    <div className="relative flex justify-center items-center py-2 h-[50px] w-[38px]">
+    <div className="relative flex justify-center items-center h-[45px] w-[45px]">
       <img
-        className="object-cover rounded-[50%] border hover:border-[#EB5757]"
+        className="object-cover w-full h-full rounded-[50%] border hover:border-[#EB5757]"
         title={user.name}
         onClick={() => setProfile(!profile)}
         src={user.image} alt="profile picture"/>
