@@ -7,7 +7,7 @@ const Profile = ({ setProfile }) => {
   const dispatch = useDispatch();
   return (
     <div
-      className="absolute top-14 z-10 -right-4 bg-[#fff] flex flex-col space-y-3 absolute py-4 w-[304px] rounded-[3px] shadow-[0_10px_13px_#091e4240]">
+      className="absolute top-14 z-[100] -right-4 bg-[#fff] flex flex-col space-y-3 absolute py-4 w-[304px] rounded-[3px] shadow-[0_10px_13px_#091e4240]">
       <div className="flex justify-between items-center mx-4  border-b border-b-[#091e4221]">
         <div className="w-full mb-2">
           <p className="text-center text-[14px] text-[#5e6c84]">Account</p>

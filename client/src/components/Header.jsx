@@ -5,7 +5,7 @@ import { updatePopup } from "../store/mazdoor/mazdoorSlice";
 const Header = () => {
   const dispatch=useDispatch();
   return (
-    <header className="bg-white flex w-full items-center justify-between py-5 px-20">
+    <header className="bg-white flex w-full items-center justify-between py-5 px-20 relative">
       <a href="/" className="w-[22%]">
         <img className="object-fill w-[100%] h-[100%]" src={logo} alt="logo" />
       </a>

@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import logo from "../../assets/images/mazdoor-logo-file-web 1.png";
 import Msg from "./Msg";
 import Notification from "./Notification";
@@ -8,9 +7,8 @@ import {useLocation} from "react-router-dom";
 
 const MainHeader = () => {
   const location=useLocation();
-  const dispatch=useDispatch();
   return (
-    <header className="bg-white flex w-full items-center text-[#333] justify-between py-5 px-20">
+    <header className="bg-white flex w-full items-center text-[#333] justify-between py-5 px-20 relative">
       <Link to="/" className="w-[22%]">
         <img className="object-fill w-[100%] h-[100%]" src={logo} alt="logo" />
       </Link>

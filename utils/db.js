@@ -6,7 +6,7 @@ const dbConnect=()=>{
         useNewUrlParser: true,
         useUnifiedTopology: true
     }
-    mongoose.connect(DB_URL, connectionParams)
+    mongoose.connect(DB_URL, connectionParams,{server: {auto_reconnect: true}})
         .then(
             () => {
                 console.log('Database connected successfully');

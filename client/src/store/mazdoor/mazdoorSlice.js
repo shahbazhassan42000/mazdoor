@@ -7,6 +7,7 @@ const mazdoorSlice = createSlice({
   initialState: {
     user: token,
     loading: true,
+    profileCompleted: { status: false, percent: 10 },
     labors: [],
     team: [],
     popup: {
@@ -16,6 +17,14 @@ const mazdoorSlice = createSlice({
     }
   },
   reducers: {
+    updateProfileCompleted(state, action) {
+      if (action.payload.status) {
+        state.profileCompleted.status = action.payload.status;
+      }
+      if (action.payload.percent) {
+        state.profileCompleted.percent = action.payload.percent;
+      }
+    },
     toggleLoading(state) {
       state.loading = !state.loading;
     },
@@ -30,6 +39,16 @@ const mazdoorSlice = createSlice({
     },
     userReceived(state, action) {
       state.user = action.payload.user;
+      if (state.user && state.user.role === "LABOR") {
+        if (state.user.profileCompleted){
+          state.profileCompleted={status:true,percent:100};
+        }
+        //updating profile completed percent
+        if(state.user.CNIC && state.user.phone && state.user.area && state.user.province && state.user.city && state.user.country) state.profileCompleted.percent=70;
+        else if(state.user.CNIC && state.user.area && state.user.province && state.user.city && state.user.country) state.profileCompleted.percent=50;
+        else if(state.user.area && state.user.province && state.user.city && state.user.country) state.profileCompleted.percent=30;
+        else state.profileCompleted.percent=10;
+      }
       // if(state.user.role==='LABOR'){
       //   if(state.user.status==='unverified' || !state.user.phone || !state.user.country || !state.user.city || !state.user.area || !state.user.province || !state.user.image  || !state.user.CNIC || !state.user.name){
       //     state.user.profileCompleted=false;
@@ -49,12 +68,12 @@ const mazdoorSlice = createSlice({
         message: ""
       };
     }
-
   }
 });
 
 const {
   toggleLoading,
+  updateProfileCompleted,
   updatePopup,
   laborReceived,
   teamReceived,
@@ -62,7 +81,15 @@ const {
   redirectToLogin
 } = mazdoorSlice.actions;
 export default mazdoorSlice.reducer;
-export { toggleLoading, updatePopup, laborReceived, teamReceived, userReceived, redirectToLogin };
+export {
+  toggleLoading,
+  updatePopup,
+  laborReceived,
+  teamReceived,
+  userReceived,
+  redirectToLogin,
+  updateProfileCompleted
+};
 
 //api to server
 
