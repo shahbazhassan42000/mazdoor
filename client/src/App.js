@@ -7,9 +7,11 @@ import MainHeader from "./components/MainHeader/MainHeader";
 import Popup from "./components/Popup";
 import loadingGif from "./assets/gifs/loading.gif";
 import { ProfileCompletedMsg } from "./components/ProfileCompletedMsg";
-import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom"
 
 function App() {
+  const location = useLocation()
+  const currentURL = location.pathname
   const profileCompleted=useSelector(state=>state.mazdoorStore.profileCompleted);
   const user=useSelector((state) => state.mazdoorStore.user);
   const popup=useSelector(state=>state.mazdoorStore.popup);
@@ -17,7 +19,7 @@ function App() {
   return (
     <>
       {user ? <MainHeader /> : <Header />}
-      {user && user.role==="LABOR" && !user.profileCompleted && !profileCompleted.status && <ProfileCompletedMsg/>}
+      {user && user.role==="LABOR" && currentURL!=="/dashboard" && !user.profileCompleted && !profileCompleted.status && <ProfileCompletedMsg/>}
       <Outlet/>
       {popup.status && <Popup/>}
       <Footer />

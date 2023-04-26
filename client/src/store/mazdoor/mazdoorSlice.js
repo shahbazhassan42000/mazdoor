@@ -10,6 +10,7 @@ const mazdoorSlice = createSlice({
     profileCompleted: { status: false, percent: 10 },
     labors: [],
     team: [],
+    laborTypes: [],
     popup: {
       status: false,
       type: "",
@@ -17,6 +18,9 @@ const mazdoorSlice = createSlice({
     }
   },
   reducers: {
+    laborTypesReceived(state, action) {
+      state.laborTypes = [...action.payload,"Others"];
+    },
     updateProfileCompleted(state, action) {
       if (action.payload.status) {
         state.profileCompleted.status = action.payload.status;
@@ -40,14 +44,14 @@ const mazdoorSlice = createSlice({
     userReceived(state, action) {
       state.user = action.payload.user;
       if (state.user && state.user.role === "LABOR") {
-        if (state.user.profileCompleted){
-          state.profileCompleted={status:true,percent:100};
+        if (state.user.profileCompleted) {
+          state.profileCompleted = { status: true, percent: 100 };
         }
         //updating profile completed percent
-        if(state.user.CNIC && state.user.phone && state.user.area && state.user.province && state.user.city && state.user.country) state.profileCompleted.percent=70;
-        else if(state.user.CNIC && state.user.area && state.user.province && state.user.city && state.user.country) state.profileCompleted.percent=50;
-        else if(state.user.area && state.user.province && state.user.city && state.user.country) state.profileCompleted.percent=30;
-        else state.profileCompleted.percent=10;
+        if (state.user.CNIC && state.user.phone && state.user.area && state.user.province && state.user.city && state.user.country) state.profileCompleted.percent = 70;
+        else if (state.user.CNIC && state.user.area && state.user.province && state.user.city && state.user.country) state.profileCompleted.percent = 50;
+        else if (state.user.area && state.user.province && state.user.city && state.user.country) state.profileCompleted.percent = 30;
+        else state.profileCompleted.percent = 10;
       }
       // if(state.user.role==='LABOR'){
       //   if(state.user.status==='unverified' || !state.user.phone || !state.user.country || !state.user.city || !state.user.area || !state.user.province || !state.user.image  || !state.user.CNIC || !state.user.name){
@@ -78,8 +82,11 @@ const {
   laborReceived,
   teamReceived,
   userReceived,
-  redirectToLogin
+  redirectToLogin,
+  laborTypesReceived
 } = mazdoorSlice.actions;
+
+
 export default mazdoorSlice.reducer;
 export {
   toggleLoading,
@@ -113,6 +120,13 @@ export const loadUser = () => apiCallBegan({
   method: "get",
   onSuccess: userReceived.type,
   onError: redirectToLogin.type
+});
+
+export const loadLaborsTypes = () => apiCallBegan({
+  url: `${apiURL}laborsType`,
+  headers,
+  method: "get",
+  onSuccess: laborTypesReceived.type
 });
 
 

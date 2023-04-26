@@ -40,7 +40,14 @@ const Signup = () => {
       data:{user:formObject}
     }).then((res) => {
       setMsg({msg:"",type:"success"});
-      dispatch(updatePopup({status:true,type:"message",message:{msg:"An Email has been sent to your email address. Please verify your email address to complete the signup process.",title:"Email Verification",type:"email-verification"}}));
+      dispatch(updatePopup({
+        status:true,type:"message",
+        message:{
+          msg:"An Email has been sent to your email address. Please verify your email address to complete the signup process.",
+          title:"Email Verification",
+          type:"email-verification"
+        }
+      }));
     }).catch((err) => {
       console.log(err);
       if(err.response && err.response.data && err.response.data.type){

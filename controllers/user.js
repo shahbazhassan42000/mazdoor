@@ -9,7 +9,7 @@ import "../utils/passport.js";
 import "../models/token.js";
 import { sendEmail } from "../utils/EmailSender.js";
 
-const { includes, keys, size, omit } = _;
+const { includes, keys, size } = _;
 
 const User = mongoose.model("users");
 const Token = mongoose.model("token");

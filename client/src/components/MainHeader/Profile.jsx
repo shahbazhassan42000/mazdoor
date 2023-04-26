@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import { updatePopup } from "../../store/mazdoor/mazdoorSlice";
-import { Link } from "react-router-dom";
+import { loadLaborsTypes, updatePopup } from "../../store/mazdoor/mazdoorSlice";
+import { Link, useLocation } from "react-router-dom";
 
 const Profile = ({ setProfile }) => {
   const user = useSelector(state => state.mazdoorStore.user);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const currentURL = location.pathname;
   return (
     <div
-      className="absolute top-14 z-[100] -right-4 bg-[#fff] flex flex-col space-y-3 absolute py-4 w-[304px] rounded-[3px] shadow-[0_10px_13px_#091e4240]">
+      className="absolute top-14 z-[9999] -right-4 bg-[#fff] flex flex-col space-y-3 absolute py-4 w-[304px] rounded-[3px] shadow-[0_10px_13px_#091e4240]">
       <div className="flex justify-between items-center mx-4  border-b border-b-[#091e4221]">
         <div className="w-full mb-2">
           <p className="text-center text-[14px] text-[#5e6c84]">Account</p>
@@ -27,24 +29,36 @@ const Profile = ({ setProfile }) => {
           <p className="text-[12px] text-[#B3BAC5]">{user.email}</p>
         </div>
       </div>
-      <div className="flex flex-col space-y-2x">
-        <Link className="text-[#172b4d] px-4 text-[14px] text-start py-1 hover:bg-[#091e420a]" to="/dashboard" onClick={()=>setProfile(false)}>
-          Dashboard
-        </Link>
-      </div>
-      {window.location.pathname !== "/user/profileSetting" &&
+      {currentURL !== "/dashboard" &&
+        <div className="flex flex-col space-y-2x">
+          <Link className="text-[#172b4d] px-4 text-[14px] text-start py-1 hover:bg-[#091e420a]" to="/dashboard"
+                onClick={() => {
+                  setProfile(false);
+                  dispatch(loadLaborsTypes());
+                }}>
+            Dashboard
+          </Link>
+        </div>
+      }
+      {currentURL !== "/dashboard" &&
         <div className="flex flex-col space-y-2 mx-4 border-b border-b-[#091e4221] pb-3">
-          <button
-            onClick={() => window.location.pathname = "/user/profileSetting"}
+          <Link
+           to="/dashboard"
+           state={{
+             tab: "Profile"
+          }}
+            onClick={() => {
+              setProfile(false);
+            }}
             className="text-[#172b4d] -mx-4 px-4  text-[14px] text-start py-1 hover:bg-[#091e420a]">
             Profile Setting
-          </button>
+          </Link>
         </div>
       }
       <div className="flex flex-col space-y-2x">
         <button onClick={() => {
           setProfile(false);
-          dispatch(updatePopup({ status: true, type: "logout", message: "" }))
+          dispatch(updatePopup({ status: true, type: "logout", message: "" }));
         }}
                 className="text-[#172b4d]  px-4  text-[14px] text-start py-1 hover:bg-[#091e420a]">
           Log out
