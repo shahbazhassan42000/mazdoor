@@ -1,6 +1,6 @@
 import upload_icon from "../../assets/icons/profile-upload.png";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { InputAdornment, MenuItem, TextField } from "@mui/material";
 import { map } from "lodash";
 import { loadLaborsTypes } from "../../store/mazdoor/mazdoorSlice";
@@ -23,31 +23,36 @@ export const ProfileSetting = () => {
   const [cities, setCities] = useState([]);
   const [city, setCity] = useState(user.city || "");
   const [states, setStates] = useState([]);
-  const [area,setArea]=useState(user.area || "");
-  useEffect(() => {
+  const [area, setArea] = useState(user.area || "");
+  const [image, setImage] = useState(user.image);
+  const [imageFile, setImageFile] = useState(null);
+  const imgUpload = useRef(null);
+
+  useEffect(() => { //set uploaded image url
+    if (imageFile) {
+      setImage(URL.createObjectURL(imageFile));
+    }
+  }, [imageFile]);
+
+  useEffect(() => { // load states and labor types
     dispatch(loadLaborsTypes());
     axios.post(statesURL, {
       country: "Pakistan"
     }).then(res => {
       setStates(res.data.data.states);
-    }).catch(err => {
-      console.log("ERROR in fetching states");
-      console.log(err);
     });
   }, []);
-  useEffect(() => {
+  useEffect(() => { // load cities
     if (state) {
       axios.post(citiesURL, {
         country: "Pakistan",
         state
       }).then(res => {
         setCities(res.data.data);
-      }).catch(err => {
-        console.log("ERROR while fetching cities");
-        console.log(err);
       });
     }
   }, [state]);
+
   return (
     <div className="w-full flex gap-5">
       <div className="flex-1 flex flex-col gap-5">
@@ -325,14 +330,21 @@ export const ProfileSetting = () => {
       <div className="w-[20%]">
         <div
           title={user.username}
+          onClick={() => imgUpload.current.click()}
           onMouseEnter={() => setUpload(true)}
           onMouseLeave={() => setUpload(false)}
           className="rounded-full overflow-hidden w-[150px] h-[150px] flex justify-center items-center select-none cursor-pointer">
           {upload ?
             <img className="object-cover w-full h-full" src={upload_icon} alt="upload icon" />
             :
-            <img className="object-cover w-full h-full" src={user.image} alt="user profile" />
+            <img className="object-cover w-full h-full" src={image} alt="user profile" />
           }
+          <input
+            ref={imgUpload}
+            onChange={e => setImageFile(e.target.files[0])}
+            className="hidden" name="image"
+            type="file" accept="image/jpeg, image/jpg, image/png"
+          />
         </div>
       </div>
     </div>

@@ -14,4 +14,7 @@ api.get('/',auth.authenticate, laborsType.getAll);
 //add type
 api.post('/',auth.authenticate, laborsType.add);
 
+//get type by name
+api.get('/:name',auth.authenticate, laborsType.getByName);
+
 export default api;

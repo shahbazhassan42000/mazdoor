@@ -7,12 +7,15 @@ import crypto from "crypto";
 import "../models/user.js";
 import "../utils/passport.js";
 import "../models/token.js";
+import "../models/LaborsType.js";
 import { sendEmail } from "../utils/EmailSender.js";
+import { Capitalize } from "./laborsType.js";
 
 const { includes, keys, size } = _;
 
 const User = mongoose.model("users");
 const Token = mongoose.model("token");
+const LaborsType = mongoose.model("LaborsType");
 
 export default {
   login(req, res, next) {
@@ -56,6 +59,10 @@ export default {
     if (user.role === "LABOR") Object.assign(user, { rating: 90, startingWage: 1000 });
     if (user.role !== "ADMIN") Object.assign(user, { status: "unverified", profileCompleted: false });
     user.setPassword(req.body.user.password);
+
+    //adding new labor type if not exist
+    if(user.type) AddNewLaborType(user.type);
+
 
     user.save().then(async () => {
       //generating token for email verification
@@ -125,23 +132,47 @@ export default {
 
   },
   update(req, res, next) {
-    if (req.body.user) {
-      User.findByIdAndUpdate(req.body.user.id, { ...req.body.user },
-        function(err) {
-          if (err) {
-            return res.sendStatus(400);
-          } else {
-            User.findById(req.body.user.id).then(function(user) {
-              if (!user) {
-                return res.sendStatus(400);
-              }
-              return res.status(200).json(user);
-            }).catch(next);
-          }
-        });
-    } else {
-      return res.sendStatus(400);
-    }
+    if (!req.body.user) return res.status(400).json("must provide user object in this format {user:{...}}");
+    let user = req.body.user;
+
+    if(!user._id) return res.status(400).json("must provide user id in this format {user:{_id:...}}");
+
+    //removed username, password,email,role from update if exist
+    if(user.username) delete user.username;
+    if(user.password) delete user.password;
+    if(user.email) delete user.email;
+    if(user.role) delete user.role;
+
+    //adding new labor type if not exist
+    if(user.type) AddNewLaborType(user.type);
+
+    //update user
+    User.findByIdAndUpdate(user._id, { ...user }).then(updatedUser => {
+      if (!updatedUser) return res.status(400).json("user not found against the given id");
+      User.findById(user._id).then(user=>{
+        return res.status(200).json(user);
+      })
+    }).catch(next);
+
+
+
+    // if (req.body.user) {
+    //   User.findByIdAndUpdate(req.body.user.id, { ...req.body.user},
+    //     function(err) {
+    //       if (err) {
+    //         return res.sendStatus(400);
+    //       } else {
+    //         User.findById(req.body.user.id).then(function(user) {
+    //           if (!user) {
+    //             return res.sendStatus(400);
+    //           }
+    //           return res.status(200).json(user);
+    //         }).catch(next);
+    //       }
+    //     });
+    // } else {
+    //   return res.sendStatus(400);
+    // }
   }, delete(req, res) {
     const user = req.body.user;
     if (!user || size(user) !== 1) {
@@ -227,3 +258,16 @@ const sendVerificationEmail = async (email, id, token) => {
   const text = `Please verify your email by clicking on the link: ${URL}`;
   await sendEmail(email, subject, text);
 };
+
+export const AddNewLaborType=(type)=>{
+  //Capitalizing type
+  type =  Capitalize(type);
+  //checking if this type exists in our database if not then add it
+  LaborsType.findOne({ name: type }).then((laborsType) => {
+    if(!laborsType){
+      const laborsType = new LaborsType();
+      laborsType.name = type;
+      laborsType.save();
+    }
+  });
+}
