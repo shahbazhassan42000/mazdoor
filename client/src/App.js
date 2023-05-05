@@ -8,10 +8,12 @@ import Popup from "./components/Popup";
 import loadingGif from "./assets/gifs/loading.gif";
 import { ProfileCompletedMsg } from "./components/ProfileCompletedMsg";
 import { useLocation } from "react-router-dom"
+import NotificationContainer from "react-notifications/lib/NotificationContainer";
 
 function App() {
   const location = useLocation()
-  const currentURL = location.pathname
+  const currentURL = location.pathname;
+  console.log(currentURL);
   const profileCompleted=useSelector(state=>state.mazdoorStore.profileCompleted);
   const user=useSelector((state) => state.mazdoorStore.user);
   const popup=useSelector(state=>state.mazdoorStore.popup);
@@ -19,7 +21,7 @@ function App() {
   return (
     <>
       {user ? <MainHeader /> : <Header />}
-      {user && user.role==="LABOR" && currentURL!=="/dashboard" && !user.profileCompleted && !profileCompleted.status && <ProfileCompletedMsg/>}
+      {user && user.role==="LABOR" && !currentURL.match(/^\/dashboard\/.*$/) && !user.profileCompleted && !profileCompleted.status && <ProfileCompletedMsg/>}
       <Outlet/>
       {popup.status && <Popup/>}
       <Footer />
@@ -28,6 +30,8 @@ function App() {
           <img className="h-[10vw]" src={loadingGif} alt="loading"/>
         </div>
       </div>}
+      // Add NotificationContainer as a child component
+      <NotificationContainer/>
     </>
   );
 }

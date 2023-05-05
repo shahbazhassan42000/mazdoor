@@ -31,7 +31,7 @@ const Profile = ({ setProfile }) => {
       </div>
       {currentURL !== "/dashboard" &&
         <div className="flex flex-col space-y-2x">
-          <Link className="text-[#172b4d] px-4 text-[14px] text-start py-1 hover:bg-[#091e420a]" to="/dashboard"
+          <Link className="text-[#172b4d] px-4 text-[14px] text-start py-1 hover:bg-[#091e420a]" to="/dashboard/dashboard"
                 onClick={() => {
                   setProfile(false);
                   dispatch(loadLaborsTypes());
@@ -43,10 +43,7 @@ const Profile = ({ setProfile }) => {
       {currentURL !== "/dashboard" &&
         <div className="flex flex-col space-y-2 mx-4 border-b border-b-[#091e4221] pb-3">
           <Link
-           to="/dashboard"
-           state={{
-             tab: "Profile"
-          }}
+           to="/dashboard/profile"
             onClick={() => {
               setProfile(false);
             }}

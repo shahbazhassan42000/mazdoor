@@ -123,6 +123,11 @@
     background-color: var(--secondary-color);
     color: var(--light-black-color);
 }
+.primary-btn:disabled {
+    background-color: #C5C6C9;
+    color: #333333;
+    cursor: not-allowed;
+}
 
 .bottom-light-shadow {
     box-shadow: 0 10px 13px rgba(0, 0, 0, 0.13);
@@ -142,11 +147,7 @@
 }
 
 
-.primary-btn:disabled {
-    background-color: #C5C6C9;
-    color: #333333;
-    cursor: not-allowed;
-}
+
 
 .inp {
     padding: 0.5rem;

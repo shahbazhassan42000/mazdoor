@@ -5,19 +5,19 @@ import loadingGif from "../../assets/gifs/loading.gif";
 import { useSelector } from "react-redux";
 import { Message } from "../Message";
 import { useLocation } from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 const Dashboard = (props) => {
-  const location = useLocation();
-  const [activeNav, setActiveNav] = useState( location.state && location.state.tab || "Dashboard");
+  const {tab} = useParams ();
   const profileCompleted = useSelector(state => state.mazdoorStore.profileCompleted);
   const user = useSelector((state) => state.mazdoorStore.user);
   return (
     <div className="flex gap-5 text-[#333]">
       {/*  Side Nav */}
-      <SideNav activeNav={activeNav} setActiveNav={setActiveNav} />
+      <SideNav tab={tab} />
       {/*Main*/}
       <div className="flex flex-col flex-1 relative">
-        {user && user.role === "LABOR" && activeNav !== "Profile" && !user.profileCompleted && !profileCompleted.status ?
+        {user && user.role === "LABOR" && tab !== "profile" && !user.profileCompleted && !profileCompleted.status ?
           <div className="popup-overlay !absolute">
             <div className="popup-container !absolute">
               <div
@@ -30,12 +30,12 @@ const Dashboard = (props) => {
           :
           <>
             {/*  Top */}
-            {activeNav !== "Profile" && <div className="flex justify-between w-full">
+            {tab !== "profile" && <div className="flex justify-between w-full">
               <div>Active Orders - 0($0)</div>
               <div>Active Orders</div>
             </div>}
             {/*  Main */}
-            <DashboardFragment activeNav={activeNav} />
+            <DashboardFragment tab={tab} />
           </>
         }
       </div>

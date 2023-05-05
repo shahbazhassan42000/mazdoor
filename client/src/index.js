@@ -11,6 +11,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
 import { HomePageRender } from "./components/HomePageRender";
 import { EmailVerify } from "./components/Auth/EmailVerify";
+import "react-notifications/lib/notifications.css";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,7 +21,7 @@ const router = createBrowserRouter(
     >
       <Route errorElement={<Error />}>
         <Route path="/" element={<HomePageRender />} />
-        <Route path="/dashboard" element={<ProtectedRoute children={<Dashboard />} />} />
+        <Route path="/dashboard/:tab" element={<ProtectedRoute children={<Dashboard />} />} />
         <Route path="/api/users/verification/:id/verify/:token" element={<EmailVerify />} />
       </Route>
       <Route path="*" element={<Error />} />
@@ -31,10 +32,8 @@ const router = createBrowserRouter(
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <React.StrictMode>
   <Provider store={store}>
     <RouterProvider router={router} />
   </Provider>
-  // </React.StrictMode>
 );
 
