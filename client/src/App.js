@@ -13,7 +13,6 @@ import NotificationContainer from "react-notifications/lib/NotificationContainer
 function App() {
   const location = useLocation()
   const currentURL = location.pathname;
-  console.log(currentURL);
   const profileCompleted=useSelector(state=>state.mazdoorStore.profileCompleted);
   const user=useSelector((state) => state.mazdoorStore.user);
   const popup=useSelector(state=>state.mazdoorStore.popup);

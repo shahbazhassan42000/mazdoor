@@ -1,6 +1,8 @@
 import upload_icon from "../../assets/icons/profile-upload.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
+import easypaisa_logo from "../../assets/icons/easypaisa_logo.png";
+import jazzcash_logo from "../../assets/icons/jazzcash_logo.png";
 import {
   Accordion,
   AccordionDetails,
@@ -10,7 +12,6 @@ import {
   TextField,
   Typography,
   Card,
-  Box,
   CardContent
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -24,8 +25,7 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
-import LockIcon from '@mui/icons-material/Lock';
-
+import LockIcon from "@mui/icons-material/Lock";
 
 export const ProfileSetting = () => {
   const dispatch = useDispatch();
@@ -47,13 +47,21 @@ export const ProfileSetting = () => {
   const [image, setImage] = useState(user.image || "");
   const [imageFile, setImageFile] = useState(null);
   const imgUpload = useRef(null);
+  // state to store the input values
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardName, setCardName] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [paymentSelection, setPaymentSelection] = useState("Card"); // state to store the payment paymentSelection option
+  const [mobAccSelection, setMobAccSelection] = useState("Easypaisa");
+  const [mobAccNo, setMobAccNo] = useState("");
+
 
   useEffect(() => { //set uploaded image url
     if (imageFile) {
       setImage(URL.createObjectURL(imageFile));
     }
   }, [imageFile]);
-
   useEffect(() => { // load states and labor types
     dispatch(loadLaborsTypes());
     axios.post(statesURL, {
@@ -72,7 +80,6 @@ export const ProfileSetting = () => {
       });
     }
   }, [state]);
-
   const onUpdateProfile = (USER) => {
     const user = { ...USER };
     if (name) user.name = name;
@@ -166,33 +173,124 @@ export const ProfileSetting = () => {
       dispatch(toggleLoading());
     });
   };
-
-  const [selected, setSelected] = useState("card"); // state to store the selected option
-
-  // function to handle the click on an option
-  const handleClick = (option) => {
-    setSelected(option);
+  // function to handle the click on an payment method changing
+  const onPaymentMethodClick = (option) => {
+    setPaymentSelection(option);
   };
-
   return (
     <div className="w-full flex flex-col gap-10">
       <div className="w-full flex gap-5">
         <div className="flex-1 flex flex-col gap-5">
           <h2 className="text-[22px] font-bold mb-2">Edit Profile</h2>
-          <Accordion >
+          <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
             >
               <Typography>Personal Information</Typography>
             </AccordionSummary>
-            <AccordionDetails>
-              <Typography className="flex-1 flex flex-col gap-5">
-                <div className="w-full flex gap-5 justify-between">
+            <AccordionDetails className="flex flex-col gap-5">
+              <div className="w-full flex gap-5 justify-between">
+                <TextField
+                  fullWidth
+                  InputProps={{
+                    readOnly: true
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#EB5757" // change focus visible color here
+                      }
+                    }
+                  }}
+                  InputLabelProps={{
+                    style: { color: "#EB5757" } // change label color here
+                  }}
+                  label="Username"
+                  defaultValue={user.username}
+                />
+                <TextField
+                  fullWidth
+                  InputProps={{
+                    readOnly: true
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#EB5757" // change focus visible color here
+                      }
+                    }
+                  }}
+                  InputLabelProps={{
+                    style: { color: "#EB5757" } // change label color here
+                  }}
+                  label="Email"
+                  defaultValue={user.email}
+                />
+              </div>
+              {/*Name, Age, Type amd Starting Wage*/}
+              <div className="w-full flex gap-5 justify-between">
+                <TextField
+                  fullWidth
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#EB5757" // change focus visible color here
+                      }
+                    }
+                  }}
+                  label="Name"
+                  InputLabelProps={{
+                    style: { color: "#EB5757" } // change label color here
+                  }}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <TextField
+                  fullWidth
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#EB5757" // change focus visible color here
+                      }
+                    }
+                  }}
+                  InputLabelProps={{
+                    style: { color: "#EB5757" } // change label color here
+                  }}
+                  inputProps={{ min: 5 }}
+                  label="Age"
+                  type="number"
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
+                />
+                <TextField
+                  fullWidth
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#EB5757" // change focus visible color here
+                      }
+                    }
+                  }}
+                  InputLabelProps={{
+                    style: { color: "#EB5757" } // change label color here
+                  }}
+                  select
+                  value={type}
+                  onChange={e => setType(e.target.value)}
+                  label="Type"
+                  defaultValue="Mazdoor"
+                  helperText="Please select your category"
+                >
+                  {map(laborTypes, (laborType) => (
+                    <MenuItem key={laborType} value={laborType}>
+                      {laborType}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                {type === "Others" &&
                   <TextField
                     fullWidth
-                    InputProps={{
-                      readOnly: true
-                    }}
                     sx={{
                       "& .MuiOutlinedInput-root": {
                         "&.Mui-focused fieldset": {
@@ -200,67 +298,123 @@ export const ProfileSetting = () => {
                         }
                       }
                     }}
+                    label="Others"
+                    helperText="Please write your type/category"
                     InputLabelProps={{
                       style: { color: "#EB5757" } // change label color here
                     }}
-                    label="Username"
-                    defaultValue={user.username}
+                    value={others}
+                    onChange={(e) => setOthers(e.target.value)}
                   />
-                  <TextField
-                    fullWidth
-                    InputProps={{
-                      readOnly: true
-                    }}
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        "&.Mui-focused fieldset": {
-                          borderColor: "#EB5757" // change focus visible color here
-                        }
+                }
+
+
+              </div>
+              {/*Phone and CNIC*/}
+              <div className="w-full flex gap-5 justify-between">
+                <TextField
+                  fullWidth
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#EB5757" // change focus visible color here
                       }
-                    }}
-                    InputLabelProps={{
-                      style: { color: "#EB5757" } // change label color here
-                    }}
-                    label="Email"
-                    defaultValue={user.email}
-                  />
-                </div>
-                {/*Name, Age, Type amd Starting Wage*/}
-                <div className="w-full flex gap-5 justify-between">
-                  <TextField
-                    fullWidth
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        "&.Mui-focused fieldset": {
-                          borderColor: "#EB5757" // change focus visible color here
-                        }
+                    }
+                  }}
+                  InputLabelProps={{
+                    style: { color: "#EB5757" } // change label color here
+                  }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">+923</InputAdornment>,
+                    inputProps: {
+                      maxLength: 9,
+                      minLength: 9,
+                      min: 0
+                    }
+                  }}
+                  label="Contact No."
+                  type="number"
+                  value={phone}
+                  helperText="e.g, +923xxxxxxxxx"
+                  onChange={e => setPhone(e.target.value)}
+                />
+                <TextField
+                  fullWidth
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#EB5757" // change focus visible color here
                       }
-                    }}
-                    label="Name"
-                    InputLabelProps={{
-                      style: { color: "#EB5757" } // change label color here
-                    }}
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                  <TextField
-                    fullWidth
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        "&.Mui-focused fieldset": {
-                          borderColor: "#EB5757" // change focus visible color here
-                        }
+                    }
+                  }}
+                  InputLabelProps={{
+                    style: { color: "#EB5757" } // change label color here
+                  }}
+                  label="Starting Wage"
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">Rs</InputAdornment>,
+                    inputProps: {
+                      min: 0
+                    }
+                  }}
+                  type="number"
+                  value={startingWage}
+                  onChange={(e) => setStartingWage(e.target.value)}
+                />
+
+                <TextField
+                  fullWidth
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#EB5757" // change focus visible color here
                       }
-                    }}
-                    InputLabelProps={{
-                      style: { color: "#EB5757" } // change label color here
-                    }}
-                    inputProps={{ min: 5 }}
-                    label="Age"
-                    type="number"
-                    value={age}
-                    onChange={(e) => setAge(e.target.value)}
-                  />
+                    }
+                  }}
+                  InputLabelProps={{
+                    style: { color: "#EB5757" } // change label color here
+                  }}
+                  InputProps={{
+                    inputProps: {
+                      maxLength: 13,
+                      minLength: 13,
+                      min: 0
+                    }
+                  }}
+                  label="CNIC"
+                  type="number"
+                  value={CNIC}
+                  helperText="without dashes*"
+                  onChange={e => setCNIC(e.target.value)}
+                />
+              </div>
+              {/*State and city*/}
+              <div className="w-full flex gap-5 justify-between">
+                <TextField
+                  fullWidth
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "&.Mui-focused fieldset": {
+                        borderColor: "#EB5757" // change focus visible color here
+                      }
+                    }
+                  }}
+                  InputLabelProps={{
+                    style: { color: "#EB5757" } // change label color here
+                  }}
+                  select
+                  value={state}
+                  onChange={e => setState(e.target.value)}
+                  label="State"
+                >
+                  {states &&
+                    map(states, (s) => (
+                      <MenuItem key={s.state_code} value={s.name}>
+                        {s.name}
+                      </MenuItem>
+                    ))}
+                </TextField>
+                {state &&
                   <TextField
                     fullWidth
                     sx={{
@@ -274,42 +428,20 @@ export const ProfileSetting = () => {
                       style: { color: "#EB5757" } // change label color here
                     }}
                     select
-                    value={type}
-                    onChange={e => setType(e.target.value)}
-                    label="Type"
-                    defaultValue="Mazdoor"
-                    helperText="Please select your category"
+                    value={city}
+                    onChange={e => setCity(e.target.value)}
+                    label="City"
                   >
-                    {map(laborTypes, (laborType) => (
-                      <MenuItem key={laborType} value={laborType}>
-                        {laborType}
+                    {map(cities, (s) => (
+                      <MenuItem key={s} value={s}>
+                        {s}
                       </MenuItem>
                     ))}
                   </TextField>
-                  {type === "Others" &&
-                    <TextField
-                      fullWidth
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          "&.Mui-focused fieldset": {
-                            borderColor: "#EB5757" // change focus visible color here
-                          }
-                        }
-                      }}
-                      label="Others"
-                      helperText="Please write your type/category"
-                      InputLabelProps={{
-                        style: { color: "#EB5757" } // change label color here
-                      }}
-                      value={others}
-                      onChange={(e) => setOthers(e.target.value)}
-                    />
-                  }
-
-
-                </div>
-                {/*Phone and CNIC*/}
-                <div className="w-full flex gap-5 justify-between">
+                }
+              </div>
+              <div className="w-full flex gap-5 justify-between">
+                {city &&
                   <TextField
                     fullWidth
                     sx={{
@@ -319,146 +451,15 @@ export const ProfileSetting = () => {
                         }
                       }
                     }}
+                    label="Area"
                     InputLabelProps={{
                       style: { color: "#EB5757" } // change label color here
                     }}
-                    InputProps={{
-                      startAdornment: <InputAdornment position="start">+923</InputAdornment>,
-                      inputProps: {
-                        maxLength: 9,
-                        minLength: 9,
-                        min: 0
-                      }
-                    }}
-                    label="Contact No."
-                    type="number"
-                    value={phone}
-                    helperText="e.g, +923xxxxxxxxx"
-                    onChange={e => setPhone(e.target.value)}
+                    value={area}
+                    onChange={(e) => setArea(e.target.value)}
                   />
-                  <TextField
-                    fullWidth
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        "&.Mui-focused fieldset": {
-                          borderColor: "#EB5757" // change focus visible color here
-                        }
-                      }
-                    }}
-                    InputLabelProps={{
-                      style: { color: "#EB5757" } // change label color here
-                    }}
-                    label="Starting Wage"
-                    InputProps={{
-                      startAdornment: <InputAdornment position="start">Rs</InputAdornment>,
-                      inputProps: {
-                        min: 0
-                      }
-                    }}
-                    type="number"
-                    value={startingWage}
-                    onChange={(e) => setStartingWage(e.target.value)}
-                  />
-
-                  <TextField
-                    fullWidth
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        "&.Mui-focused fieldset": {
-                          borderColor: "#EB5757" // change focus visible color here
-                        }
-                      }
-                    }}
-                    InputLabelProps={{
-                      style: { color: "#EB5757" } // change label color here
-                    }}
-                    InputProps={{
-                      inputProps: {
-                        maxLength: 13,
-                        minLength: 13,
-                        min: 0
-                      }
-                    }}
-                    label="CNIC"
-                    type="number"
-                    value={CNIC}
-                    helperText="without dashes*"
-                    onChange={e => setCNIC(e.target.value)}
-                  />
-                </div>
-                {/*State and city*/}
-                <div className="w-full flex gap-5 justify-between">
-                  <TextField
-                    fullWidth
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        "&.Mui-focused fieldset": {
-                          borderColor: "#EB5757" // change focus visible color here
-                        }
-                      }
-                    }}
-                    InputLabelProps={{
-                      style: { color: "#EB5757" } // change label color here
-                    }}
-                    select
-                    value={state}
-                    onChange={e => setState(e.target.value)}
-                    label="State"
-                  >
-                    {states &&
-                      map(states, (s) => (
-                        <MenuItem key={s.state_code} value={s.name}>
-                          {s.name}
-                        </MenuItem>
-                      ))}
-                  </TextField>
-                  {state &&
-                    <TextField
-                      fullWidth
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          "&.Mui-focused fieldset": {
-                            borderColor: "#EB5757" // change focus visible color here
-                          }
-                        }
-                      }}
-                      InputLabelProps={{
-                        style: { color: "#EB5757" } // change label color here
-                      }}
-                      select
-                      value={city}
-                      onChange={e => setCity(e.target.value)}
-                      label="City"
-                    >
-                      {map(cities, (s) => (
-                        <MenuItem key={s} value={s}>
-                          {s}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  }
-                </div>
-                <div className="w-full flex gap-5 justify-between">
-                  {city &&
-                    <TextField
-                      fullWidth
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          "&.Mui-focused fieldset": {
-                            borderColor: "#EB5757" // change focus visible color here
-                          }
-                        }
-                      }}
-                      label="Area"
-                      InputLabelProps={{
-                        style: { color: "#EB5757" } // change label color here
-                      }}
-                      value={area}
-                      onChange={(e) => setArea(e.target.value)}
-                    />
-                  }
-                </div>
-              </Typography>
+                }
+              </div>
             </AccordionDetails>
           </Accordion>
           <Accordion defaultExpanded>
@@ -468,93 +469,208 @@ export const ProfileSetting = () => {
               <Typography>Payment Method</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>
-                <div className="flex flex-col items-center p-4">
-                  <div className="flex justify-between items-center gap-10 mb-10">
-                    <p className="text-[#6d6e70] text-sm">Mazdoor uses secure, encrypted technology to store and handle your payment information. Rest assured, the confidential data you enter here is safe.</p>
-                    {/* Box component with icon and text */}
-                    <div className="flex items-center justify-center gap-2 text-[1.2rem] text-white font-bold p-2 rounded-md select-none bg-[#EB5757] opacity-50">
-                      {/* Lock icon */}
-                      <LockIcon fontSize="large" />
-                      {/* Text */}
-                      <p className="text-xs font-bolds">
-                        THIS IS A SECURE PAGE
-                      </p>
-                    </div>
+              <div className="flex flex-col items-center p-4">
+                <div className="flex justify-between items-center gap-10 mb-10">
+                  <p className="text-[#6d6e70] text-sm">Mazdoor uses secure, encrypted technology to store and handle
+                    your payment information. Rest assured, the confidential data you enter here is safe.</p>
+                  {/* div component with icon and text */}
+                  <div
+                    className="flex items-center justify-center gap-2 text-[1.2rem] text-white font-bold p-2 rounded-md select-none bg-[#EB5757] opacity-50">
+                    {/* Lock icon */}
+                    <LockIcon fontSize="large" />
+                    {/* Text */}
+                    <p className="text-xs font-bolds">
+                      THIS IS A SECURE PAGE
+                    </p>
                   </div>
-                  <h1 className="text-2xl font-bold mb-4">Select a Payment Method</h1>
-                  <div className="flex gap-4 mb-4">
-                    {/* Card option */}
-                    <div
-                      className={`flex flex-col items-center py-4 border rounded-lg cursor-pointer w-[140px] hover:shadow transition-shadow ${
-                        selected === "card" ? "bg-green-100 border-green-500" : ""
-                      }`}
-                      onClick={() => handleClick("card")}
-                    >
-                      <CreditCardIcon fontSize="large" />
-                      <p className="mt-2">Card</p>
-                      {selected === "card" && <CheckCircleIcon color="success" />}
-                    </div>
-                    {/* Mobile account option */}
-                    <div
-                      className={`flex flex-col items-center py-4 border rounded-lg cursor-pointer w-[140px] hover:shadow transition-shadow ${
-                        selected === "mobile" ? "bg-green-100 border-green-500" : ""
-                      }`}
-                      onClick={() => handleClick("mobile")}
-                    >
-                      <PhoneAndroidIcon fontSize="large" />
-                      <p className="mt-2">Mobile Account</p>
-                      {selected === "mobile" && <CheckCircleIcon color="success" />}
-                    </div>
-                    {/* Both option */}
-                    <div
-                      className={`flex flex-col items-center py-4 border rounded-lg cursor-pointer w-[140px] hover:shadow transition-shadow ${
-                        selected === "both" ? "bg-green-100 border-green-500" : ""
-                      }`}
-                      onClick={() => handleClick("both")}
-                    >
-                      <AcUnitIcon fontSize="large" />
-                      <p className="mt-2">Both</p>
-                      {selected === "both" && <CheckCircleIcon color="success" />}
-                    </div>
+                </div>
+                <h1 className="text-2xl font-bold mb-4">Select a Payment Method</h1>
+                <div className="flex gap-4 mb-4">
+                  {/* Card option */}
+                  <div
+                    className={`flex flex-col items-center py-4 border rounded-lg cursor-pointer w-[140px] hover:shadow transition-shadow ${
+                      paymentSelection === "Card" ? "bg-green-100 border-green-500" : ""
+                    }`}
+                    onClick={() => onPaymentMethodClick("Card")}
+                  >
+                    <CreditCardIcon fontSize="large" />
+                    <p className="mt-2">Card</p>
+                    {paymentSelection === "Card" && <CheckCircleIcon color="success" />}
                   </div>
-                  {/* Conditional rendering of the details based on the selected option */}
-                  <div className="flex gap-4">
-                    {selected === "card" && (
-                      <Card variant="outlined">
-                        <CardContent>
-                          <Typography variant="h5">Card Details</Typography>
-                          {/* Your card details here */}
-                        </CardContent>
-                      </Card>
-                    )}
+                  {/* Mobile account option */}
+                  <div
+                    className={`flex flex-col items-center py-4 border rounded-lg cursor-pointer w-[140px] hover:shadow transition-shadow ${
+                      paymentSelection === "Mobile Account" ? "bg-green-100 border-green-500" : ""
+                    }`}
+                    onClick={() => onPaymentMethodClick("Mobile Account")}
+                  >
+                    <PhoneAndroidIcon fontSize="large" />
+                    <p className="mt-2">Mobile Account</p>
+                    {paymentSelection === "Mobile Account" && <CheckCircleIcon color="success" />}
                   </div>
-                  {selected === "mobile" && (
-                    <Card variant="outlined">
-                      <CardContent>
-                        <Typography variant="h5">Mobile Account Details</Typography>
-                        {/* Your mobile account details here */}
-                      </CardContent>
-                    </Card>
+                  {/* Both option */}
+                  <div
+                    className={`flex flex-col items-center py-4 border rounded-lg cursor-pointer w-[140px] hover:shadow transition-shadow ${
+                      paymentSelection === "Both" ? "bg-green-100 border-green-500" : ""
+                    }`}
+                    onClick={() => onPaymentMethodClick("Both")}
+                  >
+                    <AcUnitIcon fontSize="large" />
+                    <p className="mt-2">Both</p>
+                    {paymentSelection === "Both" && <CheckCircleIcon color="success" />}
+                  </div>
+                </div>
+                {/* Conditional rendering of the details based on the paymentSelection option */}
+                <div className="flex gap-4">
+                  {(paymentSelection === "Card" || paymentSelection === "Both") && (
+                    <div className="flex flex-col items-center justify-center gap-5">
+                      {/* Card name input field */}
+                      <TextField
+                        fullWidth
+                        sx={{
+                          "& .MuiOutlinedInput-root": {
+                            "&.Mui-focused fieldset": {
+                              borderColor: "#EB5757" // change focus visible color here
+                            }
+                          }
+                        }}
+                        InputLabelProps={{
+                          style: { color: "#EB5757" } // change label color here
+                        }}
+                        // tailwind classes for the input field
+                        label="Name on Card"
+                        value={cardName}
+                        onChange={(e) => setCardName(e.target.value)}
+                      />
+                      {/* Card number input field */}
+                      <TextField
+                        fullWidth
+                        sx={{
+                          "& .MuiOutlinedInput-root": {
+                            "&.Mui-focused fieldset": {
+                              borderColor: "#EB5757" // change focus visible color here
+                            }
+                          }
+                        }}
+                        InputLabelProps={{
+                          style: { color: "#EB5757" } // change label color here
+                        }}
+                        InputProps={{
+                          startAdornment: <InputAdornment position="start"><CreditCardIcon /></InputAdornment>,
+                          inputProps: {
+                            max: 9999999999999999,
+                            min: 0
+                          }
+                        }}
+                        // tailwind classes for the input field
+                        label="Card Number"
+                        value={cardNumber}
+                        type="number"
+                        onChange={(e) => setCardNumber(e.target.value)}
+                      />
+                      {/* Expiry date and cvv input fields */}
+                      <div className="flex w-full justify-between gap-2">
+                        <TextField
+                          sx={{
+                            "& .MuiOutlinedInput-root": {
+                              "&.Mui-focused fieldset": {
+                                borderColor: "#EB5757" // change focus visible color here
+                              }
+                            }
+                          }}
+                          InputLabelProps={{
+                            shrink: true,
+                            style: { color: "#EB5757" } // change label color here
+                          }}
+                          label="Expiry Date (MM/YY)"
+                          value={expiryDate}
+                          type="month"
+                          onChange={(e) => setExpiryDate(e.target.value)}
+                        />
+                        <TextField
+                          type="number"
+                          sx={{
+                            "& .MuiOutlinedInput-root": {
+                              "&.Mui-focused fieldset": {
+                                borderColor: "#EB5757" // change focus visible color here
+                              }
+                            }
+                          }}
+                          InputLabelProps={{
+                            style: { color: "#EB5757" } // change label color here
+                          }}
+                          InputProps={{
+                            inputProps: {
+                              max: 99999,
+                              min: 0
+                            }
+                          }}
+                          label="CVV"
+                          value={cvv}
+                          onChange={(e) => setCvv(e.target.value)}
+                        />
+                      </div>
+                    </div>
                   )}
-                  {selected === "both" && (
-                    <div className="flex gap-4">
-                      <Card variant="outlined">
-                        <CardContent>
-                          <Typography variant="h5">Card Details</Typography>
-                          {/* Your card details here */}
-                        </CardContent>
-                      </Card>
-                      <Card variant="outlined">
-                        <CardContent>
-                          <Typography variant="h5">Mobile Account Details</Typography>
-                          {/* Your mobile account details here */}
-                        </CardContent>
-                      </Card>
+                  {(paymentSelection === "Mobile Account" || paymentSelection === "Both") && (
+                    <div className="flex flex-col items-center gap-5 justify-between">
+                      {/* Your mobile account details here */}
+                      <div className="flex gap-5">
+                        {/*easypaisa option*/}
+                        <div
+                          className={`flex justify-center items-center border rounded-lg cursor-pointer w-[140px] hover:shadow transition-shadow ${
+                            mobAccSelection === "Easypaisa" ? "bg-green-100 border-green-500" : ""
+                          }`}
+                          onClick={() => setMobAccSelection("Easypaisa")}
+                        >
+                          <div className="px-2 w-[120px]">
+                            <img className="w-full h-full object-cover" src={easypaisa_logo} alt="easypaisa" />
+                          </div>
+                          {mobAccSelection === "Easypaisa" && <CheckCircleIcon color="success" />}
+                        </div>
+                        {/*jazzcash option*/}
+                        <div
+                          className={`flex items-center border rounded-lg cursor-pointer w-[140px] hover:shadow transition-shadow ${
+                            mobAccSelection === "Jazzcash" ? "bg-green-100 border-green-500" : ""
+                          }`}
+                          onClick={() => setMobAccSelection("Jazzcash")}
+                        >
+                          <div className="p-2 w-[120px]">
+                            <img className="w-full h-full object-cover" src={jazzcash_logo} alt="jazzcash" />
+                          </div>
+                          {mobAccSelection === "Jazzcash" && <CheckCircleIcon color="success" />}
+                        </div>
+                      </div>
+                      {/* Mobile account number input field */}
+                      <TextField
+                        fullWidth
+                        sx={{
+                          "& .MuiOutlinedInput-root": {
+                            "&.Mui-focused fieldset": {
+                              borderColor: "#EB5757" // change focus visible color here
+                            }
+                          }
+                        }}
+                        InputLabelProps={{
+                          style: { color: "#EB5757" } // change label color here
+                        }}
+                        InputProps={{
+                          startAdornment: <InputAdornment position="start">+923</InputAdornment>,
+                          inputProps: {
+                            maxLength: 9,
+                            minLength: 9,
+                            min: 0
+                          }
+                        }}
+                        label="Mobile Account Number"
+                        type="number"
+                        value={mobAccNo}
+                        onChange={e => setMobAccNo(e.target.value)}
+                      />
                     </div>
                   )}
                 </div>
-              </Typography>
+              </div>
             </AccordionDetails>
           </Accordion>
         </div>
