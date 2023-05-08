@@ -43,15 +43,22 @@ const mazdoorSlice = createSlice({
     },
     userReceived(state, action) {
       state.user = action.payload.user;
-      if (state.user && state.user.role === "LABOR") {
+      if (state.user) {
         if (state.user.profileCompleted) {
           state.profileCompleted = { status: true, percent: 100 };
         }
         //updating profile completed percent
-        if (state.user.CNIC && state.user.phone && state.user.area && state.user.province && state.user.city && state.user.country) state.profileCompleted.percent = 70;
-        else if (state.user.CNIC && state.user.area && state.user.province && state.user.city && state.user.country) state.profileCompleted.percent = 50;
-        else if (state.user.area && state.user.province && state.user.city && state.user.country) state.profileCompleted.percent = 30;
-        else state.profileCompleted.percent = 10;
+        else if(state.user.role==="LABOR"){
+          if (state.user.CNIC && state.user.phone && state.user.startingWage && state.user.type && state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 70;
+          else if (state.user.CNIC && state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 50;
+          else if (state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 30;
+          else state.profileCompleted.percent = 10;
+        }else{
+          if (state.user.CNIC && state.user.phone && state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 70;
+          else if (state.user.CNIC && state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 50;
+          else if (state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 30;
+          else state.profileCompleted.percent = 10;
+        }
       }
       // if(state.user.role==='LABOR'){
       //   if(state.user.status==='unverified' || !state.user.phone || !state.user.country || !state.user.city || !state.user.area || !state.user.province || !state.user.image  || !state.user.CNIC || !state.user.name){

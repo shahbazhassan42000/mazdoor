@@ -7,7 +7,7 @@ export const statesURL="https://countriesnow.space/api/v0.1/countries/states";
 export const citiesURL="https://countriesnow.space/api/v0.1/countries/state/cities";
 export const imgBBURL = "https://api.imgbb.com/1/upload";
 export const token = localStorage.getItem('token');
-export const apiKey=process.env.REACT_IMG_BB_API_KEY;
+export const apiKey=process.env.REACT_APP_IMG_BB_API_KEY;
 export const headers = {
   "Content-type": "application/json;charset=UTF-8"
 };

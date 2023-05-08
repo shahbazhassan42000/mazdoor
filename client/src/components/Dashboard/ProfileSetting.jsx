@@ -26,6 +26,9 @@ import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import LockIcon from "@mui/icons-material/Lock";
+import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 export const ProfileSetting = () => {
   const dispatch = useDispatch();
@@ -48,13 +51,16 @@ export const ProfileSetting = () => {
   const [imageFile, setImageFile] = useState(null);
   const imgUpload = useRef(null);
   // state to store the input values
-  const [cardNumber, setCardNumber] = useState("");
-  const [cardName, setCardName] = useState("");
-  const [expiryDate, setExpiryDate] = useState("");
-  const [cvv, setCvv] = useState("");
-  const [paymentSelection, setPaymentSelection] = useState("Card"); // state to store the payment paymentSelection option
-  const [mobAccSelection, setMobAccSelection] = useState("Easypaisa");
-  const [mobAccNo, setMobAccNo] = useState("");
+  const [cardNumber, setCardNumber] = useState(user.cardNumber || "");
+  const [cardName, setCardName] = useState(user.cardName || "");
+  const [expiryDate, setExpiryDate] = useState(user.cardExpiry && (user.cardExpiry.split("/")[1] + "-" + user.cardExpiry.split("/")[0]) || "");
+  const [cvv, setCvv] = useState(user.cvv || "");
+  const [paymentSelection, setPaymentSelection] = useState(user.paymentMethod || ""); // state to store the payment paymentSelection option
+  const [mobAccSelection, setMobAccSelection] = useState(user.mobAccName || "");
+  const [mobAccNo, setMobAccNo] = useState(user.mobAccNumber || "");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
 
   useEffect(() => { //set uploaded image url
@@ -93,7 +99,7 @@ export const ProfileSetting = () => {
         flag = true;
       }
       user.age = age;
-    } else delete user.age;
+    } else user.age = "";
     if (type) {
       if (type === "Others") {
         if (!others) {
@@ -104,17 +110,17 @@ export const ProfileSetting = () => {
         }
         user.type = others;
       } else user.type = type;
-    } else delete user.type;
+    } else user.type = "";
     if (startingWage) user.startingWage = startingWage;
-    if (phone) {
-      if (phone.length !== 9) {
+    if (phone && phone !== "923") {
+      if (phone.length !== 12) {
         NotificationManager.error("Phone number should be of 9 digits", "ERROR!", 5000, () => {
           alert("callback");
         });
         flag = true;
       }
       user.phone = phone;
-    } else delete user.phone;
+    } else user.phone = "";
     if (CNIC) {
       if (CNIC.length !== 13) {
         NotificationManager.error("CNIC number should be of 13 digits", "ERROR!", 5000, () => {
@@ -123,16 +129,126 @@ export const ProfileSetting = () => {
         flag = true;
       }
       user.CNIC = CNIC;
-    } else delete user.CNIC;
+    } else user.CNIC = "";
+
+    //validating payment method
+    if (paymentSelection === "Card" || paymentSelection === "Both") {
+      if (!cardName) {
+        NotificationManager.error("Card name is required", "ERROR!", 5000, () => {
+          alert("callback");
+        });
+        flag = true;
+      } else {
+        user.cardName = cardName;
+      }
+      if (!cardNumber) {
+        NotificationManager.error("Card number is required", "ERROR!", 5000, () => {
+          alert("callback");
+        });
+        flag = true;
+      } else {
+        if (cardNumber.length !== 16) {
+          NotificationManager.error("Card number should be of 16 digits", "ERROR!", 5000, () => {
+            alert("callback");
+          });
+          flag = true;
+        } else {
+          user.cardNumber = cardNumber;
+        }
+      }
+      if (!expiryDate) {
+        NotificationManager.error("Expiry date is required", "ERROR!", 5000, () => {
+          alert("callback");
+        });
+        flag = true;
+      } else {
+        //convert from YYYY-MM to MM/YYYY
+        let date = expiryDate.split("-");
+        user.cardExpiry = date[1] + "/" + date[0];
+      }
+      if (!cvv) {
+        NotificationManager.error("CVV is required", "ERROR!", 5000, () => {
+          alert("callback");
+        });
+        flag = true;
+      } else {
+        if (cvv.length !== 3 && cvv.length !== 4) {
+          NotificationManager.error("CVV should be of 3 or 4 digits", "ERROR!", 5000, () => {
+            alert("callback");
+          });
+          flag = true;
+        } else {
+          user.cvv = cvv;
+        }
+      }
+    } else {
+      user.cardName = "";
+      setCardName("");
+      user.cardNumber = "";
+      setCardNumber("");
+      user.cardExpiry = "";
+      setExpiryDate("");
+      user.cvv = "";
+      setCvv("");
+
+    }
+    if (paymentSelection === "Mobile Account" || paymentSelection === "Both") {
+      if (!mobAccSelection) {
+        NotificationManager.error("Select atleast one mobile account", "ERROR!", 5000, () => {
+          alert("callback");
+        });
+        flag = true;
+      } else {
+        user.mobAccName = mobAccSelection;
+        if (!mobAccNo) {
+          NotificationManager.error("Mobile account number is required", "ERROR!", 5000, () => {
+            alert("callback");
+          });
+          flag = true;
+        } else {
+          if (mobAccNo.length !== 12) {
+            NotificationManager.error("Mobile account number should be of 9 digits", "ERROR!", 5000, () => {
+              alert("callback");
+            });
+            flag = true;
+          } else {
+            user.mobAccNumber = mobAccNo;
+          }
+        }
+      }
+    } else {
+      user.mobAccName = "";
+      setMobAccSelection("");
+      setMobAccSelection("");
+      user.mobAccNumber = "";
+      setMobAccNo("");
+      setMobAccNo("");
+    }
+    if (paymentSelection === "Card" || paymentSelection === "Mobile Account" || paymentSelection === "Both") {
+      user.paymentMethod = paymentSelection;
+    } else {
+      //removing other fields
+      user.paymentMethod = "";
+      user.cardName = "";
+      user.cardNumber = "";
+      user.cardExpiry = "";
+      user.cvv = "";
+      user.mobAccName = "";
+      user.mobAccNumber = "";
+      setMobAccSelection("");
+    }
+    console.log(user);
     if (flag) {
       return;
     }
     if (state) user.state = state;
-    else delete user.state;
+    else user.state = "";
     if (city) user.city = city;
-    else delete user.city;
+    else user.city = "";
     if (area) user.area = area;
-    else delete user.area;
+    else user.area = "";
+
+
     dispatch(toggleLoading());
     if (imageFile) {
       const payload = new FormData();
@@ -170,12 +286,21 @@ export const ProfileSetting = () => {
         alert("callback");
       });
     }).finally(() => {
+      dispatch(loadUser());
       dispatch(toggleLoading());
     });
   };
   // function to handle the click on an payment method changing
   const onPaymentMethodClick = (option) => {
     setPaymentSelection(option);
+    if (option === user.paymentMethod) {
+      if (user.cardName) setName(user.cardName);
+      if (user.cardNumber) setCardNumber(user.cardNumber);
+      if (user.cardExpiry) setExpiryDate(user.cardExpiry.split("/")[1] + "-" + user.cardExpiry.split("/")[0]);
+      if (user.cvv) setCvv(user.cvv);
+      if (user.mobAccName) setMobAccSelection(user.mobAccName);
+      if (user.mobAccNumber) setMobAccNo(user.mobAccNumber);
+    }
   };
   return (
     <div className="w-full flex flex-col gap-10">
@@ -334,9 +459,9 @@ export const ProfileSetting = () => {
                   }}
                   label="Contact No."
                   type="number"
-                  value={phone}
+                  value={phone.substring(3)}
                   helperText="e.g, +923xxxxxxxxx"
-                  onChange={e => setPhone(e.target.value)}
+                  onChange={e => setPhone("923" + e.target.value)}
                 />
                 <TextField
                   fullWidth
@@ -491,10 +616,10 @@ export const ProfileSetting = () => {
                     className={`flex flex-col items-center py-4 border rounded-lg cursor-pointer w-[140px] hover:shadow transition-shadow ${
                       paymentSelection === "Card" ? "bg-green-100 border-green-500" : ""
                     }`}
-                    onClick={() => onPaymentMethodClick("Card")}
+                    onClick={() => onPaymentMethodClick(paymentSelection === "Card" ? "" : "Card")}
                   >
                     <CreditCardIcon fontSize="large" />
-                    <p className="mt-2">Card</p>
+                    <p className="mt-2 select-none">Card</p>
                     {paymentSelection === "Card" && <CheckCircleIcon color="success" />}
                   </div>
                   {/* Mobile account option */}
@@ -502,10 +627,10 @@ export const ProfileSetting = () => {
                     className={`flex flex-col items-center py-4 border rounded-lg cursor-pointer w-[140px] hover:shadow transition-shadow ${
                       paymentSelection === "Mobile Account" ? "bg-green-100 border-green-500" : ""
                     }`}
-                    onClick={() => onPaymentMethodClick("Mobile Account")}
+                    onClick={() => onPaymentMethodClick(paymentSelection === "Mobile Account" ? "" : "Mobile Account")}
                   >
                     <PhoneAndroidIcon fontSize="large" />
-                    <p className="mt-2">Mobile Account</p>
+                    <p className="mt-2 select-none">Mobile Account</p>
                     {paymentSelection === "Mobile Account" && <CheckCircleIcon color="success" />}
                   </div>
                   {/* Both option */}
@@ -513,10 +638,10 @@ export const ProfileSetting = () => {
                     className={`flex flex-col items-center py-4 border rounded-lg cursor-pointer w-[140px] hover:shadow transition-shadow ${
                       paymentSelection === "Both" ? "bg-green-100 border-green-500" : ""
                     }`}
-                    onClick={() => onPaymentMethodClick("Both")}
+                    onClick={() => onPaymentMethodClick(paymentSelection === "Both" ? "" : "Both")}
                   >
                     <AcUnitIcon fontSize="large" />
-                    <p className="mt-2">Both</p>
+                    <p className="mt-2 select-none">Both</p>
                     {paymentSelection === "Both" && <CheckCircleIcon color="success" />}
                   </div>
                 </div>
@@ -557,6 +682,15 @@ export const ProfileSetting = () => {
                         }}
                         InputProps={{
                           startAdornment: <InputAdornment position="start"><CreditCardIcon /></InputAdornment>,
+                          endAdornment: <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              edge="end"
+                            >
+                              {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                          </InputAdornment>,
                           inputProps: {
                             max: 9999999999999999,
                             min: 0
@@ -565,7 +699,7 @@ export const ProfileSetting = () => {
                         // tailwind classes for the input field
                         label="Card Number"
                         value={cardNumber}
-                        type="number"
+                        type={showPassword ? "number" : "password"}
                         onChange={(e) => setCardNumber(e.target.value)}
                       />
                       {/* Expiry date and cvv input fields */}
@@ -582,10 +716,13 @@ export const ProfileSetting = () => {
                             shrink: true,
                             style: { color: "#EB5757" } // change label color here
                           }}
-                          label="Expiry Date (MM/YY)"
+                          label="Expiry Date (MM/YYYY)"
                           value={expiryDate}
                           type="month"
-                          onChange={(e) => setExpiryDate(e.target.value)}
+                          onChange={(e) => {
+                            setExpiryDate(e.target.value);
+                            console.log(e.target.value);
+                          }}
                         />
                         <TextField
                           type="number"
@@ -621,7 +758,7 @@ export const ProfileSetting = () => {
                           className={`flex justify-center items-center border rounded-lg cursor-pointer w-[140px] hover:shadow transition-shadow ${
                             mobAccSelection === "Easypaisa" ? "bg-green-100 border-green-500" : ""
                           }`}
-                          onClick={() => setMobAccSelection("Easypaisa")}
+                          onClick={() => setMobAccSelection(mobAccSelection === "Easypaisa" ? "" : "Easypaisa")}
                         >
                           <div className="px-2 w-[120px]">
                             <img className="w-full h-full object-cover" src={easypaisa_logo} alt="easypaisa" />
@@ -633,7 +770,7 @@ export const ProfileSetting = () => {
                           className={`flex items-center border rounded-lg cursor-pointer w-[140px] hover:shadow transition-shadow ${
                             mobAccSelection === "Jazzcash" ? "bg-green-100 border-green-500" : ""
                           }`}
-                          onClick={() => setMobAccSelection("Jazzcash")}
+                          onClick={() => setMobAccSelection(mobAccSelection === "Jazzcash" ? "" : "Jazzcash")}
                         >
                           <div className="p-2 w-[120px]">
                             <img className="w-full h-full object-cover" src={jazzcash_logo} alt="jazzcash" />
@@ -664,8 +801,8 @@ export const ProfileSetting = () => {
                         }}
                         label="Mobile Account Number"
                         type="number"
-                        value={mobAccNo}
-                        onChange={e => setMobAccNo(e.target.value)}
+                        value={mobAccNo.substring(3)}
+                        onChange={e => setMobAccNo("923" + e.target.value)}
                       />
                     </div>
                   )}

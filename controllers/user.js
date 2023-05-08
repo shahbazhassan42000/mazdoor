@@ -31,7 +31,7 @@ export default {
         return next(err);
       }
       if (user) {
-        if (user.role!=="ADMIN" && user.status === "unverified") {
+        if (user.role !== "ADMIN" && user.status === "unverified") {
           let token = await Token.findOne({ userId: user._id });
           if (!token) {
             token = await new Token({ userId: user._id, token: crypto.randomBytes(16).toString("hex") }).save();
@@ -58,15 +58,16 @@ export default {
     Object.assign(user, req.body.user);
     if (user.role === "LABOR") Object.assign(user, { rating: 90, startingWage: 1000 });
     if (user.role !== "ADMIN") Object.assign(user, { status: "unverified", profileCompleted: false });
+    validatePaymentMethod(user);
     user.setPassword(req.body.user.password);
 
     //adding new labor type if not exist
-    if(user.type) AddNewLaborType(user.type);
+    if (user.type) AddNewLaborType(user.type);
 
 
     user.save().then(async () => {
       //generating token for email verification
-      if(user.role !== "ADMIN"){
+      if (user.role !== "ADMIN") {
         const token = await new Token({ userId: user._id, token: crypto.randomBytes(16).toString("hex") }).save();
         await sendVerificationEmail(user.email, user._id, token.token);
       }
@@ -135,25 +136,33 @@ export default {
     if (!req.body.user) return res.status(400).json("must provide user object in this format {user:{...}}");
     let user = req.body.user;
 
-    if(!user._id) return res.status(400).json("must provide user id in this format {user:{_id:...}}");
+    if (!user._id) return res.status(400).json("must provide user id in this format {user:{_id:...}}");
 
-    //removed username, password,email,role from update if exist
-    if(user.username) delete user.username;
-    if(user.password) delete user.password;
-    if(user.email) delete user.email;
-    if(user.role) delete user.role;
 
     //adding new labor type if not exist
-    if(user.type) AddNewLaborType(user.type);
+    if (user.type) AddNewLaborType(user.type);
+    validatePaymentMethod(user);
+
+    //updating profileCompleted
+    updateProfileCompleted(user);
+
+    //removed username, password,email,role from update if exist
+    if (user.username) delete user.username;
+    if (user.password) delete user.password;
+    if (user.email) delete user.email;
+    if (user.role) delete user.role;
+
+
+    console.log("Updating user:...");
+    console.log(user);
 
     //update user
     User.findByIdAndUpdate(user._id, { ...user }).then(updatedUser => {
       if (!updatedUser) return res.status(400).json("user not found against the given id");
-      User.findById(user._id).then(user=>{
+      User.findById(user._id).then(user => {
         return res.status(200).json(user);
-      })
+      });
     }).catch(next);
-
 
 
     // if (req.body.user) {
@@ -202,7 +211,7 @@ export default {
   },
   getUsersByRole(req, res, next) {
     const role = req.query.role;
-    User.find({role}).then((users) => {
+    User.find({ role }).then((users) => {
       if (users) {
         //filter users
         users = users.map(user => {
@@ -214,7 +223,7 @@ export default {
     }, err => {
       return res.status(400).json({ msg: "ERROR!!! While fetching users." });
     });
-  },
+  }
 };
 
 const check_signup_requiredFields = (user) => {
@@ -259,15 +268,50 @@ const sendVerificationEmail = async (email, id, token) => {
   await sendEmail(email, subject, text);
 };
 
-export const AddNewLaborType=(type)=>{
+export const AddNewLaborType = (type) => {
   //Capitalizing type
-  type =  Capitalize(type);
+  type = Capitalize(type);
   //checking if this type exists in our database if not then add it
   LaborsType.findOne({ name: type }).then((laborsType) => {
-    if(!laborsType){
+    if (!laborsType) {
       const laborsType = new LaborsType();
       laborsType.name = type;
       laborsType.save();
     }
   });
-}
+};
+
+const validatePaymentMethod = (user) => {
+  if (user.paymentMethod === "Card") {
+    user.mobAccName = "";
+    user.mobAccNumber = "";
+  } else if (user.paymentMethod === "Mobile Account") {
+    user.cardName = "";
+    user.cardNumber = "";
+    user.cardExpiry = "";
+    user.cvv = "";
+  } else if (user.paymentMethod !== "Both") {
+    user.cardName = "";
+    user.cardNumber = "";
+    user.cardExpiry = "";
+    user.cvv = "";
+    user.mobAccName = "";
+    user.mobAccNumber = "";
+  }
+};
+
+const updateProfileCompleted = (user) => {
+  if (user.role === "LABOR") {
+    if (user.CNIC && user.startingWage && user.type && user.phone && user.area && user.state && user.city && (user.paymentMethod === "Card" || user.paymentMethod === "Mobile Account" || user.paymentMethod === "Both")) {
+      user.profileCompleted = true;
+    } else {
+      user.profileCompleted = false;
+    }
+  } else {
+    if (user.CNIC && user.phone && user.area && user.state && user.city && (user.paymentMethod === "Card" || user.paymentMethod === "Mobile Account" || user.paymentMethod === "Both")) {
+      user.profileCompleted = true;
+    } else {
+      user.profileCompleted = false;
+    }
+  }
+};
