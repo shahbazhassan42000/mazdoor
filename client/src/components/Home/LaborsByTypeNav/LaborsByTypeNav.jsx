@@ -10,7 +10,11 @@ const LaborsByTypeNav = () => {
   return(
     <nav className="bg-[#EB5757] border-b border-[#333]">
       <ul className="flex items-center text-[#333] px-20 text-white">
-        {map(labors,(labors,index)=><LaborNav key={index} type={index} labors={labors} />)}
+        {map(labors,(labors,index)=>{
+          if(index!=="undefined"){
+            return <LaborNav key={index} type={index} labors={labors} />;
+          }
+        })}
       </ul>
     </nav>
   );

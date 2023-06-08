@@ -30,7 +30,7 @@ const Dashboard = (props) => {
           :
           <>
             {/*  Top */}
-            {tab !== "profile" && <div className="flex justify-between w-full">
+            {tab !== "profile" && <div className="flex justify-between pr-14 pl-5 w-full">
               <div>Active Orders - 0($0)</div>
               <div>Active Orders</div>
             </div>}

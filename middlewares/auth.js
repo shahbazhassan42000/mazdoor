@@ -20,7 +20,7 @@ export default {
       User.findById(user.id,(err,user)=>{
         if(user){
           req.user = user;
-          next();
+          return next();
         }else{
           console.log("User not exists against the token");
           return res.status(401).json({ message: 'Unauthenticated' });

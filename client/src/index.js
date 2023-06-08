@@ -12,6 +12,7 @@ import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
 import { HomePageRender } from "./components/HomePageRender";
 import { EmailVerify } from "./components/Auth/EmailVerify";
 import "react-notifications/lib/notifications.css";
+import { CreateGig } from "./components/Dashboard/DashboardMain/CreateGig";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
       <Route errorElement={<Error />}>
         <Route path="/" element={<HomePageRender />} />
         <Route path="/dashboard/:tab" element={<ProtectedRoute children={<Dashboard />} />} />
+        <Route path="/dashboard/:tab/create-gig" element={<ProtectedRoute children={<CreateGig />} />} />
         <Route path="/api/users/verification/:id/verify/:token" element={<EmailVerify />} />
       </Route>
       <Route path="*" element={<Error />} />

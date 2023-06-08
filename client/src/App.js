@@ -29,7 +29,6 @@ function App() {
           <img className="h-[10vw]" src={loadingGif} alt="loading"/>
         </div>
       </div>}
-      // Add NotificationContainer as a child component
       <NotificationContainer/>
     </>
   );
