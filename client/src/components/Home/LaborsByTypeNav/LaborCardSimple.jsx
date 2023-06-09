@@ -1,8 +1,10 @@
 import {motion} from "framer-motion";
+import { Link } from "react-router-dom";
 
 const LaborCardSimple=({labor})=>{
   return(
-    <motion.div
+    <Link
+      to={`/labor/${labor._id}`}
       layout
       animate={{opacity:1}}
       initial={{opacity:0}}
@@ -22,7 +24,7 @@ const LaborCardSimple=({labor})=>{
         <span className="text-[12px] text-[#EB5757]">Starting at</span>
         <h1 className="text-[#222222] text-[14px] font-bold">1000pkr</h1>
       </div>
-    </motion.div>
+    </Link>
   );
 }
 export default LaborCardSimple;

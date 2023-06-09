@@ -1,0 +1,35 @@
+[
+  {
+    "title": "Mistri for plumbing and electrical work",
+    "description": "I am a skilled mistri with 10 years of experience in plumbing and electrical work. I can fix any leak, pipe, faucet, switch, socket, fan, light, or heater. I can also install new fixtures and appliances. I work fast and efficiently, and I charge reasonable rates.",
+    "area": "Gulberg",
+    "category": "Mistri",
+    "price": 1500,
+    "delivery time": 2
+  },
+  {
+    "title": "Mazdoor for loading and unloading",
+    "description": "I am a hardworking mazdoor with 5 years of experience in loading and unloading goods. I can lift heavy items, pack and unpack boxes, move furniture, and arrange items in trucks or warehouses. I am punctual, reliable, and honest. I work with safety and care.",
+    "area": "Model Town",
+    "category": "Mazdoor",
+    "price": 1000,
+    "delivery time": 4
+  },
+  {
+    "title": "Rang Saaz for painting and whitewashing",
+    "description": "I am a professional rang saaz with 8 years of experience in painting and whitewashing. I can paint any wall, ceiling, door, window, or furniture. I can also do whitewashing, distempering, polishing, and varnishing. I use high-quality materials and tools. I work neatly and cleanly.",
+    "area": "Johar Town",
+    "category": "Rang Saaz",
+    "price": 2000,
+    "delivery time": 6
+  },
+  {
+    "title": "Carpenter for woodwork and furniture repair",
+    "description": "I am a talented carpenter with 7 years of experience in woodwork and furniture repair. I can make or fix any wooden item, such as tables, chairs, cabinets, shelves, doors, windows, or frames. I can also do carving, engraving, or inlaying. I use fine wood and craftsmanship. I work with precision and creativity.",
+    "area": "DHA",
+    "category": "Others",
+    "other category": "Carpenter",
+    "price": 2500,
+    "delivery time": 8
+  }
+]

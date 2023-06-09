@@ -17,7 +17,9 @@ export default {
         return res.status(401).json({ message: 'Unauthenticated' });
       }
       //check if user is exists
-      User.findById(user.id,(err,user)=>{
+      User.findById(user.id) // find the user by id
+        .populate("gigs","-__v") // populate the gigs field with the gig documents
+        .exec((err, user) => {
         if(user){
           req.user = user;
           return next();

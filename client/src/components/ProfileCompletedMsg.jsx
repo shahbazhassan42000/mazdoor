@@ -1,16 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfileCompleted } from "../store/mazdoor/mazdoorSlice";
-import { motion } from "framer-motion";
+import React from "react";
+import { Link } from "react-router-dom";
 
 export const ProfileCompletedMsg = () => {
   const profileCompleted = useSelector(state => state.mazdoorStore.profileCompleted);
   const dispatch = useDispatch();
   return (
-    <motion.div
+    <Link
+      to="/dashboard/profile"
       initial={{ opacity: 0, y: 50, scale: 0.3 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
-      className="absolute shadow-[0_10px_13px_#091e4240] flex text-white gap-5 p-5 right-5 mt-5 bg-[#CCA55A] z-[99] rounded-md">
+      className="absolute shadow-[0_10px_13px_#091e4240] flex text-white gap-5 p-5 right-5 mt-5 bg-[#CCA55A] z-[99] rounded-md select-none cursor-pointer">
       <div>
         <h3 className="text-[18px] font-[500]">Complete Your Profile</h3>
         <p>To be able to accept works and add gigs.</p>
@@ -30,6 +32,6 @@ export const ProfileCompletedMsg = () => {
         </div>
       </div>
 
-    </motion.div>
+    </Link>
   );
 };

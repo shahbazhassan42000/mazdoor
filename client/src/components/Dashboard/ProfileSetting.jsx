@@ -11,12 +11,10 @@ import {
   MenuItem,
   TextField,
   Typography,
-  Card,
-  CardContent
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { map } from "lodash";
-import { loadLaborsTypes, loadUser, toggleLoading } from "../../store/mazdoor/mazdoorSlice";
+import { loadLabors, loadLaborsTypes, loadUser, toggleLoading } from "../../store/mazdoor/mazdoorSlice";
 import { apiKey, apiURL, citiesURL, imgBBURL, statesURL, updateUserURL } from "../../utils/constants";
 import axios from "axios";
 import { NotificationManager } from "react-notifications";
@@ -134,32 +132,24 @@ export const ProfileSetting = () => {
     //validating payment method
     if (paymentSelection === "Card" || paymentSelection === "Both") {
       if (!cardName) {
-        NotificationManager.error("Card name is required", "ERROR!", 5000, () => {
-          alert("callback");
-        });
+        NotificationManager.error("Card name is required", "ERROR!", 5000);
         flag = true;
       } else {
         user.cardName = cardName;
       }
       if (!cardNumber) {
-        NotificationManager.error("Card number is required", "ERROR!", 5000, () => {
-          alert("callback");
-        });
+        NotificationManager.error("Card number is required", "ERROR!", 5000);
         flag = true;
       } else {
         if (cardNumber.length !== 16) {
-          NotificationManager.error("Card number should be of 16 digits", "ERROR!", 5000, () => {
-            alert("callback");
-          });
+          NotificationManager.error("Card number should be of 16 digits", "ERROR!", 5000);
           flag = true;
         } else {
           user.cardNumber = cardNumber;
         }
       }
       if (!expiryDate) {
-        NotificationManager.error("Expiry date is required", "ERROR!", 5000, () => {
-          alert("callback");
-        });
+        NotificationManager.error("Expiry date is required", "ERROR!", 5000);
         flag = true;
       } else {
         //convert from YYYY-MM to MM/YYYY
@@ -167,15 +157,11 @@ export const ProfileSetting = () => {
         user.cardExpiry = date[1] + "/" + date[0];
       }
       if (!cvv) {
-        NotificationManager.error("CVV is required", "ERROR!", 5000, () => {
-          alert("callback");
-        });
+        NotificationManager.error("CVV is required", "ERROR!", 5000);
         flag = true;
       } else {
         if (cvv.length !== 3 && cvv.length !== 4) {
-          NotificationManager.error("CVV should be of 3 or 4 digits", "ERROR!", 5000, () => {
-            alert("callback");
-          });
+          NotificationManager.error("CVV should be of 3 or 4 digits", "ERROR!", 5000);
           flag = true;
         } else {
           user.cvv = cvv;
@@ -194,22 +180,16 @@ export const ProfileSetting = () => {
     }
     if (paymentSelection === "Mobile Account" || paymentSelection === "Both") {
       if (!mobAccSelection) {
-        NotificationManager.error("Select atleast one mobile account", "ERROR!", 5000, () => {
-          alert("callback");
-        });
+        NotificationManager.error("Select atleast one mobile account", "ERROR!", 5000);
         flag = true;
       } else {
         user.mobAccName = mobAccSelection;
         if (!mobAccNo) {
-          NotificationManager.error("Mobile account number is required", "ERROR!", 5000, () => {
-            alert("callback");
-          });
+          NotificationManager.error("Mobile account number is required", "ERROR!", 5000);
           flag = true;
         } else {
           if (mobAccNo.length !== 12) {
-            NotificationManager.error("Mobile account number should be of 9 digits", "ERROR!", 5000, () => {
-              alert("callback");
-            });
+            NotificationManager.error("Mobile account number should be of 9 digits", "ERROR!", 5000);
             flag = true;
           } else {
             user.mobAccNumber = mobAccNo;
@@ -260,9 +240,7 @@ export const ProfileSetting = () => {
           user.image = img;
           updateUser(user);
         }).catch(err => {
-        NotificationManager.error("Error while updating profile", "ERROR!", 5000, () => {
-          alert("callback");
-        });
+        NotificationManager.error("Error while updating profile", "ERROR!", 5000);
         dispatch(toggleLoading());
       });
     } else {
@@ -277,14 +255,11 @@ export const ProfileSetting = () => {
       headers,
       data: { user }
     }).then(res => {
-      NotificationManager.success("Profile updated successfully", "SUCCESS!", 5000, () => {
-        alert("callback");
-      });
-      dispatch(loadUser());
+      NotificationManager.success("Profile updated successfully", "SUCCESS!", 5000);
+      dispatch(loadLabors());
+      dispatch(loadLaborsTypes());
     }).catch(err => {
-      NotificationManager.error("Error while updating profile", "ERROR!", 5000, () => {
-        alert("callback");
-      });
+      NotificationManager.error("Error while updating profile", "ERROR!", 5000);
     }).finally(() => {
       dispatch(loadUser());
       dispatch(toggleLoading());

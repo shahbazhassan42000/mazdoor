@@ -19,7 +19,11 @@ export default {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json("Invalid gig ID");
     Gig.findByIdAndDelete(id).then((gig) => {
       if (!gig) return res.status(404).json("Gig not found");
-      return res.status(204).json("Gig deleted successfully");
+      User.findOneAndUpdate({ _id: gig.user }, { $pull: { gigs: id } }, { new: true })
+        .then((user) => {
+          if (!user) return res.status(404).json("User not found");
+          return res.status(204).json("Gig deleted successfully");
+        }).catch(next);
     }).catch(next);
   },
   all(req, res, next) {
@@ -64,6 +68,9 @@ export default {
       // create new gig
       const gig = new Gig(data);
       gig.save().then((gig)=>{
+        //push gig to user gigs
+        user.gigs.push(gig);
+        user.save()
         return res.status(201).json({gig});
       }).catch(next);
 

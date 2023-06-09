@@ -43,6 +43,7 @@ const userSchema = new mongoose.Schema({
     cvv: {type: String},
     mobAccName: {type: String},
     mobAccNumber: {type: String},
+    gigs: [{ type: mongoose.Schema.Types.ObjectId, ref: "gigs" }],
     hash: String,
     salt: String
 

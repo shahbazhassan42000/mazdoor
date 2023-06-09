@@ -9,7 +9,7 @@ import "../utils/passport.js";
 import "../models/token.js";
 import "../models/LaborsType.js";
 import { sendEmail } from "../utils/EmailSender.js";
-import { Capitalize } from "./laborsType.js";
+import { Capitalize, CapitalizeAll } from "./laborsType.js";
 
 const { includes, keys, size } = _;
 
@@ -122,7 +122,7 @@ export default {
     }).catch(next);
   },
   all(req, res) {
-    User.find({}).then(function(users) {
+    User.find({}).populate("gigs").then(function(users) {
       if (users)
         return res.status(200).json(users);
       return res.status(404).json({ msg: "no users found" });
@@ -163,25 +163,6 @@ export default {
         return res.status(200).json(user);
       });
     }).catch(next);
-
-
-    // if (req.body.user) {
-    //   User.findByIdAndUpdate(req.body.user.id, { ...req.body.user},
-    //     function(err) {
-    //       if (err) {
-    //         return res.sendStatus(400);
-    //       } else {
-    //         User.findById(req.body.user.id).then(function(user) {
-    //           if (!user) {
-    //             return res.sendStatus(400);
-    //           }
-    //           return res.status(200).json(user);
-    //         }).catch(next);
-    //       }
-    //     });
-    // } else {
-    //   return res.sendStatus(400);
-    // }
   }, delete(req, res) {
     const user = req.body.user;
     if (!user || size(user) !== 1) {
@@ -211,12 +192,13 @@ export default {
   },
   getUsersByRole(req, res, next) {
     const role = req.query.role;
-    User.find({ role }).then((users) => {
+    User.find({ role }).populate("gigs").then((users) => {
       if (users) {
         //filter users
         users = users.map(user => {
           return filterUser(user);
         });
+
         return res.status(200).json(users);
       }
       return res.status(404).json({ msg: "no users found" });
@@ -270,7 +252,7 @@ const sendVerificationEmail = async (email, id, token) => {
 
 export const AddNewLaborType = (type) => {
   //Capitalizing type
-  type = Capitalize(type);
+  type = CapitalizeAll(type);
   //checking if this type exists in our database if not then add it
   LaborsType.findOne({ name: type }).then((laborsType) => {
     if (!laborsType) {

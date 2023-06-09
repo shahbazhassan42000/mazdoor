@@ -2,7 +2,7 @@ import logo from "../assets/images/mazdoor-logo-file-web 1.png";
 
 const Footer=()=>{
     return (
-        <div className="flex flex-col space-y-10 px-20">
+        <footer className="flex flex-col space-y-10 px-20">
             <div className="flex justify-between">
                 <div className="flex flex-col space-y-8 w-[270px]">
                     <div>
@@ -45,7 +45,7 @@ const Footer=()=>{
                     Mazdoor, 2023 © Shahbaz Inc. All rights reserved.
                 </p>
             </div>
-        </div>
+        </footer>
     );
 }
 

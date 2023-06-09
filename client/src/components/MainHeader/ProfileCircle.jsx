@@ -8,7 +8,7 @@ const ProfileCircle = () => {
   return(
     <div className="relative flex justify-center items-center h-[45px] w-[45px]">
       <img
-        className="object-cover w-full h-full rounded-[50%] border hover:border-[#EB5757]"
+        className="object-cover w-full h-full rounded-[50%] border hover:border-primary"
         title={user.name}
         onClick={() => setProfile(!profile)}
         src={user.image} alt="profile picture"/>

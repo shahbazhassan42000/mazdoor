@@ -1,4 +1,4 @@
-import LaborCardMini from "../../LaborCardMini";
+import LaborCardMini from "../../Labor/LaborCardMini";
 import { map } from "lodash";
 import { useEffect, useState } from "react";
 import {motion} from "framer-motion";

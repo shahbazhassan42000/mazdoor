@@ -60,13 +60,6 @@ const mazdoorSlice = createSlice({
           else state.profileCompleted.percent = 10;
         }
       }
-      // if(state.user.role==='LABOR'){
-      //   if(state.user.status==='unverified' || !state.user.phone || !state.user.country || !state.user.city || !state.user.area || !state.user.province || !state.user.image  || !state.user.CNIC || !state.user.name){
-      //     state.user.profileCompleted=false;
-      //   }else{
-      //     state.user.profileCompleted=true;
-      //   }
-      // }
       state.loading = false;
     },
     redirectToLogin(state, action) {

@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { map } from "lodash";
 import { NotificationManager } from "react-notifications";
 import axios from "axios";
-import { apiKey, apiURL,createGigURL , imgBBURL} from "../../../utils/constants";
-import { loadUser, toggleLoading } from "../../../store/mazdoor/mazdoorSlice";
+import { apiKey, apiURL, createGigURL, imgBBURL } from "../../../utils/constants";
+import { loadLabors, loadLaborsTypes, loadUser, toggleLoading } from "../../../store/mazdoor/mazdoorSlice";
 import { headers } from "../../../utils/constants";
 
 export const CreateGig = () => {
@@ -26,59 +26,45 @@ export const CreateGig = () => {
   const laborTypes = useSelector((state) => state.mazdoorStore.laborTypes);
   const [others, setOthers] = useState("");
 
-  const onCreateGig= (e) => {
+  const onCreateGig = (e) => {
     e.preventDefault();
     let flag = false;
-    if(!imageFile){
-      NotificationManager.error("Please upload gig image", "ERROR!", 5000, () => {
-        alert("callback");
-      });
+    if (!imageFile) {
+      NotificationManager.error("Please upload gig image", "ERROR!", 5000);
       flag = true;
     }
-    if(!title){
-      NotificationManager.error("Please enter gig title", "ERROR!", 5000, () => {
-        alert("callback");
-      });
+    if (!title) {
+      NotificationManager.error("Please enter gig title", "ERROR!", 5000);
       flag = true;
     }
-    if(!description){
-      NotificationManager.error("Please enter gig description", "ERROR!", 5000, () => {
-        alert("callback");
-      });
+    if (!description) {
+      NotificationManager.error("Please enter gig description", "ERROR!", 5000);
       flag = true;
     }
-    if(!category){
-      NotificationManager.error("Please select gig category", "ERROR!", 5000, () => {
-        alert("callback");
-      });
+    if (!category) {
+      NotificationManager.error("Please select gig category", "ERROR!", 5000);
       flag = true;
-    }else{
-      if(category === "Others" && !others){
+    } else {
+      if (category === "Others" && !others) {
         NotificationManager.error("Please enter gig category", "ERROR!", 5000, () => {
           alert("callback");
         });
         flag = true;
       }
     }
-    if(!price){
-      NotificationManager.error("Please enter gig price", "ERROR!", 5000, () => {
-        alert("callback");
-      });
+    if (!price) {
+      NotificationManager.error("Please enter gig price", "ERROR!", 5000);
       flag = true;
     }
-    if(!deliveryTime){
-      NotificationManager.error("Please enter gig delivery time", "ERROR!", 5000, () => {
-        alert("callback");
-      });
+    if (!deliveryTime) {
+      NotificationManager.error("Please enter gig delivery time", "ERROR!", 5000);
       flag = true;
     }
-    if(!area){
-      NotificationManager.error("Please enter gig area", "ERROR!", 5000, () => {
-        alert("callback");
-      });
+    if (!area) {
+      NotificationManager.error("Please enter gig area", "ERROR!", 5000);
       flag = true;
     }
-    if(flag){
+    if (flag) {
       return;
     }
     console.log("Gig Creating...");
@@ -100,8 +86,8 @@ export const CreateGig = () => {
           deliveryTime,
           area,
           image: img,
-          user:user._id
-        }
+          user: user._id
+        };
         console.log(gig);
         //sending request to server
         axios.request({
@@ -111,9 +97,11 @@ export const CreateGig = () => {
           headers,
           data: { gig }
         }).then(res => {
-          NotificationManager.success("Gig created successfully", "SUCCESS!", 5000, () => {
-            alert("callback");
-          });
+          NotificationManager.success("Gig created successfully", "SUCCESS!", 0);
+          dispatch(loadUser());
+          dispatch(loadLabors());
+          dispatch(loadLaborsTypes());
+
           //rest values
           setImage(gig_placeholder);
           setImageFile(null);
@@ -125,20 +113,16 @@ export const CreateGig = () => {
           setArea("");
           setOthers("");
         }).catch(err => {
-          NotificationManager.error(err.request.response, "ERROR!", 5000, () => {
-            alert("callback");
-          });
-        })
+          NotificationManager.error(err.request.response, "ERROR!", 5000);
+        });
 
       }).catch(err => {
-      NotificationManager.error("Error while creating gig, Please try again later", "ERROR!", 5000, () => {
-        alert("callback");
-      });
+      NotificationManager.error("Error while creating gig, Please try again later", "ERROR!", 5000);
     }).finally(() => {
       dispatch(toggleLoading());
     });
 
-  }
+  };
 
 
   useEffect(() => { //set uploaded image url
@@ -328,7 +312,7 @@ export const CreateGig = () => {
         </div>
       </form>
       <div
-        onClick={e=>onCreateGig(e)}
+        onClick={e => onCreateGig(e)}
         className="flex justify-center">
         <button className="primary-btn">Create Gig</button>
       </div>

@@ -1,0 +1,115 @@
+[{
+  "_id": {
+    "$oid": "648218dfd60fcfba67e1b8fc"
+  },
+  "image": "https://i.ibb.co/Jkvv0Lj/1762227.png",
+  "title": "test1",
+  "description": "test...",
+  "area": "Bhatti Chowk",
+  "category": "MAZDOOR",
+  "price": 1200,
+  "deliveryTime": 3,
+  "rating": 80,
+  "user": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "createdAt": {
+    "$date": "2023-06-08T18:07:27.141Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-08T18:07:27.141Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64821ae58de5b549927d6472"
+  },
+  "image": "https://i.ibb.co/Jkvv0Lj/1762227.png",
+  "title": "test2",
+  "description": "test...",
+  "area": "Bhatti Chowk",
+  "category": "MAZDOOR",
+  "price": 1200,
+  "deliveryTime": 3,
+  "rating": 80,
+  "user": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "createdAt": {
+    "$date": "2023-06-08T18:16:05.978Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-08T18:16:05.978Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648228820c46870a83adddf7"
+  },
+  "image": "https://i.ibb.co/D1SY9Yf/403057.png",
+  "title": "abc",
+  "description": "xyz...",
+  "area": "Cantt",
+  "category": "Rang Saaz",
+  "price": 1800,
+  "deliveryTime": 2,
+  "rating": 80,
+  "user": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "createdAt": {
+    "$date": "2023-06-08T19:14:10.389Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-08T19:14:10.389Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64830b09d0267e868431aae5"
+  },
+  "image": "https://i.ibb.co/mH5KLk3/1055489.jpg",
+  "title": "Rang Saaz for painting and whitewashing",
+  "description": "I am a professional rang saaz with 8 years of experience in painting and whitewashing. I can paint any wall, ceiling, door, window, or furniture. I can also do whitewashing, distempering, polishing, and varnishing. I use high-quality materials and tools. I work neatly and cleanly.",
+  "area": "Johar Town",
+  "category": "Rang Saaz",
+  "price": 2000,
+  "deliveryTime": 6,
+  "rating": 80,
+  "user": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "createdAt": {
+    "$date": "2023-06-09T11:20:41.642Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-09T11:20:41.642Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648316ff252e4e7412dba1b4"
+  },
+  "image": "https://i.ibb.co/PDgWBQj/1140962.jpg",
+  "title": "Mistri for plumbing and electrical work",
+  "description": "I am a skilled mistri with 10 years of experience in plumbing and electrical work. I can fix any leak, pipe, faucet, switch, socket, fan, light, or heater. I can also install new fixtures and appliances. I work fast and efficiently, and I charge reasonable rates.",
+  "area": "Gulberg",
+  "category": "Mistri",
+  "price": 1500,
+  "deliveryTime": 2,
+  "rating": 80,
+  "user": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "createdAt": {
+    "$date": "2023-06-09T12:11:43.046Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-09T12:11:43.046Z"
+  },
+  "__v": 0
+}]

@@ -1,5 +1,6 @@
-import { updatePopup } from "../store/mazdoor/mazdoorSlice";
+import { updatePopup } from "../../store/mazdoor/mazdoorSlice";
 import {motion} from "framer-motion";
+import { Link } from "react-router-dom";
 
 const LaborCardMini=({labor})=>{
   return(
@@ -11,9 +12,10 @@ const LaborCardMini=({labor})=>{
       title={labor.name}
       className="select-none relative p-2 w-[350px] flex gap-2 h-[120px] rounded-md labor-card-shadow-hover bg-[#E0E0E0]">
       {/* details button */}
-      <i
+      <Link
+        to={`/labor/${labor._id}`}
         className="fa fa-bars absolute top-2 right-2 rounded-sm text-[#969696] hover:text-[#333] cursor-pointer">
-      </i>
+      </Link>
       {/* image */}
       <div className="py-3 h-[100px] w-[100px] flex-[0.5]">
           <img src={labor.image} alt="labor" className="w-full h-full object-cover rounded-[50%]"/>
