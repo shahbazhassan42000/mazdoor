@@ -8,7 +8,8 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SendIcon from "@mui/icons-material/Send";
 import { format } from "date-fns";
 import CategoryIcon from "@mui/icons-material/Category";
-import { GigCard } from "./GigCard";
+import { GigCard } from "../Gig/GigCard";
+import { LaborContactCard } from "./LaborContactCard";
 
 export const LaborProfile = () => {
   const { id } = useParams();
@@ -20,7 +21,6 @@ export const LaborProfile = () => {
 
   const labor = user._id === id ? user : labors.find((labor) => labor._id === id);
 
-  //get labor profile
   useEffect(() => {
     if (labor) {
       setLoading1(false);
@@ -31,96 +31,15 @@ export const LaborProfile = () => {
   return (
     <section className="flex lg:flex-row lg:gap-0 gap-5 flex-col px-20">
       {/*Labor Profile*/}
+      {/*Labor Profile*/}
       <section className="min-w-[28%]">
-        <div className="flex flex-col justify-center items-center p-8 min-w-[28%] relative  rounded-sm border-2">
-          {/*Labor Image*/}
-          <a
-            rel="noreferrer"
-            href={labor?.image}
-            target="_blank"
-            className="rounded-full overflow-hidden w-[150px] h-[150px]  labor-card-shadow-hover flex justify-center items-center select-none cursor-pointer border hover:border-primary mb-2">
-            <img className="object-cover w-full h-full" src={labor?.image} alt="labor" />
-          </a>
-          {/*Labor Name*/}
-          <h1 className="text-2xl font-bold">{labor?.name}</h1>
-          {/*Labor username*/}
-          <h1 className="text-xl text-lightGray">@{labor?.username}</h1>
-          {/*Labor Rating*/}
-          <div className="w-[80%]">
-            <div className="flex justify-between">
-              <span className="text-[#7E7E7E] text-[10px] leading-[8px] font-[600]">Rating</span>
-              <span className="text-[#7E7E7E] text-[10px] leading-[8px] font-[600]">{labor?.rating}%</span>
-            </div>
-            <div className="w-full bg-secondary rounded-[100px] mt-1 h-[6.65px]">
-              <div style={{ width: `${labor?.rating}%` }}
-                   className=" bg-primary rounded-[100px] h-[6.65px]">
-              </div>
-            </div>
+        <LaborContactCard labor={labor} />
+        {/*loading*/}
+        {loading1 && <div className="popup-overlay !absolute">
+          <div className="popup-container !absolute">
+            <img className="h-[10vw]" src={loadingGif} alt="loading" />
           </div>
-          {/*Contact me button*/}
-          <button className="primary-btn my-3 !text-[1rem] !py-[5px]">Contact Me</button>
-          {/*horizontal line*/}
-          <hr className="w-full mb-3" />
-          {/*Labor Details */}
-          <div className="flex flex-col gap-2 w-full">
-            {/*row*/}
-            <div className="flex w-full justify-between text-lightBlack">
-              {/*Icon with text*/}
-              <span className="flex items-center gap-2">
-                    <LocationOnIcon fontSize="small" />
-                    <p>From</p>
-                  </span>
-              {/*  Detail */}
-              <p className="font-bold max-w-[200px] whitespace-nowrap overflow-hidden truncate">{labor?.area}</p>
-            </div>
-            {/*row*/}
-            <div className="flex w-full justify-between text-lightBlack">
-              {/*Icon with text*/}
-              <span className="flex items-center gap-2">
-                    <CategoryIcon fontSize="small" />
-                    <p>Category</p>
-                  </span>
-              {/*  Detail */}
-              <p className="font-bold max-w-[200px] whitespace-nowrap overflow-hidden truncate">{labor?.type}</p>
-            </div>
-            {/*row*/}
-            <div className="flex w-full justify-between text-lightBlack">
-              {/*Icon with text*/}
-              <span className="flex items-center gap-2">
-                    <PersonIcon fontSize="small" />
-                    <p>Member since</p>
-                  </span>
-              {/*  Detail */}
-              <p className="font-bold">{format(new Date(labor?.createdAt || "2023-06-09T10:46:46.823Z"), "MMM yyyy")}</p>
-            </div>
-            {/*row*/}
-            <div className="flex w-full justify-between text-lightBlack">
-              {/*Icon with text */}
-              <span className="flex items-center gap-2">
-                    <AccessTimeIcon fontSize="small" />
-                    <p>Avg. Response Time</p>
-                  </span>
-              {/*  Detail */}
-              <p className="font-bold">2 hours</p>
-            </div>
-            {/*row*/}
-            <div className="flex w-full justify-between text-lightBlack">
-              {/*Icon with text */}
-              <span className="flex items-center gap-2">
-                    <SendIcon fontSize="small" />
-                    <p>Last Delivery</p>
-                  </span>
-              {/*  Detail */}
-              <p className="font-bold">23 hours</p>
-            </div>
-          </div>
-          {/*loading*/}
-          {loading1 && <div className="popup-overlay !absolute">
-            <div className="popup-container !absolute">
-              <img className="h-[10vw]" src={loadingGif} alt="loading" />
-            </div>
-          </div>}
-        </div>
+        </div>}
       </section>
       {/*Labor Gigs*/}
       <section className="flex flex-col flex-1 relative px-8">

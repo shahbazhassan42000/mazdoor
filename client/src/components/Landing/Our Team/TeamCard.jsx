@@ -1,6 +1,6 @@
 const TeamCard = ({member}) => {
     return (
-        <div className="w-[20%] h-[15.4vw] relative p-[18px] select-none cursor-pointer">
+        <div className="w-[20%] h-[15.4vw] relative p-[18px] select-none cursor-pointer hover:scale-105 transition-all duration-300">
             <div className="z-10 h-[15.4vw] w-full rounded-[40px] gradBorder p-[1px]">
                 <div className="z-20 h-[15vw] bg-white w-full rounded-[40px] p-[15px]">
                     <a href={member.linkedin} className="z-30 h-full rounded-[30px] relative flex justify-center items-center">

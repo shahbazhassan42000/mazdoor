@@ -7,14 +7,14 @@ import { map } from "lodash";
 
 const Labor=()=>{
 
-    const allMazdoors=useSelector(state => state.mazdoorStore.labors);
+    const allLabors=useSelector(state => state.mazdoorStore.labors);
     const [index,setIndex]=useState(0);
-    const mazdoors=allMazdoors.slice(index,index+8);
+    const labors=allLabors.slice(index,index+8);
     return (
         <div id="mazdoors" className="flex flex-col px-20 mt-[10px]">
             <div className="flex justify-between w-full">
                 <div className="flex flex-col w-[55%] pt-[130px]">
-                    <p className="actNav text-[18px]">MAZDOORS</p>
+                    <p className="actNav text-[18px] uppercase">Labors</p>
                     <h2 className="leading-[60px] font-bold text-[#333333] text-[45px] relative">
                         <span
 
@@ -29,16 +29,16 @@ const Labor=()=>{
             </div>
             <div className="flex items-center">
                 <span
-                    onClick={()=>{setIndex(index-8<0?index-8+allMazdoors.length:index-8)}}
+                    onClick={()=>{setIndex(index-8<0?index-8+allLabors.length:index-8)}}
                     className="fa fa-angle-left h-[64px] w-[64px] flex items-center justify-center bg-[#E0E0E0] hover:bg-[#EB5757] hover:text-white cursor-pointer rounded-[50%]">
                 </span>
                 <div className="flex flex-wrap w-[90%] justify-center">
-                    {map(mazdoors,(mazdoor,index)=>{
-                        return <LaborCard key={index} mazdoor={mazdoor} />
+                    {map(labors,(labor,index)=>{
+                        return <LaborCard key={index} labor={labor} />
                     })}
                 </div>
                 <span
-                    onClick={()=>{setIndex((index+8)%allMazdoors.length)}}
+                    onClick={()=>{setIndex((index+8)%allLabors.length)}}
                     className="fa fa-angle-right h-[64px] w-[64px] flex items-center justify-center bg-[#E0E0E0] hover:bg-[#EB5757] hover:text-white cursor-pointer rounded-[50%]">
                 </span>
             </div>

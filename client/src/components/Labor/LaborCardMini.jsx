@@ -1,4 +1,3 @@
-import { updatePopup } from "../../store/mazdoor/mazdoorSlice";
 import {motion} from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -10,7 +9,7 @@ const LaborCardMini=({labor})=>{
       initial={{opacity:0}}
       exit={{opacity:0}}
       title={labor.name}
-      className="select-none relative p-2 w-[350px] flex gap-2 h-[120px] rounded-md labor-card-shadow-hover bg-[#E0E0E0]">
+      className="select-none relative p-2 w-[350px] flex gap-2 h-[120px] rounded-md labor-card-shadow-hover bg-[#E0E0E0] hover:scale-105 transition-all duration-300">
       {/* details button */}
       <Link
         to={`/labor/${labor._id}`}
@@ -38,7 +37,7 @@ const LaborCardMini=({labor})=>{
       {/* starting quote */}
       <div className="flex flex-col justify-end items-center flex-[0.5]">
           <span className="text-[14px] text-[#EB5757]">Starting at</span>
-        <h1 className="text-[#222222] text-[18px] font-bold">1000pkr</h1>
+        <h1 className="text-[#222222] text-[18px] font-bold">{labor?.startingWage}pkr</h1>
       </div>
 
     </motion.div>

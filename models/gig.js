@@ -11,7 +11,7 @@ const gigSchema = new mongoose.Schema({
   category: { type: String, required: [true, "can't be blank"] },
   price: { type: Number, required: [true, "can't be blank"] },
   deliveryTime: { type: Number, required: [true, "can't be blank"] },
-  rating: {type: Number},
+  rating: { type: Number, default: 80 },
   user: { type: mongoose.Schema.Types.ObjectId, ref: "users" }
 }, { timestamps: true });
 

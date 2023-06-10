@@ -1,14 +1,16 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Link } from "react-router-dom";
 
 export const GigCard = ({ gig }) => {
   const [hover, setHover] = useState(false);
   return (
     // Gig Card
-    <section
+    <Link
+      to={`/gig/${gig._id}&${gig.user}`}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="flex flex-col w-[250px] cursor-pointer select-none rounded-sm border">
+      className="flex flex-col w-[250px] cursor-pointer select-none rounded-sm border hover:scale-105 transition-all duration-300">
       {/*  Gig image*/}
       <div className="h-[150px]">
         <img src={gig.image} alt="gig" className="w-full h-full object-cover rounded-sm" />
@@ -45,7 +47,7 @@ export const GigCard = ({ gig }) => {
         </span>
       </div>
 
-    </section>
+    </Link>
   );
 };
 

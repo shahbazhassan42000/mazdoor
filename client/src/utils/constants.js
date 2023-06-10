@@ -7,6 +7,7 @@ export const apiURL = process.env.REACT_APP_API_URL;
 export const statesURL="https://countriesnow.space/api/v0.1/countries/states";
 export const citiesURL="https://countriesnow.space/api/v0.1/countries/state/cities";
 export const imgBBURL = "https://api.imgbb.com/1/upload";
+export const ENV=process.env.NODE_ENV;
 export const token = localStorage.getItem('token');
 export const apiKey=process.env.REACT_APP_IMG_BB_API_KEY;
 export const headers = {

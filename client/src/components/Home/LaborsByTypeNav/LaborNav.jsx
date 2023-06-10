@@ -14,6 +14,7 @@ const LaborNav = ({ type, labors }) => {
         className="relative px-5 py-2 flex-1 clicked-shadow-hover cursor-pointer">{type}
       </li>
       {dropdown && <motion.div
+
         onMouseEnter={() => setDropdown(true)}
         onMouseLeave={() => setDropdown(false)}
         layout
