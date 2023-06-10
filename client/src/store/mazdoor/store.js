@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import mazdoorSlice, { loadLabors, loadLaborsTypes, loadTeam, loadUser, toggleLoading } from "./mazdoorSlice";
+import mazdoorSlice, { loadGigs, loadLabors, loadLaborsTypes, loadTeam, loadUser, toggleLoading } from "./mazdoorSlice";
 import api from "../middleware/api";
 import { ENV, token } from "../../utils/constants";
 
@@ -19,6 +19,8 @@ else store.dispatch(toggleLoading());
 store.dispatch(loadLabors());
 store.dispatch(loadTeam());
 store.dispatch(loadLaborsTypes())
+store.dispatch(loadGigs());
+
 
 
 

@@ -7,18 +7,18 @@ export const GigCard = ({ gig }) => {
   return (
     // Gig Card
     <Link
-      to={`/gig/${gig._id}&${gig.user}`}
+      to={`/gig/${gig?._id}&${gig?.user?._id}`}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className="flex flex-col w-[250px] cursor-pointer select-none rounded-sm border hover:scale-105 transition-all duration-300">
       {/*  Gig image*/}
       <div className="h-[150px]">
-        <img src={gig.image} alt="gig" className="w-full h-full object-cover rounded-sm" />
+        <img src={gig?.image} alt="gig" className="w-full h-full object-cover rounded-sm" />
       </div>
       {/*  Gig Title*/}
       <h2
         className={`${hover && "text-primary"} text-darkBlack text-[16px] leading-[22px] gigCard-title break-words h-[53px] px-[12px] py-[5px]`}>
-        {gig.title}
+        {gig?.title}
       </h2>
       {/*Gig Rating*/}
       <div className="px-[12px] mt-2">
@@ -43,7 +43,7 @@ export const GigCard = ({ gig }) => {
           <h3 className="uppercase text-[14px]">
           Starting at
         </h3>
-          <h3 className="text-darkBlack text-[16px]">Rs{gig?.price}</h3>
+          <h3 className="text-darkBlack text-[16px]">{gig?.price}pkr</h3>
         </span>
       </div>
 

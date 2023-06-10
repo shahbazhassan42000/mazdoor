@@ -20,7 +20,7 @@ const LaborCardMini=({labor})=>{
           <img src={labor.image} alt="labor" className="w-full h-full object-cover rounded-[50%]"/>
       </div>
       {/* Name and rating */}
-      <div className="flex flex-col gap-2 justify-end gap-5 py-5 flex-1">
+      <div className="flex flex-col justify-end gap-5 py-5 flex-1">
         <h2 className="text-[#222222] text-[18px] font-bold whitespace-nowrap overflow-hidden truncate max-w-full">{labor.name}</h2>
         <div className="h-[15%]">
           <div className="flex justify-between">

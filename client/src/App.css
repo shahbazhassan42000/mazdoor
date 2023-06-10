@@ -61,7 +61,7 @@
     font-weight: 600;
 }
 
-.actSecond{
+.actSecond {
     color: white;
     background: #EB5757;
     font-weight: 600;
@@ -123,6 +123,7 @@
     background-color: var(--secondary-color);
     color: var(--light-black-color);
 }
+
 .primary-btn:disabled {
     background-color: #C5C6C9;
     color: #333333;
@@ -133,26 +134,32 @@
     box-shadow: 0 10px 13px rgba(0, 0, 0, 0.13);
 }
 
-.clicked-shadow{
+.clicked-shadow {
     box-shadow: 0 10px 13px rgba(0, 0, 0, 0.13);
 }
-.clicked-shadow-hover:hover{
+
+.clicked-shadow-hover:hover {
     box-shadow: 0 10px 13px rgba(0, 0, 0, 0.13);
 }
-.labor-card-shadow{
-    box-shadow: 0 14px 40px rgba(109, 141, 173, 0.25);
-}
-.labor-card-shadow-hover:hover{
+
+.labor-card-shadow {
     box-shadow: 0 14px 40px rgba(109, 141, 173, 0.25);
 }
 
-.heading-1{
+.labor-card-shadow-hover:hover {
+    box-shadow: 0 14px 40px rgba(109, 141, 173, 0.25);
+}
+
+.heading-1 {
     font-size: 2.5rem;
     font-weight: 700;
     color: var(--primary-color);
 }
 
 
+.chat-popup-shadow {
+    box-shadow: 0 0 2.17382px rgba(0, 0, 0, .049), 0 1.75px 6.01034px rgba(0, 0, 0, .07), 0 3.63px 14.4706px rgba(0, 0, 0, .091), 0 22px 48px rgba(0, 0, 0, .14);
+}
 
 
 .inp {
@@ -183,7 +190,8 @@
     color: #333;
     background-color: var(--secondary-color);
 }
-.card-grid{
+
+.card-grid {
     overflow: hidden;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -193,7 +201,7 @@
     /*margin: 1rem 0;*/
 }
 
-.gigCard-title{
+.gigCard-title {
     word-wrap: break-word;
     word-break: break-word;
     overflow: hidden;

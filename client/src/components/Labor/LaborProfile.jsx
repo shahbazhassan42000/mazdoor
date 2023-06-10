@@ -31,15 +31,16 @@ export const LaborProfile = () => {
   return (
     <section className="flex lg:flex-row lg:gap-0 gap-5 flex-col px-20">
       {/*Labor Profile*/}
-      {/*Labor Profile*/}
       <section className="min-w-[28%]">
-        <LaborContactCard labor={labor} />
-        {/*loading*/}
-        {loading1 && <div className="popup-overlay !absolute">
-          <div className="popup-container !absolute">
-            <img className="h-[10vw]" src={loadingGif} alt="loading" />
-          </div>
-        </div>}
+        <div className="relative">
+          <LaborContactCard labor={labor} />
+          {/*loading*/}
+          {loading1 && <div className="popup-overlay !absolute">
+            <div className="popup-container !absolute">
+              <img className="h-[10vw]" src={loadingGif} alt="loading" />
+            </div>
+          </div>}
+        </div>
       </section>
       {/*Labor Gigs*/}
       <section className="flex flex-col flex-1 relative px-8">

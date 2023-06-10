@@ -1,9 +1,25 @@
 import plumber from "../../assets/images/plumber-bg.png";
-import labor_1 from "../../assets/images/labors-carousal/labors-1.jpeg"
+import labor_1 from "../../assets/images/labors-carousal/labors-1.jpeg";
 import LaborsByTypeNav from "./LaborsByTypeNav/LaborsByTypeNav";
 import LaborsByType from "./LaborsByType/LaborsByType";
+import { useRandomGigs } from "../../Hooks/useRandomGigs";
+import { GigCard } from "../Gig/GigCard";
+import { useEffect, useState } from "react";
+import loadingGif from "../../assets/gifs/loading.gif";
+import { map } from "lodash";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+
+  const gigs=useSelector((state)=>state.mazdoorStore.gigs);
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+    if (gigs) {
+      setLoading(false);
+    }
+  }, [gigs]);
   return (
     <div className="flex flex-col">
       {/*hero section*/}
@@ -42,7 +58,7 @@ const Home = () => {
       <LaborsByType />
       {/*ourself section*/}
       <div className="flex justify-between gap-10 px-20 py-16 bg-[#F9CDCD]">
-        <div className="text-[#404145] flex-1">
+        <div className="text-midBlack flex-1">
           <div className="flex flex-col gap-5 w-[80%]">
             <h1 className="font-bold text-[38px] mb-5">
               A whole world of Labors talent at your single click
@@ -89,11 +105,29 @@ const Home = () => {
             </p>
           </div>
         </div>
-         {/*labors carousal*/}
+        {/*Labors poster*/}
         <div className="flex justify-center items-center flex-1">
-              <img className="rounded-sm clicked-shadow-hover" src={labor_1} alt="laborers"/>
+          <img className="rounded-sm clicked-shadow-hover" src={labor_1} alt="laborers" />
         </div>
       </div>
+      {/* Recommended Gigs*/}
+      <section className="flex flex-col gap-10 px-20 my-10">
+        <h1 className="text-2xl text-midBlack font-bold">Gigs you may like</h1>
+        <div className="min-h-[500px] w-full relative">
+          {loading
+            ?
+            <div className="popup-overlay !absolute">
+              <div className="popup-container !absolute">
+                <img className="h-[10vw]" src={loadingGif} alt="loading"/>
+              </div>
+            </div>
+            :
+            <div className="flex flex-wrap justify-center  items-center lg:grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-2 gap-5">
+              {map(gigs.slice(0,12),(gig) => <GigCard key={gig._id} gig={gig} />)}
+            </div>
+          }
+        </div>
+      </section>
     </div>
   );
 };

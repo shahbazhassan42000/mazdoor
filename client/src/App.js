@@ -9,6 +9,7 @@ import loadingGif from "./assets/gifs/loading.gif";
 import { ProfileCompletedMsg } from "./components/ProfileCompletedMsg";
 import { useLocation } from "react-router-dom"
 import NotificationContainer from "react-notifications/lib/NotificationContainer";
+import { useEffect } from "react";
 
 function App() {
   const location = useLocation()
@@ -17,6 +18,10 @@ function App() {
   const user=useSelector((state) => state.mazdoorStore.user);
   const popup=useSelector(state=>state.mazdoorStore.popup);
   const loading = useSelector((state) => state.mazdoorStore.loading);
+  useEffect(() => {
+    // Scroll to the top whenever the location changes
+    window.scrollTo(0, 0);
+  }, [location]);
   return (
     <>
       {user ? <MainHeader /> : <Header />}

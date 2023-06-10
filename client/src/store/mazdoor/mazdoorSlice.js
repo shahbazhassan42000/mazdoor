@@ -10,6 +10,7 @@ const mazdoorSlice = createSlice({
     profileCompleted: { status: false, percent: 10 },
     labors: [],
     team: [],
+    gigs: [],
     laborTypes: [],
     popup: {
       status: false,
@@ -40,6 +41,9 @@ const mazdoorSlice = createSlice({
     },
     teamReceived(state, action) {
       state.team = action.payload;
+    },
+    gigsReceived(state, action) {
+      state.gigs = action.payload;
     },
     userReceived(state, action) {
       state.user = action.payload.user;
@@ -81,6 +85,7 @@ const {
   updatePopup,
   laborReceived,
   teamReceived,
+  gigsReceived,
   userReceived,
   redirectToLogin,
   laborTypesReceived
@@ -94,6 +99,7 @@ export {
   laborReceived,
   teamReceived,
   userReceived,
+  gigsReceived,
   redirectToLogin,
   updateProfileCompleted
 };
@@ -127,6 +133,14 @@ export const loadLaborsTypes = () => apiCallBegan({
   headers,
   method: "get",
   onSuccess: laborTypesReceived.type
+});
+
+
+export const loadGigs=()=>apiCallBegan({
+  url: `${apiURL}gigs`,
+  headers,
+  method: "get",
+  onSuccess: gigsReceived.type
 });
 
 

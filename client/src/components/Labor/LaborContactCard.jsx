@@ -7,7 +7,7 @@ import SendIcon from "@mui/icons-material/Send";
 
 export const LaborContactCard = ({ labor }) => {
   return (
-    <div className="flex flex-col justify-center items-center p-8 min-w-[28%]  rounded-sm border-2">
+    <div className="flex flex-col justify-center items-center p-8 min-w-[28%] relative rounded-sm border-2">
       {/*Labor Image*/}
       <a
         rel="noreferrer"

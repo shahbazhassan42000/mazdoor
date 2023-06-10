@@ -1,21 +1,30 @@
 import logo from "../assets/images/mazdoor-logo-file-web 1.png";
+import { Link } from "react-router-dom";
 
 const Footer=()=>{
     return (
-        <footer className="flex flex-col space-y-10 px-20">
+        <footer className="flex flex-col space-y-10 px-20 pt-5 bg-lightBg">
             <div className="flex justify-between">
                 <div className="flex flex-col space-y-8 w-[270px]">
                     <div>
-                        <a href="#root" className="w-[22%]">
+                        <Link
+                          to="/"
+                           className="w-[22%]">
                             <img className="object-fill w-[100%] h-[100%]" src={logo} alt="logo"/>
-                        </a>
+                        </Link>
                     </div>
                     <p className="text-[16px] font-[500] text-[#333333] leading-[30px]">
                         Our job is to find you Labor at your Door Step on just a Phone call free of cost.
                     </p>
                     <div className="flex space-x-8">
-                        <a href="https://www.instagram.com/mazdoor.pk/" className="text-[#EB5757] text-[24px] hover:text-black fa-brands fa-instagram"></a>
-                        <a href="https://www.facebook.com/Mazdoor.Pak/" className="text-[#EB5757] text-[24px] hover:text-black fa-brands fa-facebook-f"></a>
+                        <a
+                          target="_blank"
+                          href="https://www.instagram.com/mazdoor.pk/"
+                           className="text-[#EB5757] text-[24px] hover:text-black fa-brands fa-instagram"></a>
+                        <a
+                          target="_blank"
+                          href="https://www.facebook.com/Mazdoor.Pak/"
+                           className="text-[#EB5757] text-[24px] hover:text-black fa-brands fa-facebook-f"></a>
                     </div>
                 </div>
                 <div className="flex space-x-8 pt-7">
@@ -41,7 +50,7 @@ const Footer=()=>{
                 </div>
             </div>
             <div>
-                <p className="font-[600] text-[16px] py-2 text-center leading-[22px]">
+                <p className="font-[600] border-t text-[16px] py-2 text-center leading-[22px]">
                     Mazdoor, 2023 © Shahbaz Inc. All rights reserved.
                 </p>
             </div>
