@@ -18,8 +18,11 @@ if(token) store.dispatch(loadUser());
 else store.dispatch(toggleLoading());
 store.dispatch(loadLabors());
 store.dispatch(loadTeam());
-store.dispatch(loadLaborsTypes())
-store.dispatch(loadGigs());
+if(token){
+  store.dispatch(loadLaborsTypes());
+  store.dispatch(loadGigs());
+}
+
 
 
 

@@ -3,24 +3,33 @@ import Msg from "./Msg";
 import Notification from "./Notification";
 import ProfileCircle from "./ProfileCircle";
 import { Link } from "react-router-dom";
-import {useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { SearchBar } from "./SearchBar";
+import { useSelector } from "react-redux";
 
 const MainHeader = () => {
-  const location=useLocation();
+  const location = useLocation();
+  const user = useSelector((state) => state.mazdoorStore.user);
   return (
     <header className="bg-white flex w-full items-center text-[#333] gap-10 justify-between py-5 px-20 relative">
       <Link to="/" className="w-[22%]">
         <img className="object-fill w-[100%] h-[100%]" src={logo} alt="logo" />
       </Link>
       <ul className="flex space-x-5 items-center text-[#333] flex-1">
-        <SearchBar/>
+        <SearchBar />
         <div className="flex space-x-5 items-center justify-self-end">
           <Notification />
-          <Msg/>
+          <Msg />
           <i className="not-italic text-[24px] fa-regular fa-heart hover:text-[#EB5757] cursor-pointer"></i>
-          <i className="not-italic"><a className="text-[18px] font-bold hover:text-[#EB5757] font-[500]" href="client/src/components/MainHeader/MainHeader#">Orders</a></i>
-          <ProfileCircle/>
+          {user?.role !== "ADMIN" &&
+            <i className="not-italic">
+              <a className="text-[18px] hover:text-[#EB5757] font-[500]"
+                 href="">
+                Orders
+              </a>
+            </i>
+          }
+          <ProfileCircle />
         </div>
       </ul>
     </header>

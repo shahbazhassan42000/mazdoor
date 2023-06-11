@@ -1,12 +1,20 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { GigCarousal } from "../../Gig/GigCarousal";
 
-export const DashboardMain = ({user}) => {
-  const [createGigBtn, setCreateGigBtn] = useState(false);
-  console.log("render");
+
+export const DashboardMain = () => {
+  const user = useSelector((state) => state.mazdoorStore.user);
   return (
-      <section className="relative">
-        {/*Create Gig button*/}
+    <section className="relative flex flex-col">
+      {/*User Gigs*/}
+      {user?.role==="LABOR" && <div className="w-full my-10">
+        {user?.gigs?.length > 0 && <GigCarousal gigs={user?.gigs} count={4} /> }
+      </div>
+      }
+      {/*Create Gig button*/}
+      {user?.role === "LABOR" &&
         <div className="flex justify-end">
           <Link
             to="/dashboard/dashboard/create-gig"
@@ -14,6 +22,7 @@ export const DashboardMain = ({user}) => {
             Create New Gig
           </Link>
         </div>
-      </section>
+      }
+    </section>
   );
 };

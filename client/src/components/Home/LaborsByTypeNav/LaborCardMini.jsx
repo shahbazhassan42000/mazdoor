@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const LaborCardSimple=({labor})=>{
+const LaborCardMini=({labor})=>{
   return(
     <Link
       to={`/labor/${labor._id}`}
@@ -22,4 +22,4 @@ const LaborCardSimple=({labor})=>{
     </Link>
   );
 }
-export default LaborCardSimple;
+export default LaborCardMini;

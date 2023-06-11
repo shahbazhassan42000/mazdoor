@@ -8,10 +8,11 @@ import { useEffect, useState } from "react";
 import loadingGif from "../../assets/gifs/loading.gif";
 import { map } from "lodash";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 
-  const gigs=useSelector((state)=>state.mazdoorStore.gigs);
+  const gigs = useSelector((state) => state.mazdoorStore.gigs);
   const [loading, setLoading] = useState(true);
 
 
@@ -41,11 +42,11 @@ const Home = () => {
             <p className="text-[18px] leading-[30px] w-[430px] font-[500]">
               Our job is to filling your provide you mazdoor with fast and free method at doorstep
             </p>
-            <a
-              className="text-center primary-btn  !text-[#333] !bg-[#F2C94C] w-fit hover:!bg-white hover:!text-[#EB5757] !rounded-[25px]"
-              href="#mazdoors">
+            <Link
+              to="/gigs"
+              className="text-center primary-btn  !text-[#333] !bg-[#F2C94C] w-fit hover:!bg-white hover:!text-[#EB5757] !rounded-[25px]">
               Find Mazdoor
-            </a>
+            </Link>
           </div>
           <div className="w-[50%] flex justify-end relative">
             <img className="object-fill h-[82vh] w-[95%]" src={plumber} alt="constructor drilling" />
@@ -118,14 +119,23 @@ const Home = () => {
             ?
             <div className="popup-overlay !absolute">
               <div className="popup-container !absolute">
-                <img className="h-[10vw]" src={loadingGif} alt="loading"/>
+                <img className="h-[10vw]" src={loadingGif} alt="loading" />
               </div>
             </div>
             :
-            <div className="flex flex-wrap justify-center  items-center lg:grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-2 gap-5">
-              {map(gigs.slice(0,12),(gig) => <GigCard key={gig._id} gig={gig} />)}
+            <div
+              className="flex flex-wrap justify-center  items-center lg:grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-2 gap-5">
+              {map(gigs.slice(0, 12), (gig) => <GigCard key={gig._id} gig={gig} />)}
             </div>
           }
+        </div>
+        <div className="flex justify-center">
+          <Link
+            to="/gigs"
+            className="primary-btn "
+          >
+            View More
+          </Link>
         </div>
       </section>
     </div>

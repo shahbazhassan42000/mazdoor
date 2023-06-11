@@ -282,7 +282,7 @@ export const ProfileSetting = () => {
       <div className="w-full flex gap-5">
         <div className="flex-1 flex flex-col gap-5">
           <h2 className="text-[22px] font-bold mb-2">Edit Profile</h2>
-          <Accordion>
+          <Accordion defaultExpanded>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
             >
@@ -363,7 +363,7 @@ export const ProfileSetting = () => {
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
                 />
-                <TextField
+                {user?.role === "LABOR" &&<TextField
                   fullWidth
                   sx={{
                     "& .MuiOutlinedInput-root": {
@@ -387,7 +387,7 @@ export const ProfileSetting = () => {
                       {laborType}
                     </MenuItem>
                   ))}
-                </TextField>
+                </TextField>}
                 {type === "Others" &&
                   <TextField
                     fullWidth
@@ -438,7 +438,7 @@ export const ProfileSetting = () => {
                   helperText="e.g, +923xxxxxxxxx"
                   onChange={e => setPhone("923" + e.target.value)}
                 />
-                <TextField
+                {user?.role === "LABOR" &&<TextField
                   fullWidth
                   sx={{
                     "& .MuiOutlinedInput-root": {
@@ -460,7 +460,7 @@ export const ProfileSetting = () => {
                   type="number"
                   value={startingWage}
                   onChange={(e) => setStartingWage(e.target.value)}
-                />
+                />}
 
                 <TextField
                   fullWidth
@@ -562,7 +562,7 @@ export const ProfileSetting = () => {
               </div>
             </AccordionDetails>
           </Accordion>
-          <Accordion defaultExpanded>
+          <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
             >

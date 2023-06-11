@@ -54,11 +54,29 @@ export default {
     if (check !== "") {
       return res.status(400).json({ error: check });
     }
+
+    // check if password is 8 character long and have at least one number and one alphabet and one special character and one uppercase
+    if (!req.body.user.password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8}$/)) {
+      return res.status(400).json({
+        type: "password",
+        msg: "Password must be at lease 8 characters, one uppercase, one digit, one alphabet and one special character"
+      });
+    }
     let user = new User();
     Object.assign(user, req.body.user);
     if (user.role === "LABOR") Object.assign(user, { rating: 90, startingWage: 1000 });
-    if (user.role !== "ADMIN") Object.assign(user, { status: "unverified", profileCompleted: false });
-    validatePaymentMethod(user);
+    if (user.role !== "ADMIN") {
+      Object.assign(user, { status: "unverified", profileCompleted: false });
+      validatePaymentMethod(user);
+    }
+
+    if (user.role === "ADMIN") {
+      console.log("admin");
+      if (user.gigs) delete user.gigs;
+      console.log(user);
+    }
+
+
     user.setPassword(req.body.user.password);
 
     //adding new labor type if not exist
@@ -141,10 +159,19 @@ export default {
 
     //adding new labor type if not exist
     if (user.type) AddNewLaborType(user.type);
+
+    //get user from db
+    User.findById(user._id).then(u => {
+      if (u) {
+        if (u.role !== "ADMIN") {
+          updateProfileCompleted(user);
+        }
+      }
+    }).catch(next);
+
+    //updating validate payment method
     validatePaymentMethod(user);
 
-    //updating profileCompleted
-    updateProfileCompleted(user);
 
     //removed username, password,email,role from update if exist
     if (user.username) delete user.username;

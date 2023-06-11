@@ -15,6 +15,7 @@ import "react-notifications/lib/notifications.css";
 import { CreateGig } from "./components/Dashboard/DashboardMain/CreateGig";
 import { LaborProfile } from "./components/Labor/LaborProfile";
 import { GigPreview } from "./components/Gig/GigPreview";
+import { Gigs } from "./components/Gig/Gigs";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
         <Route path="/dashboard/:tab/create-gig" element={<ProtectedRoute children={<CreateGig />} />} />
         <Route path="/labor/:id" element={<ProtectedRoute children={<LaborProfile />} />} />
         <Route path="/gig/:id" element={<ProtectedRoute children={<GigPreview />} />} />
+        <Route path="gigs" element={<ProtectedRoute children={<Gigs />} />} />
         <Route path="/api/users/verification/:id/verify/:token" element={<EmailVerify />} />
       </Route>
       <Route path="*" element={<Error />} />

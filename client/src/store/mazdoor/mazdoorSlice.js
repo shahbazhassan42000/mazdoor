@@ -57,7 +57,7 @@ const mazdoorSlice = createSlice({
           else if (state.user.CNIC && state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 50;
           else if (state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 30;
           else state.profileCompleted.percent = 10;
-        }else{
+        }else if(state.user.role!=="ADMIN"){
           if (state.user.CNIC && state.user.phone && state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 70;
           else if (state.user.CNIC && state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 50;
           else if (state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 30;

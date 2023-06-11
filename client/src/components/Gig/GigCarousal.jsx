@@ -3,49 +3,81 @@ import { map } from "lodash";
 import { GigCard } from "./GigCard";
 import { useEffect, useState } from "react";
 
-export const GigCarousal = ({ gigs, count }) => {
-  console.log(gigs, count);
+export const GigCarousal = ({ gigs, count, cols, type }) => {
+  const cls = `grid-cols-${cols}`;
 
-  // initialize the index with zero
   const [index, setIndex] = useState(0);
   const [filteredGigs, setFilteredGigs] = useState([]);
-  // function to increment the index in a circular way
   const forward = () => {
-    // add one to the index and use modulus operator to wrap around the array length
+    if (gigs?.length <= count) return;
     setIndex((index + count) % gigs?.length);
   };
 
-  // function to decrement the index in a circular way
   const backward = () => {
-    // subtract one from the index and use modulus operator to wrap around the array length
-    // add the array length to avoid negative values
+    if (gigs?.length <= count) return;
     setIndex((index - count + gigs?.length) % gigs?.length);
   };
   useEffect(() => {
+    console.log("index updated", index);
     const filtered = [];
-    for (let i = 0; i < count; i++) {
-      // Use modulo to wrap around the index
-      let j = (index + i) % gigs?.length;
-      filtered.push(gigs[j]);
+    if (gigs?.length > count) {
+      for (let i = 0; i < count; i++) {
+        // Use modulo to wrap around the index
+        let j = (index + i) % gigs?.length;
+        filtered.push(gigs[j]);
+      }
+      setFilteredGigs(filtered);
+    } else {
+      setFilteredGigs(gigs);
     }
-    setFilteredGigs(filtered);
   }, [index]);
 
 
   return (
-    <Carousel
-      next={() => forward()}
-      prev={() => backward()}
-      indicators={false}
-      fullHeightHover={false} // this will make the items have their own height
-      autoPlay={false}
-      animation="slide"
-      interval={5000}
-    >
-      <div className="flex justify-evenly gap-5">
-        {map(filteredGigs, (gig) => <GigCard key={gig?._id} gig={gig} />)}
-      </div>
-    </Carousel>
+    type ?
+      <Carousel
+        next={() => forward()}
+        prev={() => backward()}
+        indicators={false}
+        fullHeightHover={false} // this will make the items have their own height
+        autoPlay={false}
+        animation="slide"
+        interval={5000}
+        navButtonsProps={{
+          style: {
+            backgroundColor: "#EB5757",
+            borderRadius: 6,
+            width: 130,
+          }
+        }}
+        navButtonsWrapperProps={{
+          style: {
+            bottom: "0",
+            top: "unset"
+          }
+        }}
+        NextIcon="next"
+        PrevIcon="prev"
+      >
+        <div className={`flex justify-evenly w-full gap-5 ${cols && `grid justify-items-center ${cls}`}`}>
+          {map(filteredGigs, (gig) => <GigCard key={gig?._id} gig={gig} />)}
+        </div>
+      </Carousel>
+      :
+      <Carousel
+        next={() => forward()}
+        prev={() => backward()}
+        indicators={false}
+        fullHeightHover={false} // this will make the items have their own height
+        autoPlay={false}
+        animation="slide"
+        interval={5000}
+      >
+        <div className={`flex justify-evenly w-full gap-5 ${cols && `grid justify-items-center ${cls}`}`}>
+          {map(filteredGigs, (gig) => <GigCard key={gig?._id} gig={gig} />)}
+        </div>
+      </Carousel>
+
   );
 
 };

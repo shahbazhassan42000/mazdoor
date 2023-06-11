@@ -4,8 +4,11 @@ import PersonIcon from "@mui/icons-material/Person";
 import { format } from "date-fns";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SendIcon from "@mui/icons-material/Send";
+import { useDispatch } from "react-redux";
+import { updatePopup } from "../../store/mazdoor/mazdoorSlice";
 
 export const LaborContactCard = ({ labor }) => {
+  const dispatch = useDispatch();
   return (
     <div className="flex flex-col justify-center items-center p-8 min-w-[28%] relative rounded-sm border-2">
       {/*Labor Image*/}
@@ -33,7 +36,9 @@ export const LaborContactCard = ({ labor }) => {
         </div>
       </div>
       {/*Contact me button*/}
-      <button className="primary-btn my-3 !text-[1rem] !py-[5px]">Contact Me</button>
+      <button
+        onClick={() => dispatch(updatePopup({ status: true, type: "contactLabor", message: labor }))}
+        className="primary-btn my-3 !text-[1rem] !py-[5px]">Contact Me</button>
       {/*horizontal line*/}
       <hr className="w-full mb-3" />
       {/*Labor Details */}
@@ -83,7 +88,7 @@ export const LaborContactCard = ({ labor }) => {
         <div className="flex w-full justify-between text-lightBlack">
           {/*Icon with text */}
           <span className="flex items-center gap-2">
-                    <SendIcon fontSize="small" />
+                    <SendIcon className="-rotate-45" fontSize="small" />
                     <p>Last Delivery</p>
                   </span>
           {/*  Detail */}

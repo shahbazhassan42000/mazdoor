@@ -7,7 +7,7 @@ export const GigCard = ({ gig }) => {
   return (
     // Gig Card
     <Link
-      to={`/gig/${gig?._id}&${gig?.user?._id}`}
+      to={`/gig/${gig?._id}&${gig?.user?._id || gig?.user}`}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className="flex flex-col w-[250px] cursor-pointer select-none rounded-sm border hover:scale-105 transition-all duration-300">

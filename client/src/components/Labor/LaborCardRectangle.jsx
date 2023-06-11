@@ -1,7 +1,7 @@
 import {motion} from "framer-motion";
 import { Link } from "react-router-dom";
 
-const LaborCardMini=({labor})=>{
+const LaborCardRectangle=({labor})=>{
   return(
     <motion.div
       layout
@@ -43,4 +43,4 @@ const LaborCardMini=({labor})=>{
     </motion.div>
   );
 }
-export default LaborCardMini;
+export default LaborCardRectangle;

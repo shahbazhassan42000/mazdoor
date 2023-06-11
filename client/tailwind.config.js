@@ -15,7 +15,8 @@ module.exports = {
         darkBlack:"#222325",
         border: "#C5C6C9",
         bg: "#f8f8f8",
-        lightGray: "#74767e"
+        lightGray: "#74767e",
+        borderLight:"#dadbdd"
       }
     }
   },

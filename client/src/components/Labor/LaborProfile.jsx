@@ -29,9 +29,9 @@ export const LaborProfile = () => {
   }, []);
 
   return (
-    <section className="flex lg:flex-row lg:gap-0 gap-5 flex-col px-20">
+    <section className="flex lg:flex-row lg:gap-0 gap-5 flex-col px-20 my-10">
       {/*Labor Profile*/}
-      <section className="min-w-[28%]">
+      <section className="min-w-[28%] mt-5">
         <div className="relative">
           <LaborContactCard labor={labor} />
           {/*loading*/}
@@ -46,7 +46,7 @@ export const LaborProfile = () => {
       <section className="flex flex-col flex-1 relative px-8">
         <h1 className="text-xl font-bold mb-2">{labor.username}'s Gigs</h1>
         <div className="flex flex-wrap justify-center  items-center lg:grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 gap-5">
-          {labor.gigs.map((gig) => (
+          {labor?.gigs && labor.gigs.map((gig) => (
             <GigCard key={gig._id} gig={gig} />
           ))}
         </div>
