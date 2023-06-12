@@ -56,7 +56,7 @@ export default {
     }
 
     // check if password is 8 character long and have at least one number and one alphabet and one special character and one uppercase
-    if (!req.body.user.password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8}$/)) {
+    if (!req.body.user.password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$\-!%*?&])[A-Za-z\d@\-$!%*?&]{8}$/)) {
       return res.status(400).json({
         type: "password",
         msg: "Password must be at lease 8 characters, one uppercase, one digit, one alphabet and one special character"
@@ -160,14 +160,7 @@ export default {
     //adding new labor type if not exist
     if (user.type) AddNewLaborType(user.type);
 
-    //get user from db
-    User.findById(user._id).then(u => {
-      if (u) {
-        if (u.role !== "ADMIN") {
-          updateProfileCompleted(user);
-        }
-      }
-    }).catch(next);
+    updateProfileCompleted(user);
 
     //updating validate payment method
     validatePaymentMethod(user);
@@ -207,12 +200,11 @@ export default {
   },
   checkEmail(req, res, next) {
     const user = req.body.user;
-    if (!user || size(user) !== 2) {
+    if (!user || size(user) !== 1) {
       return res.sendStatus(400);
     }
     if (!user.email) return res.status(400).json({ error: "Email can't be blank" });
-    if (!user.role) return res.status(400).json({ error: "Role can't be blank" });
-    User.findOne({ email: user.email, role: user.role }).then(user => {
+    User.findOne({ email: user.email }).then(user => {
       if (user) return res.status(200).json({ status: "error", message: "Email is already taken" });
       else return res.status(200).json({ status: "success", message: "Email is available" });
     }).catch(next);

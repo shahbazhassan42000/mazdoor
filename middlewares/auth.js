@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 const User = mongoose.model("users");
 export default {
   authenticate(req, res, next) {
-    const secretKey=process.env.SECRET_KEY;
+    const secretKey = process.env.SECRET_KEY;
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     if (!token) {
@@ -18,16 +18,16 @@ export default {
       }
       //check if user is exists
       User.findById(user.id) // find the user by id
-        .populate("gigs","-__v") // populate the gigs field with the gig documents
+        .populate("gigs", "-__v") // populate the gigs field with the gig documents
         .exec((err, user) => {
-        if(user){
-          req.user = user;
-          return next();
-        }else{
-          console.log("User not exists against the token");
-          return res.status(401).json({ message: 'Unauthenticated' });
-        }
-      })
+          if (user) {
+            req.user = user;
+            return next();
+          } else {
+            console.log("User not exists against the token");
+            return res.status(401).json({ message: 'Unauthenticated' });
+          }
+        })
     });
   },
   authorize(roles = []) {
