@@ -11,7 +11,7 @@ const ProfileCircle = () => {
         className="object-cover w-full h-full rounded-[50%] border hover:border-primary"
         title={user.name}
         onClick={() => setProfile(!profile)}
-        src={user.image} alt="profile picture"/>
+        src={user.image} alt="profile"/>
       {profile && <Profile setProfile={setProfile}/>}
     </div>
   );

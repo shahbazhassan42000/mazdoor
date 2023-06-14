@@ -1,20 +1,55 @@
 import { useDispatch, useSelector } from "react-redux";
-import { updatePopup } from "../store/mazdoor/mazdoorSlice";
+import { loadConversations, updatePopup } from "../store/mazdoor/mazdoorSlice";
 import Badge from "@mui/material/Badge";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import SendIcon from "@mui/icons-material/Send";
 import msg_sent from "../assets/svgs/msg-sent.svg"
+import loadingGif from "../assets/gifs/loading.gif";
+import axios from "axios";
+import { apiURL, headers, sendMessageURL } from "../utils/constants";
+import { NotificationManager } from "react-notifications";
+import { Link } from "react-router-dom";
 
 export const ContactLabor = () => {
   const [msg, setMsg] = useState("");
   const [focus, setFocus] = useState(false);
   const dispatch = useDispatch();
   const popup = useSelector((state) => state.mazdoorStore.popup);
+  const user = useSelector((state) => state.mazdoorStore.user);
+  const [loading, setLoading] = useState(false);
+
   const [fragment, setFragment] = useState(true);
+
+  useEffect(() => {
+    if (user) setLoading(false);
+  }, [user]);
 
   const onMsgSend = (e) => {
     e.preventDefault();
-    setFragment(false);
+    //send message to labor
+    const message = {
+      sender: user?._id,
+      receiver: popup?.message?._id,
+      message: msg
+    }
+
+    setLoading(true);
+    //send message to labor
+    axios.request({
+      baseURL: apiURL,
+      url: sendMessageURL,
+      method: "post",
+      headers,
+      data: {message}
+    }).then(res => { 
+      dispatch(loadConversations(user?._id));
+      setFragment(false);
+    }).catch(err => { 
+      console.log(err);
+      NotificationManager.error("While sending message, Please try again later", "ERROR!", 5000);
+    }).finally(() => { 
+      setLoading(false);
+    });
   }
 
   return (
@@ -65,7 +100,7 @@ export const ContactLabor = () => {
             maxLength={2500}
             spellCheck={true}
             placeholder={`Ask ${popup?.message?.username} a question or share your project details (requirements, timeline, budget, etc.)`}
-            className="p-[20px] placeholder-midBlack outline-none min-h-[230px] text-[16px] text-darkBlack resize-none" />;
+            className="p-[20px] placeholder-midBlack outline-none min-h-[230px] text-[16px] text-darkBlack resize-none" />
           {/*  Textarea count*/}
           <div className="flex w-full justify-end p-[8px_24px_12px_24px]">
             <span className="text-lightGray text-[16px]">{msg?.length}/2500</span>
@@ -94,9 +129,17 @@ export const ContactLabor = () => {
           <button
             onClick={() => dispatch(updatePopup({ status: false, type: popup.type, message: popup.message }))}
             className="primary-btn !py-[8px] w-full mb-3">Got it</button>
-          <button className="secondary-btn !py-[8px] w-full">View Message</button>
+          <Link 
+            onClick={() => dispatch(updatePopup({ status: false, type: popup.type, message: popup.message }))}
+            to={`/inbox/${popup?.message?.username}`}
+            className="secondary-btn text-center !py-[8px] w-full">View Message</Link>
         </div>
       }
+      {loading && <div className="popup-overlay !absolute">
+            <div className="popup-container !absolute">
+              <img className="h-[10vw]" src={loadingGif} alt="loading" />
+            </div>
+          </div>}
     </section>
   )
     ;

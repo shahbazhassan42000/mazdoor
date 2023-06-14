@@ -35,6 +35,7 @@ const Login = () => {
       headers: {
         'Content-Type': 'application/json',
       },
+      cors:true,
       data:{user:formObject}
     }).then((res) => {
       //store token in localstorage

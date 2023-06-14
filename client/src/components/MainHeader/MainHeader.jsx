@@ -3,12 +3,10 @@ import Msg from "./Msg";
 import Notification from "./Notification";
 import ProfileCircle from "./ProfileCircle";
 import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import { SearchBar } from "./SearchBar";
 import { useSelector } from "react-redux";
 
 const MainHeader = () => {
-  const location = useLocation();
   const user = useSelector((state) => state.mazdoorStore.user);
   return (
     <header className="bg-white flex w-full items-center text-[#333] gap-10 justify-between py-5 px-20 relative">
@@ -24,7 +22,7 @@ const MainHeader = () => {
           {user?.role !== "ADMIN" &&
             <i className="not-italic">
               <a className="text-[18px] hover:text-[#EB5757] font-[500]"
-                 href="">
+                 href="#">
                 Orders
               </a>
             </i>

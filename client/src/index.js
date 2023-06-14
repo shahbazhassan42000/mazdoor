@@ -16,6 +16,7 @@ import { CreateGig } from "./components/Dashboard/DashboardMain/CreateGig";
 import { LaborProfile } from "./components/Labor/LaborProfile";
 import { GigPreview } from "./components/Gig/GigPreview";
 import { Gigs } from "./components/Gig/Gigs";
+import { Inbox } from "./components/Chat/Inbox";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,10 +27,13 @@ const router = createBrowserRouter(
       <Route errorElement={<Error />}>
         <Route path="/" element={<HomePageRender />} />
         <Route path="/dashboard/:tab" element={<ProtectedRoute children={<Dashboard />} />} />
+        <Route path="/dashboard/:tab/:id" element={<ProtectedRoute children={<Dashboard />} />} />
         <Route path="/dashboard/:tab/create-gig" element={<ProtectedRoute children={<CreateGig />} />} />
         <Route path="/labor/:id" element={<ProtectedRoute children={<LaborProfile />} />} />
         <Route path="/gig/:id" element={<ProtectedRoute children={<GigPreview />} />} />
-        <Route path="gigs" element={<ProtectedRoute children={<Gigs />} />} />
+        <Route path="/gigs" element={<ProtectedRoute children={<Gigs />} />} />
+        <Route path="/inbox" element={<ProtectedRoute children={<Inbox />} />} />
+        <Route path="/inbox/:id" element={<ProtectedRoute children={<Inbox />} />} />
         <Route path="/api/users/verification/:id/verify/:token" element={<EmailVerify />} />
       </Route>
       <Route path="*" element={<Error />} />

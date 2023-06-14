@@ -11,6 +11,7 @@ const mazdoorSlice = createSlice({
     labors: [],
     team: [],
     gigs: [],
+    conversations: [],
     laborTypes: [],
     popup: {
       status: false,
@@ -20,7 +21,7 @@ const mazdoorSlice = createSlice({
   },
   reducers: {
     laborTypesReceived(state, action) {
-      state.laborTypes = [...action.payload,"Others"];
+      state.laborTypes = [...action.payload, "Others"];
     },
     updateProfileCompleted(state, action) {
       if (action.payload.status) {
@@ -45,6 +46,19 @@ const mazdoorSlice = createSlice({
     gigsReceived(state, action) {
       state.gigs = action.payload;
     },
+    conversationsReceived(state, action) {
+      const conversations = action.payload;
+      state.conversations = conversations.map((conversation) => {
+        return {
+          _id: conversation._id,
+          lastMessage: conversation.lastMessage,
+          LastSeenUser1: conversation.LastSeenUser1,
+          LastSeenUser2: conversation.LastSeenUser2,
+          receiver: conversation.user1._id === state.user._id ? conversation.user2 : conversation.user1
+        };
+      });
+
+    },
     userReceived(state, action) {
       state.user = action.payload.user;
       if (state.user) {
@@ -52,12 +66,12 @@ const mazdoorSlice = createSlice({
           state.profileCompleted = { status: true, percent: 100 };
         }
         //updating profile completed percent
-        else if(state.user.role==="LABOR"){
+        else if (state.user.role === "LABOR") {
           if (state.user.CNIC && state.user.phone && state.user.startingWage && state.user.type && state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 70;
           else if (state.user.CNIC && state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 50;
           else if (state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 30;
           else state.profileCompleted.percent = 10;
-        }else if(state.user.role!=="ADMIN"){
+        } else if (state.user.role !== "ADMIN") {
           if (state.user.CNIC && state.user.phone && state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 70;
           else if (state.user.CNIC && state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 50;
           else if (state.user.area && state.user.state && state.user.city) state.profileCompleted.percent = 30;
@@ -86,6 +100,7 @@ const {
   laborReceived,
   teamReceived,
   gigsReceived,
+  conversationsReceived,
   userReceived,
   redirectToLogin,
   laborTypesReceived
@@ -100,6 +115,7 @@ export {
   teamReceived,
   userReceived,
   gigsReceived,
+  conversationsReceived,
   redirectToLogin,
   updateProfileCompleted
 };
@@ -136,11 +152,19 @@ export const loadLaborsTypes = () => apiCallBegan({
 });
 
 
-export const loadGigs=()=>apiCallBegan({
+export const loadGigs = () => apiCallBegan({
   url: `${apiURL}gigs`,
   headers,
   method: "get",
   onSuccess: gigsReceived.type
+});
+
+export const loadConversations = (_id) => apiCallBegan({
+
+  url: `${apiURL}conversations/userID/${_id}`,
+  headers,
+  method: "get",
+  onSuccess: conversationsReceived.type
 });
 
 

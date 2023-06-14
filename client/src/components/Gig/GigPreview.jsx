@@ -19,6 +19,7 @@ export const GigPreview = () => {
   const gigs = useSelector((state) => state.mazdoorStore.gigs);
   const labor = user?._id === userID ? user : labors?.find((labor) => labor?._id === userID);
   const gig = labor?.gigs.find((gig) => gig._id === gigID);
+  const conversations=useSelector((state) => state.mazdoorStore.conversations);
 
   useEffect(() => {
     if (gig) {
@@ -26,10 +27,8 @@ export const GigPreview = () => {
     }
   }, [gig]);
   useEffect(() => {
-    if (labor) {
-      setLoading1(false);
-    }
-  }, [labor]);
+    if(labor && conversations) setLoading1(false);
+  }, [labor,conversations]);
 
   useEffect(() => {
     if (gigs && gigs.length > 0) {
@@ -123,7 +122,7 @@ export const GigPreview = () => {
         {/*Labor Profile*/}
         <section className="min-w-[28%] mt-5">
           <div className="relative">
-            <LaborContactCard labor={labor} />
+            <LaborContactCard labor={labor} conversations={conversations} />
             {/*loading*/}
             {loading1 && <div className="popup-overlay !absolute">
               <div className="popup-container !absolute">

@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { updatePopup } from "../store/mazdoor/mazdoorSlice";
-import loadingGif from "../assets/gifs/loading.gif";
 
 export const Message = () => {
   const popup = useSelector(state => state.mazdoorStore.popup);

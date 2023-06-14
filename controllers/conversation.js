@@ -9,6 +9,39 @@ const Message = mongoose.model("messages");
 const Conversation = mongoose.model("conversations");
 
 export default {
+  one(req, res, next) {
+    const id = req.params.id;
+    if (!id) return res.status(400).json("Invalid data, must provide conversation ID");
+
+    // validate conversation ID
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json("Invalid conversation ID");
+
+    Conversation.findById(id).populate("lastMessage", "message sender").populate("user1", "username name image").populate("user2", "username name image")
+      .then((conversation) => {
+        if (!conversation) return res.status(404).json("Conversation not found");
+        return res.status(200).json(conversation);
+      }).catch(next);
+
+  }, //end of one
+  byUserID(req, res, next) {
+    const id = req.params.id;
+    if (!id) return res.status(400).json("Invalid data, must provide user ID");
+
+    // validate user ID
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json("Invalid user ID");
+
+    Conversation.find({
+      $or: [
+        { user1: id },
+        { user2: id }
+      ],
+    })
+      .populate("lastMessage", "message sender").populate("user1", "username name image").populate("user2", "username name image")
+      .then((conversation) => {
+        if (!conversation) return res.status(404).json("Conversation not found");
+        return res.status(200).json(conversation);
+      }).catch(next);
+  }, // end of conversation by user ID
   all(req, res, next) {
     Conversation.find().populate("lastMessage", "message sender")
       .then((conversations) => {

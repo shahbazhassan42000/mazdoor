@@ -1,10 +1,18 @@
 import Carousel from "react-material-ui-carousel";
 import { map } from "lodash";
 import { GigCard } from "./GigCard";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const GigCarousal = ({ gigs, count, cols, type }) => {
-  const cls = `grid-cols-${cols}`;
+  const cont = useRef(null);
+
+  useEffect(()=>{
+    if(cont?.current){
+      cont.current.style.display = "grid";
+      cont.current.style.justifyItems = "center";
+      cont.current.style.gridTemplateColumns = `repeat(${cols||4}, 1fr)`;
+    }
+  },[cols]);
 
   const [index, setIndex] = useState(0);
   const [filteredGigs, setFilteredGigs] = useState([]);
@@ -59,7 +67,7 @@ export const GigCarousal = ({ gigs, count, cols, type }) => {
         NextIcon="next"
         PrevIcon="prev"
       >
-        <div className={`flex justify-evenly w-full gap-5 ${cols && `grid justify-items-center ${cls}`}`}>
+        <div ref={cont} className="flex justify-evenly w-full gap-5">
           {map(filteredGigs, (gig) => <GigCard key={gig?._id} gig={gig} />)}
         </div>
       </Carousel>
@@ -73,7 +81,7 @@ export const GigCarousal = ({ gigs, count, cols, type }) => {
         animation="slide"
         interval={5000}
       >
-        <div className={`flex justify-evenly w-full gap-5 ${cols && `grid justify-items-center ${cls}`}`}>
+        <div ref={cont} className="flex justify-evenly w-full gap-5">
           {map(filteredGigs, (gig) => <GigCard key={gig?._id} gig={gig} />)}
         </div>
       </Carousel>

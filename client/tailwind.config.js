@@ -11,12 +11,14 @@ module.exports = {
         quinary: "#F2C94C",
         lightBg: "#F2F2F2",
         lightBlack: "#333333",
-        midBlack:"#404145",
-        darkBlack:"#222325",
+        midBlack: "#404145",
+        lightBg2: "#f7f7f7",
+        darkBlack: "#222325",
         border: "#C5C6C9",
         bg: "#f8f8f8",
         lightGray: "#74767e",
-        borderLight:"#dadbdd"
+        borderLight: "#dadbdd",
+        customGray: "#808080"
       }
     }
   },

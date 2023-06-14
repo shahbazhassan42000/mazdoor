@@ -14,11 +14,11 @@ export const store = configureStore({
 
 export default store;
 
-if(token) store.dispatch(loadUser());
+if (token) store.dispatch(loadUser());
 else store.dispatch(toggleLoading());
 store.dispatch(loadLabors());
 store.dispatch(loadTeam());
-if(token){
+if (token) {
   store.dispatch(loadLaborsTypes());
   store.dispatch(loadGigs());
 }

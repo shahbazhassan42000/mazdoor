@@ -13,4 +13,10 @@ api.get("/", auth.authenticate, conversation.all);
 // create conversation
 api.post("/", auth.authenticate, conversation.create);
 
+//get conversation by id
+api.get("/:id", auth.authenticate, conversation.one);
+
+//get conversation by user ID
+api.get("/userID/:id", auth.authenticate, conversation.byUserID)
+
 export default api;

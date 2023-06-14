@@ -4,6 +4,7 @@ import laborsType from "./laborsType.js";
 import gig from "./gig.js";
 import conversation from "./conversation.js";
 import message from "./message.js";
+import project from "./project.js";
 
 const { Router } = express;
 const api = Router();
@@ -22,5 +23,8 @@ api.use("/conversations", conversation);
 
 //message apis
 api.use("/messages", message);
+
+//project apis
+api.use("/projects", project);
 
 export default api;

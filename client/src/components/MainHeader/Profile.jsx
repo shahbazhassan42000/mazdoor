@@ -22,7 +22,7 @@ const Profile = ({ setProfile }) => {
       <div className="flex space-x-3 items-center mx-4 border-b border-b-[#091e4221] pb-3">
         <div className="relative flex justify-center items-center py-2 h-[45px] w-[35px] rounded-[50%]">
           <img className="object-cover w-[35px] h-[35px] rounded-[50%]" title={user.name} src={user.image}
-               alt="profile picture" />
+               alt="profile" />
         </div>
         <div className="flex flex-col">
           <p className="text-[#172b4d] text-[14px]">{user.username}</p>

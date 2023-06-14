@@ -45,6 +45,7 @@ const userSchema = new mongoose.Schema({
     mobAccNumber: {type: String},
     gigs: [{ type: mongoose.Schema.Types.ObjectId, ref: "gigs" }],
     conversations: [{ type: mongoose.Schema.Types.ObjectId, ref: "conversations" }],
+    projects: [{ type: mongoose.Schema.Types.ObjectId, ref: "projects" }],
     hash: String,
     salt: String
 

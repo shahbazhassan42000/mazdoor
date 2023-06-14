@@ -9,6 +9,29 @@ const Message = mongoose.model("messages");
 const Conversation = mongoose.model("conversations");
 
 export default {
+  delete(req, res, next) {
+    const id = req.params.id;
+
+    console.log("DELETING...", id);
+
+    if (!id) return res.status(400).json("Invalid data, must provide message ID");
+
+    // validate message ID
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json("Invalid message ID");
+
+    Message.findByIdAndDelete(id).then((msg) => {
+      if (!msg) return res.status(404).json("Message not found");
+
+      console.log("Conversation ID", msg.conversation);
+
+      //update conversation
+      Conversation.findOneAndUpdate({ _id: msg.conversation }, { $pull: { messages: id } }, { new: true })
+        .then((conversation) => {
+          if (!conversation) return res.status(404).json("Conversation not found");
+          return res.status(204).json("Message deleted successfully");
+        }).catch(next);
+    }).catch(next);
+  }, // end of delete
   all(req, res, next) {
     Message.find()
       .then(messages => {
@@ -22,6 +45,33 @@ export default {
       })
       .catch(next);
   }, //end of all
+  byConversationID(req, res, next) {
+    const id = req.params.id;
+    if (!id) return res.status(400).json("Invalid data, must provide conversation ID");
+
+    // validate conversation ID
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json("Invalid conversation ID");
+
+    // check first if conversation exists
+    Conversation.findById(id)
+      .then(conversation => {
+        if (!conversation) return res.status(404).json("Conversation not found");
+        Message.find({ conversation: id }).populate("sender", "username name image").populate("receiver", "username name image").sort({
+          createdAt: 1
+        })
+          .then(messages => {
+            // Return the array of messages
+            return res.status(200).json(messages);
+          })
+          .catch(error => {
+            console.log(error);
+            // Handle any database errors
+            return res.status(400).json(error);
+          })
+          .catch(next);
+
+      }).catch(next);
+  }, //end of byConversationID
   create(req, res, next) {
     const data = req.body.message;
     if (!data) return res.status(400).json("Invalid data, must provide message");

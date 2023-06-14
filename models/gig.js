@@ -12,7 +12,9 @@ const gigSchema = new mongoose.Schema({
   price: { type: Number, required: [true, "can't be blank"] },
   deliveryTime: { type: Number, required: [true, "can't be blank"] },
   rating: { type: Number, default: 80 },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "users" }
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+  projects: [{ type: mongoose.Schema.Types.ObjectId, ref: "projects" }],
+
 }, { timestamps: true });
 
 gigSchema.plugin(uniqueValidator);

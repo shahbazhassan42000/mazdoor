@@ -6,9 +6,22 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SendIcon from "@mui/icons-material/Send";
 import { useDispatch } from "react-redux";
 import { updatePopup } from "../../store/mazdoor/mazdoorSlice";
+import { useRef } from "react";
+import { Link } from "react-router-dom";
 
-export const LaborContactCard = ({ labor }) => {
+export const LaborContactCard = ({ labor, conversations }) => {
   const dispatch = useDispatch();
+  const linkRef = useRef(null);
+
+  const onContactLabor = (e) => {
+    e.preventDefault();
+    if (conversations?.find((conversation) => conversation?.receiver?.username === labor?.username)) {
+      linkRef.current.click();
+    } else {
+      dispatch(updatePopup({ status: true, type: "contactLabor", message: labor }))
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center items-center p-8 min-w-[28%] relative rounded-sm border-2">
       {/*Labor Image*/}
@@ -37,8 +50,9 @@ export const LaborContactCard = ({ labor }) => {
       </div>
       {/*Contact me button*/}
       <button
-        onClick={() => dispatch(updatePopup({ status: true, type: "contactLabor", message: labor }))}
+        onClick={(e) => onContactLabor(e)}
         className="primary-btn my-3 !text-[1rem] !py-[5px]">Contact Me</button>
+      <Link to={`/inbox/${labor?.username}`} ref={linkRef} className="hidden" />
       {/*horizontal line*/}
       <hr className="w-full mb-3" />
       {/*Labor Details */}
