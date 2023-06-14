@@ -11,7 +11,7 @@ import { NotificationManager } from "react-notifications";
 import { Link } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import { MessageCard } from "./MessageCard";
-import { loadConversations } from "../../store/mazdoor/mazdoorSlice";
+import { loadConversations , updatePopup} from "../../store/mazdoor/mazdoorSlice";
 
 
 export const Inbox = () => {
@@ -42,15 +42,6 @@ export const Inbox = () => {
             data: {message}
         }).then(res => { 
             dispatch(loadConversations(user?._id));
-            axios.request({
-                baseURL: apiURL,
-                url: `${getMessagesURL}${conversation?._id}`,
-                method: "get",
-                headers,
-            }).then(res => {
-                setMessages(res.data);
-            }
-            )
             setMsg("");
         }).catch(err => { 
             console.log(err);
@@ -66,7 +57,7 @@ export const Inbox = () => {
         if (!id) setLoading2(false);
         else {
             //if conversation is null then set it
-            if (!conversation && id &&  conversations) {
+            if (id &&  conversations) {
                 setConversation(conversations.find(conversation => conversation?.receiver?.username === id));
             }
         }
@@ -165,9 +156,21 @@ export const Inbox = () => {
                                     value={msg}
                                     maxLength={2500}
                                     spellCheck={true}
-                                    className="p-[20px] border outline-none block min-h-[28px] max-h-[140px] text-[16px] text-darkBlack resize-none" />
+                                    className="p-[20px] border outline-none block min-h-[20px] max-h-[120px] text-[16px] text-darkBlack resize-none" />
                                 <div className="flex justify-between">
-                                    <button className="primary-btn  !text-[14px] !font-bold">
+                                    <button
+                                        onClick={() => {
+                                            dispatch(updatePopup(
+                                                {
+                                                    status: true,
+                                                    type: "offer",
+                                                    message: {
+                                                        conversation
+                                                    }
+                                                }))
+                                        }}
+                                        title="Create and send your customer a unique offer based on their specific requests."
+                                        className="primary-btn  !text-[14px] !font-bold">
                                         Create an Offer
                                     </button>
                                     {msg?.length>=2500 ?

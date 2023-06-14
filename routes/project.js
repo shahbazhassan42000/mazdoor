@@ -13,6 +13,15 @@ api.get("/", auth.authenticate, project.all);
 // create new project
 api.post("/", auth.authenticate, project.create);
 
+// delete project
+api.delete("/:id", auth.authenticate, project.delete);
+
+//get Project by id
+api.get("/:id", auth.authenticate, project.get);
+
+// update project
+api.put("/:id", auth.authenticate, project.update);
+
 
 
 

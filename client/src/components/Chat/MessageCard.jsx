@@ -1,11 +1,51 @@
 import Badge from "@mui/material/Badge";
 import { Link } from "react-router-dom"; 
+import { useEffect, useState } from 'react';
+import axios from "axios";
+import { apiURL, projectsURL, headers } from "../../utils/constants";
+
 export const MessageCard = ({ message, me }) => {
+    const [project, setProject] = useState(null);
+    useEffect(() => {
+        if (message) {
+            // ^___&&&___\$\$\$___[a-zA-Z0-9]{24}_$ matches this regex
+            if(message?.message.match(/^___&&&___\$\$\$___[a-zA-Z0-9]{24}_$/)){
+                const id = message?.message.split("___&&&___$$$___")[1].split("_")[0];
+                message.message = `Here's your Custom Offer`;
+                //get project by ID
+                axios.request({
+                    baseURL: apiURL,
+                    url: `${projectsURL}/${id}`,
+                    method: "get",
+                    headers
+                }).then(res => {
+                    setProject(res?.data);
+                }).catch(err => {
+                    console.log(err);
+                });
+            }
+        }
+    }, [message]);
+    const onProjectUpdate = (projectStatus) => {
+        //update project status to withdrawn
+        axios.request({
+            baseURL: apiURL,
+            url: `${projectsURL}/${project?._id}`,
+            method: "put",
+            headers,
+            data: { project: { status: projectStatus } }
+        }).then(res => {
+            setProject(res?.data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
     return (
         <div
             className={`flex gap-4 px-3 py-3 hover:bg-lightBg2`}>
             {/* Conversation image */}
-            <Badge
+            <div>
+                <Badge
                 anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "right"
@@ -19,6 +59,7 @@ export const MessageCard = ({ message, me }) => {
                         src={message?.sender?.image} alt="conversation avatar" />
                 </div>
             </Badge>
+            </div>
             {/* Conversation name and last message */}
             <div className="flex flex-col gap-1">
                 {me ?
@@ -33,7 +74,67 @@ export const MessageCard = ({ message, me }) => {
                         {message?.receiver?.name}
                     </Link>
                 }
-                <h1 className="text-lightGray text-sm">{message?.message}</h1>
+                <h1 className={`${project && "italic"} text-lightGray text-sm`}>{message?.message}</h1>
+                {project &&
+                    // Project Card
+                    <section className="flex flex-col rounded-sm border w-[500px] bg-white">
+                        {/* Gig tile and project price */}
+                        <header className="p-4 flex justify-between border-b bg-bg">
+                            {/* Gig title */}
+                            <Link
+                                to={`/gig/${project?.gig?._id}`}
+                                className="text-darkBlack font-medium hover:underline hover:text-lightGray truncate max-w-[400px]">{project?.gig?.title}
+                            </Link>
+                            {/* Project price */}
+                            <h1 className="text-darkBlack font-medium">{project?.price}pkr</h1>
+                        </header>
+                        <main className="flex flex-col p-4">
+                            {/* Project description */}
+                            <h1 className="text-lightGray text-sm border-b h-[65px] line-clamp-3">{project?.description}</h1>
+                            {/* Offer terms */}
+                            <div className="border-b flex flex-col gap-2 py-2">
+                                <h1 className="text-lightBlack font-medium">Your offer includes</h1>
+                                <div className="flex gap-2">
+                                    <span className="fa-sharp fa-regular fa-clock"></span>
+                                    <p>{`${project?.deliveryTime} Day${project?.deliveryTime>1 && 's'} Delivery`}</p>
+                                </div>
+                            </div>
+                            {/* Withdraw, Accepted, Decline button */}
+                            {me ? <div className="flex justify-between pt-4">
+                                <button></button>
+                                <button
+                                    disabled={project?.status !=="waiting"}
+                                    onClick={() => onProjectUpdate("Withdrawn")}
+                                    className="bg-lightBg hover:bg-lightBg3 disabled:bg-bg disabled:cursor-default text-lightGray font-semibold py-2 px-4 rounded-sm">
+                                    Offer {project?.status === "waiting" ? "Withdraw" : project?.status}
+                                </button>
+                                
+                            </div>
+                                :
+                                <div className="flex justify-between pt-4">
+                                    {project?.status === "waiting" ?
+                                         <button
+                                            disabled={project?.status !=="waiting"}
+                                            onClick={() => onProjectUpdate("Declined")}
+                                            className="bg-lightBg hover:bg-lightBg3 disabled:bg-bg disabled:cursor-default text-lightGray font-semibold py-2 px-4 rounded-sm">
+                                            Offer {project?.status === "waiting" ? "Decline" : project?.status}
+                                        </button>
+                                        :
+                                        <div></div>
+                                    }
+                                    <button
+                                        disabled={project?.status !=="waiting"}
+                                        onClick={() => onProjectUpdate("Accepted")}
+                                        className="bg-lightBg hover:bg-lightBg3 disabled:bg-bg disabled:cursor-default  text-lightGray font-semibold py-2 px-4 rounded-sm">
+                                        Offer {project?.status === "waiting" ? "Accept" : project?.status}
+                                    </button>
+                                
+                            </div>
+                            }
+
+                        </main>
+                    </section>
+                }
             </div>
         </div>
     );

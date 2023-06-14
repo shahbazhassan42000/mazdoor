@@ -215,7 +215,7 @@
     /*margin: 1rem 0;*/
 }
 
-.gigCard-title {
+.gigCard-title,.line-clamp-2 {
     word-wrap: break-word;
     word-break: break-word;
     overflow: hidden;
@@ -224,6 +224,23 @@
     -webkit-box-orient: vertical;
 }
 
+
+.line-clamp-3{
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.line-clamp-4{
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
 
 
 

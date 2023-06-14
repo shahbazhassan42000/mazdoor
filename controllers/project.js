@@ -9,14 +9,116 @@ const Gig = mongoose.model("gigs");
 const Project = mongoose.model("projects");
 
 export default {
+    delete(req, res, next) {
+        const id = req.params.id;
+
+        if (!id) return res.status(400).json("Invalid data, must provide project ID");
+
+        // validate project ID
+        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json("Invalid project ID");
+
+        Project.findById(id)
+            .then(project => {
+                if (!project) return res.status(404).json("Project not found");
+                // delete project
+                project.remove()
+                    .then(() => {
+                        // remove project from customer
+                        User.findById(project.customer)
+                            .then(customer => {
+                                if (!customer) return res.status(404).json("Customer not found");
+                                customer.projects.pull(project._id);
+                                customer.save()
+                                    .then(customer => {
+                                        // remove project from seller
+                                        User.findById(project.seller)
+                                            .then(seller => {
+                                                if (!seller) return res.status(404).json("Seller not found");
+                                                seller.projects.pull(project._id);
+                                                seller.save()
+                                                    .then(seller => {
+                                                        // remove project from gig
+                                                        Gig.findById(project.gig)
+                                                            .then(gig => {
+                                                                if (!gig) return res.status(404).json("Gig not found");
+                                                                gig.projects.pull(project._id);
+                                                                gig.save()
+                                                                    .then(gig => {
+                                                                        // Return the project
+                                                                        return res.status(204).json(project);
+                                                                    }).catch(next);
+                                                            }).catch(next);
+                                                    }).catch(next);
+                                            }).catch(next);
+                                    }).catch(next);
+                            }).catch(next);
+                    }).catch(next);
+            }).catch(next);
+    }, // end delete
     all(req, res, next) {
-        Project.find().populate("gig", "-__v").populate("customer", "-__v").populate("seller", "-__v")
+        Project.find().populate("gig", "-__v").populate("customer", "-__v -hash -salt -gigs -projects -conversations").populate("seller", "-__v -hash -salt -gigs -projects -conversations")
             .then((projects) => {
                 // Return the array of projects
                 return res.status(200).json(projects);
             }).catch(next);
 
     }, // end all
+    get(req, res, next) {
+        const id = req.params.id;
+
+        if (!id) return res.status(400).json("Invalid data, must provide project ID");
+
+        // validate project ID
+        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json("Invalid project ID");
+
+        Project.findById(id).populate("gig", "title image").populate("customer", "name username image").populate("seller", "name username image")
+            .then((project) => {
+                if (!project) return res.status(404).json("Project not found");
+                // Return the project
+                return res.status(200).json(project);
+            }).catch(next);
+    }, // end get
+    update(req, res, next) {
+        const id = req.params.id;
+        const data = req.body.project;
+
+        if (!id) return res.status(400).json("Invalid data, must provide project ID");
+
+        if (!data) return res.status(400).json("Invalid data, must provide project data");
+
+        // validate project ID
+        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json("Invalid project ID");
+
+        // validate gig ID
+        if (data.gig && !mongoose.Types.ObjectId.isValid(data.gig)) return res.status(400).json("Invalid gig ID");
+
+        // validate customer ID
+        if (data.customer && !mongoose.Types.ObjectId.isValid(data.customer)) return res.status(400).json("Invalid customer ID");
+
+        // validate seller ID
+        if (data.seller && !mongoose.Types.ObjectId.isValid(data.seller)) return res.status(400).json("Invalid seller ID");
+
+        Project.findById(id)
+            .then(project => {
+                if (!project) return res.status(404).json("Project not found");
+                // update the project
+                if (data.gig) project.gig = data.gig;
+                if (data.description) project.description = data.description;
+                if (data.price) project.price = data.price;
+                if (data.deliveryTime) project.deliveryTime = data.deliveryTime;
+                if (data.customer) project.customer = data.customer;
+                if (data.seller) project.seller = data.seller;
+                if (data.status) project.status = data.status;
+                project.save()
+                    .then(project => {
+                        Project.findById(id).populate("gig", "title image").populate("customer", "name username image").populate("seller", "name username image")
+                            .then((project) => {
+                                //return the project
+                                return res.status(200).json(project);
+                            }).catch(next);
+                    }).catch(next);
+            }).catch(next);
+    }, // end update
     create(req, res, next) {
         const data = req.body.project;
 

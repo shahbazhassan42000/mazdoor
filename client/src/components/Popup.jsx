@@ -6,6 +6,8 @@ import Login from "./Auth/Login";
 import Logout from "./Auth/Logout";
 import { Message } from "./Message";
 import { ContactLabor } from "./ContactLabor";
+import { ProjectOffer } from "./Project/ProjectOffer";
+import { ProjectOfferDetails } from "./Project/ProjectOfferDetails";
 
 const Popup = () => {
   const popup=useSelector(state=>state.mazdoorStore.popup);
@@ -17,7 +19,9 @@ const Popup = () => {
       {popup.type==="login" && <Login/>}
       {popup.type==="logout" && <Logout/>}
       {popup.type==="message" && <Message/>}
-      {popup.type==="contactLabor" && <ContactLabor/>}
+      {popup.type === "contactLabor" && <ContactLabor />}
+      {popup.type === "offer" && <ProjectOffer />}
+      {popup.type === "offerDetails" && <ProjectOfferDetails />}
     </div>
   );
 };

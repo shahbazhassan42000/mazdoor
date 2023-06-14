@@ -13,6 +13,7 @@ module.exports = {
         lightBlack: "#333333",
         midBlack: "#404145",
         lightBg2: "#f7f7f7",
+        lightBg3: "#E0E0E0",
         darkBlack: "#222325",
         border: "#C5C6C9",
         bg: "#f8f8f8",

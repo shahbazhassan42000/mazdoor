@@ -23,6 +23,16 @@ export const DashboardMain = () => {
           </Link>
         </div>
       }
+      {user?.role === "CUSTOMER" &&
+        <div className="flex gap-5 justify-center items-center">
+            <Link
+                to="/gigs"
+                className="primary-btn"
+              >
+            View Gigs
+          </Link>
+        </div>
+      }
     </section>
   );
 };
