@@ -8,6 +8,10 @@ import "../models/user.js";
 import "../utils/passport.js";
 import "../models/token.js";
 import "../models/LaborsType.js";
+import "../models/conversation.js"
+import "../models/message.js"
+import "../models/project.js"
+import "../models/gig.js"
 import { sendEmail } from "../utils/EmailSender.js";
 import { Capitalize, CapitalizeAll } from "./laborsType.js";
 
@@ -16,6 +20,10 @@ const { includes, keys, size } = _;
 const User = mongoose.model("users");
 const Token = mongoose.model("token");
 const LaborsType = mongoose.model("LaborsType");
+const Message = mongoose.model("messages");
+const Conversation = mongoose.model("conversations");
+const Project = mongoose.model("projects");
+const Gig = mongoose.model("gigs");
 
 export default {
   login(req, res, next) {
@@ -26,7 +34,7 @@ export default {
     if (check !== "") {
       return res.status(400).json({ errors: check });
     }
-    passport.authenticate("local", { session: false }, async function(err, user, info) {
+    passport.authenticate("local", { session: false }, async function (err, user, info) {
       if (err) {
         return next(err);
       }
@@ -108,7 +116,7 @@ export default {
         }
         // user.status = "verified";
         User.findByIdAndUpdate(user._id, { status: "verified" },
-          function(err) {
+          function (err) {
             if (err) {
               return res.status(400).json("Error while verifying email, please try again later");
             } else {
@@ -140,7 +148,7 @@ export default {
     }).catch(next);
   },
   all(req, res) {
-    User.find({}).populate("gigs").then(function(users) {
+    User.find({}).populate("gigs").then(function (users) {
       if (users)
         return res.status(200).json(users);
       return res.status(404).json({ msg: "no users found" });
@@ -183,21 +191,85 @@ export default {
         return res.status(200).json(user);
       });
     }).catch(next);
-  }, delete(req, res) {
-    const user = req.body.user;
-    if (!user || size(user) !== 1) {
-      return res.sendStatus(400);
-    }
-    if (!user.id) res.sendStatus(400);
-    User.findByIdAndRemove(user.id,
-      function(err) {
-        if (err) {
-          return res.sendStatus(401);
-        } else {
-          return res.sendStatus(204);
-        }
-      });
-  },
+  }, delete(req, res, next) {
+    const id = req.params.id;
+
+    if (!id) return res.status(400).json("Invalid data, must provide user ID");
+
+    // validate user ID
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json("Invalid user ID");
+
+    User.findById(id)
+      .then((user) => {
+        if (!user) return res.status(404).json("User not found");
+        //delete conversation
+        if (user.conversation) user.conversations.forEach((conversation) => {
+          if (conversation?.user1) User.findById(conversation.user1)
+            .then((user1) => {
+              if (user) {
+                user1.conversations.pull(conversation._id);
+                user1.save()
+                  .then((user1) => {
+                    if (!user1) console.log("Error deleting conversation from user1");
+                  }).catch(next);
+              }
+            }).catch(next);
+          if (conversation?.user2) User.findById(conversation.user2)
+            .then((user2) => {
+              if (user2) {
+                user2.conversations.pull(conversation._id);
+                user2.save()
+                  .then((user2) => {
+                    if (!user2) console.log("Error deleting conversation from user2");
+                  }).catch(next);
+              }
+            }).catch(next);
+          //delete all the messages of this conversation
+          if (conversation.message) conversation.messages.forEach((message) => {
+            Message.findById(message)
+              .then((message) => {
+                if (message) {
+                  message.remove()
+                    .then(() => {
+                      console.log("Message deleted");
+                    }).catch(next);
+                }
+              }).catch(next);
+          });
+          //delete conversation
+          conversation.remove()
+            .then(() => { }).catch(next);
+        }).catch(next);
+        //delete gig
+        if (user.gigs) user.gigs.forEach((gig) => {
+          if (gig) {
+            Gig.findById(gig)
+              .then((gig) => {
+                if (gig) {
+                  gig.remove()
+                    .then(() => {
+                    }).catch(next);
+                }
+              }).catch(next);
+          }
+        });
+        // delete projects
+        if (user.projects) user.projects.forEach((project) => {
+          if (project) {
+            Project.findById(project)
+              .then((project) => {
+                if (project) {
+                  project.remove()
+                    .then(() => {
+                    }).catch(next);
+                }
+              }).catch(next);
+          }
+        });
+        //send response
+        return res.status(204).json(user);
+      }).catch(next);
+  }, // end of delete
   checkEmail(req, res, next) {
     const user = req.body.user;
     if (!user || size(user) !== 1) {

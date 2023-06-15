@@ -94,7 +94,7 @@ export const Inbox = () => {
                     </header>
                     {/* Conversations */}
                     {conversations && map(conversations, (conversation) => {
-                        return <ConversationCard key={conversation._id} conversation={conversation} lastMe={conversation?.lastMessage?.sender === user?._id} setConversation={setConversation} id={id} />
+                        return <ConversationCard key={conversation._id} conversation={conversation} lastMe={conversation?.lastMessage?.sender === user?._id} offerSender={conversation?.lastMessage?.sender === user?._id ? user?.username: conversation?.receiver?.username} setConversation={setConversation} id={id} />
                     })}
                     {loading1 && <div className="popup-overlay !absolute">
                         <div className="popup-container !absolute">
@@ -159,6 +159,7 @@ export const Inbox = () => {
                                     className="p-[20px] border outline-none block min-h-[20px] max-h-[120px] text-[16px] text-darkBlack resize-none" />
                                 <div className="flex justify-between">
                                     <button
+                                        disabled={user?.role==="CUSTOMER"}
                                         onClick={() => {
                                             dispatch(updatePopup(
                                                 {

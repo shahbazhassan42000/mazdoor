@@ -21,10 +21,11 @@ const MainHeader = () => {
           <i className="not-italic text-[24px] fa-regular fa-heart hover:text-[#EB5757] cursor-pointer"></i>
           {user?.role !== "ADMIN" &&
             <i className="not-italic">
-              <a className="text-[18px] hover:text-[#EB5757] font-[500]"
-                 href="#">
+              <Link
+                to="/orders"
+                className="text-[18px] hover:text-[#EB5757] font-[500]">
                 Orders
-              </a>
+              </Link>
             </i>
           }
           <ProfileCircle />

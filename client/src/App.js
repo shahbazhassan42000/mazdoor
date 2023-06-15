@@ -10,7 +10,7 @@ import { ProfileCompletedMsg } from "./components/ProfileCompletedMsg";
 import { useLocation } from "react-router-dom"
 import NotificationContainer from "react-notifications/lib/NotificationContainer";
 import { useEffect } from "react";
-import { loadConversations, loadGigs } from "./store/mazdoor/mazdoorSlice";
+import { loadConversations, loadGigs, loadProjects } from "./store/mazdoor/mazdoorSlice";
 
 function App() {
   const location = useLocation()
@@ -28,6 +28,7 @@ function App() {
   useEffect(() => {
     if (user) {
       dispatch(loadConversations(user._id));
+      dispatch(loadProjects(user._id));
     }
   }, [user]);
 

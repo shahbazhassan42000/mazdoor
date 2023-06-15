@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../actions";
-import { apiURL, headers, token } from "../../utils/constants";
+import { apiURL, headers, projectsURL, token } from "../../utils/constants";
 
 const mazdoorSlice = createSlice({
   name: "mazdoors",
@@ -12,6 +12,7 @@ const mazdoorSlice = createSlice({
     team: [],
     gigs: [],
     conversations: [],
+    projects: [],
     laborTypes: [],
     popup: {
       status: false,
@@ -59,6 +60,19 @@ const mazdoorSlice = createSlice({
       });
 
     },
+    projectsReceived(state, action) {
+      const projects = action.payload;
+      // mapped projects on project status as key and project itself as value
+      state.projects = projects.reduce((acc, project) => {
+        if (acc[project.status]) {
+          acc[project.status].push(project);
+        } else {
+          acc[project.status] = [project];
+        }
+        return acc;
+      }
+        , {});
+    },
     userReceived(state, action) {
       state.user = action.payload.user;
       if (state.user) {
@@ -101,6 +115,7 @@ const {
   teamReceived,
   gigsReceived,
   conversationsReceived,
+  projectsReceived,
   userReceived,
   redirectToLogin,
   laborTypesReceived
@@ -116,6 +131,7 @@ export {
   userReceived,
   gigsReceived,
   conversationsReceived,
+  projectsReceived,
   redirectToLogin,
   updateProfileCompleted
 };
@@ -165,6 +181,13 @@ export const loadConversations = (_id) => apiCallBegan({
   headers,
   method: "get",
   onSuccess: conversationsReceived.type
+});
+
+export const loadProjects = (_id) => apiCallBegan({
+  url: `${apiURL}${projectsURL}user/${_id}`,
+  headers,
+  method: "get",
+  onSuccess: projectsReceived.type
 });
 
 

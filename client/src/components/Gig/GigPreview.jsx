@@ -1,7 +1,8 @@
 import { Link, useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef } from "react";
 import loadingGif from "../../assets/gifs/loading.gif";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePopup } from "../../store/mazdoor/mazdoorSlice";
 import { LaborContactCard } from "../Labor/LaborContactCard";
 import { GigCarousal } from "./GigCarousal";
 import { useRandomGigs } from "../../Hooks/useRandomGigs";
@@ -13,13 +14,25 @@ export const GigPreview = () => {
   const [loading1, setLoading1] = useState(true);
   const [loading2, setLoading2] = useState(true);
   const [loading3, setLoading3] = useState(true);
+  const linkRef = useRef(null);
+  const dispatch = useDispatch();
 
   const user = useSelector((state) => state.mazdoorStore.user);
   const labors = useSelector((state) => state.mazdoorStore.labors);
   const gigs = useSelector((state) => state.mazdoorStore.gigs);
   const labor = user?._id === userID ? user : labors?.find((labor) => labor?._id === userID);
   const gig = labor?.gigs.find((gig) => gig._id === gigID);
-  const conversations=useSelector((state) => state.mazdoorStore.conversations);
+  const conversations = useSelector((state) => state.mazdoorStore.conversations);
+  
+  const onChat = (e) => {
+    e.preventDefault();
+    if (loading1) return;
+    if (conversations?.find((conversation) => conversation?.receiver?.username === labor?.username)) {
+      linkRef.current.click();
+    } else {
+      dispatch(updatePopup({ status: true, type: "contactLabor", message: labor }))
+    }
+  };
 
   useEffect(() => {
     if (gig) {
@@ -102,7 +115,10 @@ export const GigPreview = () => {
           <h3 className="text-darkBlack">{gig?.price}pkr</h3>
         </span>
               {/*Contact Me button*/}
-              <button className="primary-btn !text-[1rem] !py-[5px]">Let's Discuss</button>
+              <button
+                disabled={loading1}
+                onClick={(e) => onChat(e)}
+                className="primary-btn !text-[1rem] !py-[5px]">Let's Discuss</button>
               {/*  Gig Delivery Time*/}
               <span className="flex justify-between items-center gap-2">
           <h3>
@@ -161,8 +177,10 @@ export const GigPreview = () => {
         </div>
       </section>
       {/*  Chat float button*/}
+      <Link to={`/inbox/${labor?.username}`} ref={linkRef} className="hidden" />
       <div
-        className="fixed bottom-10 left-10 items-center flex rounded-full bg-bg chat-popup-shadow gap-5 p-[8px_24px_8px_8px] z-50 hover:bg-border cursor-pointer">
+        onClick={(e) => onChat(e)}
+        className={`fixed bottom-10 left-10 items-center flex rounded-full bg-bg chat-popup-shadow gap-5 p-[8px_24px_8px_8px] z-40 hover:bg-border cursor-pointer ${loading1 && "bg-border cursor-not-allowed text-lightBlack"}`}>
         <Badge
           anchorOrigin={{
             vertical: "bottom",

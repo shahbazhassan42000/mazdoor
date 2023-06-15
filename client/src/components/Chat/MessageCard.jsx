@@ -3,9 +3,24 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { apiURL, projectsURL, headers } from "../../utils/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { loadProjects } from "../../store/mazdoor/mazdoorSlice";
+
+const mappedStatus = (status)=> {
+        switch(status){
+            case "OFFERED": return "Offered";
+            case "ACTIVE": return "Offer Accepted";
+            case "CANCELLED": return "Offer Not Accepted";
+            case "WITHDRAWN": return "Offer Withdrawn";
+            case "COMPLETED": return "Offer Completed";
+            default: return "Offered";
+        }
+    }
 
 export const MessageCard = ({ message, me }) => {
     const [project, setProject] = useState(null);
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.mazdoorStore.user);
     useEffect(() => {
         if (message) {
             // ^___&&&___\$\$\$___[a-zA-Z0-9]{24}_$ matches this regex
@@ -36,6 +51,7 @@ export const MessageCard = ({ message, me }) => {
             data: { project: { status: projectStatus } }
         }).then(res => {
             setProject(res?.data);
+            dispatch(loadProjects(user?._id));
         }).catch(err => {
             console.log(err);
         });
@@ -94,39 +110,39 @@ export const MessageCard = ({ message, me }) => {
                             {/* Offer terms */}
                             <div className="border-b flex flex-col gap-2 py-2">
                                 <h1 className="text-lightBlack font-medium">Your offer includes</h1>
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 items-center">
                                     <span className="fa-sharp fa-regular fa-clock"></span>
-                                    <p>{`${project?.deliveryTime} Day${project?.deliveryTime>1 && 's'} Delivery`}</p>
+                                    <p>{`${project?.deliveryTime} Day${project?.deliveryTime>1 ? "s ": " "}Delivery`}</p>
                                 </div>
                             </div>
                             {/* Withdraw, Accepted, Decline button */}
                             {me ? <div className="flex justify-between pt-4">
                                 <button></button>
                                 <button
-                                    disabled={project?.status !=="waiting"}
-                                    onClick={() => onProjectUpdate("Withdrawn")}
+                                    disabled={project?.status !=="OFFERED"}
+                                    onClick={() => onProjectUpdate("WITHDRAWN")}
                                     className="bg-lightBg hover:bg-lightBg3 disabled:bg-bg disabled:cursor-default text-lightGray font-semibold py-2 px-4 rounded-sm">
-                                    Offer {project?.status === "waiting" ? "Withdraw" : project?.status}
+                                    {project?.status === "OFFERED" ? "Withdraw Offer" : mappedStatus(project?.status) }
                                 </button>
                                 
                             </div>
                                 :
                                 <div className="flex justify-between pt-4">
-                                    {project?.status === "waiting" ?
+                                    {project?.status === "OFFERED" ?
                                          <button
-                                            disabled={project?.status !=="waiting"}
-                                            onClick={() => onProjectUpdate("Declined")}
+                                            disabled={project?.status !=="OFFERED"}
+                                            onClick={() => onProjectUpdate("CANCELLED")}
                                             className="bg-lightBg hover:bg-lightBg3 disabled:bg-bg disabled:cursor-default text-lightGray font-semibold py-2 px-4 rounded-sm">
-                                            Offer {project?.status === "waiting" ? "Decline" : project?.status}
+                                            {project?.status === "OFFERED" ? "Decline Offer" : mappedStatus(project?.status)}
                                         </button>
                                         :
                                         <div></div>
                                     }
                                     <button
-                                        disabled={project?.status !=="waiting"}
-                                        onClick={() => onProjectUpdate("Accepted")}
+                                        disabled={project?.status !=="OFFERED"}
+                                        onClick={() => onProjectUpdate("ACTIVE")}
                                         className="bg-lightBg hover:bg-lightBg3 disabled:bg-bg disabled:cursor-default  text-lightGray font-semibold py-2 px-4 rounded-sm">
-                                        Offer {project?.status === "waiting" ? "Accept" : project?.status}
+                                        {project?.status === "OFFERED" ? "Accept Offer" : mappedStatus(project?.status)}
                                     </button>
                                 
                             </div>

@@ -22,6 +22,9 @@ api.get("/:id", auth.authenticate, project.get);
 // update project
 api.put("/:id", auth.authenticate, project.update);
 
+//get Project by user ID
+api.get("/user/:id", auth.authenticate, project.getByUserId);
+
 
 
 

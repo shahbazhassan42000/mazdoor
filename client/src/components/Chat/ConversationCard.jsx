@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router";
 
 
-export const ConversationCard = ({ conversation, lastMe, setConversation, id}) => {
-    const { pathname } = useLocation()
+export const ConversationCard = ({ conversation, lastMe, setConversation, id, offerSender}) => {
+    const { pathname } = useLocation();
     return (
         <Link
             onClick={() => setConversation(conversation)}
@@ -28,7 +28,7 @@ export const ConversationCard = ({ conversation, lastMe, setConversation, id}) =
             {/* Conversation name and last message */}
             <div className="flex flex-col gap-1 max-w-[210px]">
                 <h1 className="text-darkBlack font-semibold truncate w-full">{conversation?.receiver?.name}</h1>
-                <h1 className="text-lightGray text-sm !truncate">{lastMe && "Me: "}{conversation?.lastMessage?.message}</h1>
+                <h1 className="text-lightGray text-sm !truncate">{lastMe && "Me: "}{conversation?.lastMessage?.message.match(/^___&&&___\$\$\$___[a-zA-Z0-9]{24}_$/)? `${offerSender} just sent you a new Custom Offer.`:conversation?.lastMessage?.message}</h1>
             </div>
         </Link>
     );

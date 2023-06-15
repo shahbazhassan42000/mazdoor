@@ -14,7 +14,6 @@ const gigSchema = new mongoose.Schema({
   rating: { type: Number, default: 80 },
   user: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
   projects: [{ type: mongoose.Schema.Types.ObjectId, ref: "projects" }],
-
 }, { timestamps: true });
 
 gigSchema.plugin(uniqueValidator);

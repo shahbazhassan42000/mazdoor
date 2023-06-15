@@ -19,4 +19,7 @@ api.get("/:id", auth.authenticate, conversation.one);
 //get conversation by user ID
 api.get("/userID/:id", auth.authenticate, conversation.byUserID)
 
+// delete conversation by id
+api.delete("/:id", auth.authenticate, conversation.delete);
+
 export default api;

@@ -17,6 +17,7 @@ import { LaborProfile } from "./components/Labor/LaborProfile";
 import { GigPreview } from "./components/Gig/GigPreview";
 import { Gigs } from "./components/Gig/Gigs";
 import { Inbox } from "./components/Chat/Inbox";
+import { Orders } from "./components/Orders/Orders";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +35,7 @@ const router = createBrowserRouter(
         <Route path="/gigs" element={<ProtectedRoute children={<Gigs />} />} />
         <Route path="/inbox" element={<ProtectedRoute children={<Inbox />} />} />
         <Route path="/inbox/:id" element={<ProtectedRoute children={<Inbox />} />} />
+        <Route path="/orders" element={<ProtectedRoute children={<Orders />} />} />
         <Route path="/api/users/verification/:id/verify/:token" element={<EmailVerify />} />
       </Route>
       <Route path="*" element={<Error />} />

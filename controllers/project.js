@@ -63,6 +63,20 @@ export default {
             }).catch(next);
 
     }, // end all
+    getByUserId(req, res, next) {
+        const id = req.params.id;
+
+        if (!id) return res.status(400).json("Invalid data, must provide user ID");
+
+        // validate user ID
+        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json("Invalid user ID");
+
+        Project.find({ $or: [{ seller: id }, { customer: id }] }).populate("gig", "title image user").populate("customer", "name username image").populate("seller", "name username image")
+            .then((projects) => {
+                // Return the array of projects
+                return res.status(200).json(projects);
+            }).catch(next);
+    }, // end getByUserId
     get(req, res, next) {
         const id = req.params.id;
 

@@ -9,6 +9,55 @@ const Message = mongoose.model("messages");
 const Conversation = mongoose.model("conversations");
 
 export default {
+  delete(req, res, next) {
+    const id = req.params.id;
+
+    if (!id) return res.status(400).json("Invalid data, must provide conversation ID");
+
+    // validate conversation ID
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json("Invalid conversation ID");
+
+    Conversation.findById(id)
+      .then((conversation) => {
+        if (!conversation) return res.status(404).json("Conversation not found");
+        //delete conversation from user1 and user2
+        User.findById(conversation.user1)
+          .then((user1) => {
+            if (!user1) return res.status(404).json("User1 not found");
+            user1.conversations.pull(conversation._id);
+            user1.save()
+              .then((user1) => {
+                if (!user1) console.log("Error deleting conversation from user1");
+                User.findById(conversation.user2)
+                  .then((user2) => {
+                    if (!user2) return res.status(404).json("User2 not found");
+                    user2.conversations.pull(conversation._id);
+                    user2.save()
+                      .then((user2) => {
+                        if (!user2) console.log("Error deleting conversation from user2");
+                        //delete all the messages of this conversation
+                        conversation.messages.forEach((message) => {
+                          Message.findById(message)
+                            .then((message) => {
+                              if (!message) console.log("Error deleting message");
+                              message.remove()
+                                .then(() => {
+                                  console.log("Message deleted");
+                                }).catch(next);
+                            }).catch(next);
+                        });
+                        //delete conversation
+                        conversation.remove()
+                          .then(() => {
+                            // Return the conversation
+                            return res.status(204).json(conversation);
+                          }).catch(next);
+                      }).catch(next);
+                  }).catch(next);
+              }).catch(next);
+          }).catch(next);
+      }).catch(next);
+  }, // end of delete
   one(req, res, next) {
     const id = req.params.id;
     if (!id) return res.status(400).json("Invalid data, must provide conversation ID");

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { updatePopup,loadConversations } from "../../store/mazdoor/mazdoorSlice";
+import { updatePopup,loadConversations, loadProjects } from "../../store/mazdoor/mazdoorSlice";
 import { useState, useEffect } from "react";
 import loadingGif from "../../assets/gifs/loading.gif";
 import { NotificationManager } from "react-notifications";
@@ -58,6 +58,7 @@ export const ProjectOfferDetails = () => {
                 //update conversations
                 dispatch(loadConversations(user?._id));
                 dispatch(updatePopup({ status: false, type: popup.type, message: popup.message }));
+                dispatch(loadProjects(user?._id));
                 NotificationManager.success("Project created successfully", "SUCCESS!", 5000);
 
             }).catch(err => {
