@@ -1,0 +1,282 @@
+[
+  {
+    "name": "Zia",
+    "image": "https://i.ibb.co/Dk1vrS0/Zia.jpg",
+    "age": 26,
+    "CNIC": "3110540368431",
+    "type": "Mistri",
+    "area": "Joray Pull",
+    "phone": "03065361330",
+    "rating": 90
+  },
+  {
+    "name": "Muhammad Jameel",
+    "image": "https://i.ibb.co/QKBFc6p/Muhammad-Jameel.jpg",
+    "age": 19,
+    "CNIC": "3110552420761",
+    "type": "Mistri",
+    "area": "Joray Pull",
+    "phone": "03254702525",
+    "rating": 90
+  },
+  {
+    "name": "Muhammad Mushtaq",
+    "image": "https://i.ibb.co/6HdKzrm/Muhammad-Mushtaq.jpg",
+    "age": 19,
+    "CNIC": "311054930219",
+    "type": "Mistri",
+    "area": "Joray Pull",
+    "phone": "03051896531",
+    "rating": 90
+  },
+  {
+    "name": "Wahid",
+    "image": "https://i.ibb.co/cNZq5Gr/Wahid.jpg",
+    "age": 55,
+    "CNIC": "-",
+    "type": "Mazdoor",
+    "area": "Saddar",
+    "phone": "03054482160",
+    "rating": 90
+  },
+  {
+    "name": "Mohsin",
+    "image": "https://i.ibb.co/0fBDMf3/Mohsin.jpg",
+    "age": 24,
+    "CNIC": "-",
+    "type": "Mazdoor",
+    "area": "Saddar",
+    "phone": "03014737261",
+    "rating": 90
+  },
+  {
+    "name": "Sai-ul-lah",
+    "image": "https://i.ibb.co/RgfQ1VM/Sai-ul-lah.jpg",
+    "age": 60,
+    "CNIC": "3520113099655",
+    "type": "Mistri",
+    "area": "Saddar",
+    "phone": "03237750271",
+    "rating": 90
+  },
+  {
+    "name": "Muhammad Akram",
+    "image": "https://i.ibb.co/5YSwGPt/Muhammad-Akram.jpg",
+    "age": 60,
+    "CNIC": "3520157876331",
+    "type": "Mistri",
+    "area": "Saddar",
+    "phone": "03244338875",
+    "rating": 90
+  },
+  {
+    "name": "Zaheer Ahmad",
+    "image": "https://i.ibb.co/j36vJkR/Zaheer-Ahmad.jpg",
+    "age": 18,
+    "CNIC": "-",
+    "type": "Mazdoor",
+    "area": "Joray Pull",
+    "phone": "03084788322",
+    "rating": 90
+  },
+  {
+    "name": "Waseem",
+    "image": "https://i.ibb.co/f8QnPzM/Waseem.jpg",
+    "age": 29,
+    "CNIC": "3520109723659",
+    "type": "Mistri",
+    "area": "Joray Pull",
+    "phone": "03064430127",
+    "rating": 90
+  },
+  {
+    "name": "Tasawer Abbas",
+    "image": "https://i.ibb.co/k6jHgZ8/Tasawer-Abbas.jpg",
+    "age": 17,
+    "CNIC": "-",
+    "type": "Mazdoor",
+    "area": "Lakshmi Chowk",
+    "phone": "03471663760",
+    "rating": 90
+  },
+  {
+    "name": "Shafqat Hussain",
+    "image": "https://i.ibb.co/bB5wMdn/Shafqat-Hussain.jpg",
+    "age": 38,
+    "CNIC": "3130441091943",
+    "type": "Mazdoor",
+    "area": "Bhatti Chowk",
+    "phone": "03246605424",
+    "rating": 90
+  },
+  {
+    "name": "Rabnawaz Khan",
+    "image": "https://i.ibb.co/5WbFfPV/Rabnawaz-Khan.jpg",
+    "age": 23,
+    "CNIC": "1530582148633",
+    "type": "Mazdoor",
+    "area": "Bhatti Chowk",
+    "phone": "03424053475",
+    "rating": 90
+  },
+  {
+    "name": "Mushtaq",
+    "image": "https://i.ibb.co/nzc8m1p/Mushtaq.jpg",
+    "age": 40,
+    "CNIC": "3540188522399",
+    "type": "Rang Saaz",
+    "area": "Bhatti Chowk",
+    "phone": "03097806167",
+    "rating": 90
+  },
+  {
+    "name": "Muqadar Khan",
+    "image": "https://i.ibb.co/kygk1ZZ/Muqadar-Khan.jpg",
+    "age": 55,
+    "CNIC": "1730156797317",
+    "type": "Mazdoor",
+    "area": "Bhatti Chowk",
+    "phone": "03074372276",
+    "rating": 90
+  },
+  {
+    "name": "Mukhtar Ahmad",
+    "image": "https://i.ibb.co/SsG04pB/Mukhtar-Ahmad.jpg",
+    "age": 27,
+    "CNIC": "3110581470729",
+    "type": "Mistri",
+    "area": "Joray Pull",
+    "phone": "03015493422",
+    "rating": 90
+  },
+  {
+    "name": "Khuram Shahzad",
+    "image": "https://i.ibb.co/SfSjTsR/Khuram-Shahzad.jpg",
+    "age": 26,
+    "CNIC": "3520149724251",
+    "type": "Mistri",
+    "area": "Saddar",
+    "phone": "03064229394",
+    "rating": 90
+  },
+  {
+    "name": "Adnan",
+    "image": "https://i.ibb.co/Bq9BskW/Adnan.jpg",
+    "age": 30,
+    "CNIC": "-",
+    "type": "Mistri",
+    "area": "Joray Pull",
+    "phone": "03096262545",
+    "rating": 90
+  },
+  {
+    "name": "Abid Hussain",
+    "image": "https://i.ibb.co/F3mwcZ1/Abid-Hussain.jpg",
+    "age": 42,
+    "CNIC": "3840409362497",
+    "type": "Mazdoor",
+    "area": "Bhatti Chowk",
+    "phone": "03000383222",
+    "rating": 90
+  },
+  {
+    "name": "Muhammad Farooq",
+    "image": "https://i.ibb.co/6sV7FS7/Muhammad-Farooq.jpg",
+    "age": 36,
+    "CNIC": "3660215231255",
+    "type": "Mazdoor",
+    "area": "Bhatti Chowk",
+    "phone": "03005219940",
+    "rating": 90
+  },
+  {
+    "name": "Muhammad Imran",
+    "image": "https://i.ibb.co/wdC2pLM/Muhammad-Imran.jpg",
+    "age": 23,
+    "CNIC": "332029008331",
+    "type": "Mistri",
+    "area": "Bhatti Chowk",
+    "phone": "03487633145",
+    "rating": 90
+  },
+  {
+    "name": "Muhammad Sajjad",
+    "image": "https://i.ibb.co/Gk6v518/Muhammad-Sajjad.jpg",
+    "age": 32,
+    "CNIC": "3610143607281",
+    "type": "Mazdoor",
+    "area": "Bhatti Chowk",
+    "phone": "03024025174",
+    "rating": 90
+  },
+  {
+    "name": "Muhammad Nasir",
+    "image": "https://i.ibb.co/Wymq8xq/Muhammad-Nasir.jpg",
+    "age": 20,
+    "CNIC": "3110431645063",
+    "type": "Mazdoor",
+    "area": "Lakshmi Chowk",
+    "phone": "03097619478",
+    "rating": 90
+  },
+  {
+    "name": "Muhammad Yasin",
+    "image": "https://i.ibb.co/5vpMMKv/Muhammad-Yasin.jpg",
+    "age": 38,
+    "CNIC": "3610311413027",
+    "type": "Mazdoor",
+    "area": "Lakshmi Chowk",
+    "phone": "03073648841",
+    "rating": 90
+  },
+  {
+    "name": "Muhammad Waqas",
+    "image": "https://i.ibb.co/WDZVmXR/Muhammad-Waqas.jpg",
+    "age": 19,
+    "CNIC": "3630403980517",
+    "type": "Mazdoor",
+    "area": "Bhatti Chowk",
+    "phone": "03264255028",
+    "rating": 90
+  },
+  {
+    "name": "Niyaz Hussain",
+    "image": "https://i.ibb.co/jLcSZgz/Niyaz-Hussain.jpg",
+    "age": 32,
+    "CNIC": "3230485935287",
+    "type": "Mistri",
+    "area": "Bhatti Chowk",
+    "phone": "03011022336",
+    "rating": 90
+  },
+  {
+    "name": "Muhammad Azhar",
+    "image": "https://i.ibb.co/GnzGz0M/Muhammad-Azhar.jpg",
+    "age": 38,
+    "CNIC": "3650214450503",
+    "type": "Mazdoor",
+    "area": "Bhatti Chowk",
+    "phone": "03094057310",
+    "rating": 90
+  },
+  {
+    "name": "Abdul Wadood",
+    "image": "https://i.ibb.co/1fd9w4m/Abdul-Wadood.jpg",
+    "age": 45,
+    "CNIC": "1610287087431",
+    "type": "Mazdoor",
+    "area": "Bhatti Chowk",
+    "phone": "03189089027",
+    "rating": 90
+  },
+  {
+    "name": "Abdul Rehman",
+    "image": "https://i.ibb.co/dmzFZQK/Abdul-Rehman.jpg",
+    "age": 45,
+    "CNIC": "3120135179989",
+    "type": "Mazdoor",
+    "area": "Bhatti Chowk",
+    "phone": "03247063996",
+    "rating": 90
+  }
+]

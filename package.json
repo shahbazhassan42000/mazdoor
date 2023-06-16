@@ -1,0 +1,38 @@
+{
+  "name": "mazdoor_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "clientinstall": "npm install --prefix client",
+    "dev": "concurrently \"npm run start\" \"npm run client\"",
+    "render-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shahbazhassan42000/mazdoor.git"
+  },
+  "author": "shahbazhassan42000@gmail.com",
+  "homepage": "https://github.com/shahbazhassan42000/mazdoor.git#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "concurrently": "^7.3.0",
+    "cors": "^2.8.4",
+    "dotenv": "^16.0.3",
+    "express": "^4.16.2",
+    "express-jwt": "^8.4.1",
+    "jsonwebtoken": "^9.0.0",
+    "mongodb": "^4.8.0",
+    "mongoose": "^6.4.4",
+    "mongoose-unique-validator": "^3.1.0",
+    "morgan-body": "^2.3.1",
+    "nodemon": "^2.0.16",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "nodemailer": "^6.9.1"
+  }
+}

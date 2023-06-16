@@ -1,0 +1,405 @@
+[{
+  "_id": {
+    "$oid": "648218dfd60fcfba67e1b8fc"
+  },
+  "image": "https://i.ibb.co/Jkvv0Lj/1762227.png",
+  "title": "test1",
+  "description": "test...",
+  "area": "Bhatti Chowk",
+  "category": "MAZDOOR",
+  "price": 1200,
+  "deliveryTime": 3,
+  "rating": 80,
+  "user": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "createdAt": {
+    "$date": "2023-06-08T18:07:27.141Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T07:55:20.158Z"
+  },
+  "__v": 1,
+  "projects": [
+    {
+      "$oid": "648ac3e7870ec50f9adff2a7"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "648228820c46870a83adddf7"
+  },
+  "image": "https://i.ibb.co/D1SY9Yf/403057.png",
+  "title": "abc",
+  "description": "xyz...",
+  "area": "Cantt",
+  "category": "Rang Saaz",
+  "price": 1800,
+  "deliveryTime": 2,
+  "rating": 80,
+  "user": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "createdAt": {
+    "$date": "2023-06-08T19:14:10.389Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T11:47:47.046Z"
+  },
+  "__v": 1,
+  "projects": [
+    {
+      "$oid": "648afa62c8177ac4385dead8"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "64830b09d0267e868431aae5"
+  },
+  "image": "https://i.ibb.co/mH5KLk3/1055489.jpg",
+  "title": "Rang Saaz for painting and whitewashing",
+  "description": "I am a professional rang saaz with 8 years of experience in painting and whitewashing. I can paint any wall, ceiling, door, window, or furniture. I can also do whitewashing, distempering, polishing, and varnishing. I use high-quality materials and tools. I work neatly and cleanly.",
+  "area": "Johar Town",
+  "category": "Rang Saaz",
+  "price": 2000,
+  "deliveryTime": 6,
+  "rating": 80,
+  "user": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "createdAt": {
+    "$date": "2023-06-09T11:20:41.642Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T21:54:07.233Z"
+  },
+  "__v": 2,
+  "projects": [
+    {
+      "$oid": "648af3d6870ec50f9adff3c6"
+    },
+    {
+      "$oid": "648b887f50970a1bfcc4e546"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "648316ff252e4e7412dba1b4"
+  },
+  "image": "https://i.ibb.co/PDgWBQj/1140962.jpg",
+  "title": "Mistri for plumbing and electrical work",
+  "description": "I am a skilled mistri with 10 years of experience in plumbing and electrical work. I can fix any leak, pipe, faucet, switch, socket, fan, light, or heater. I can also install new fixtures and appliances. I work fast and efficiently, and I charge reasonable rates.",
+  "area": "Gulberg",
+  "category": "Mistri",
+  "price": 1500,
+  "deliveryTime": 2,
+  "rating": 80,
+  "user": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "createdAt": {
+    "$date": "2023-06-09T12:11:43.046Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T20:04:24.854Z"
+  },
+  "__v": 4,
+  "projects": [
+    {
+      "$oid": "648b6c83d1e1940bbd3998a5"
+    },
+    {
+      "$oid": "648b6ec868c98a335c47f405"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6483760cb8a4c0ba63a8df0a"
+  },
+  "image": "https://i.ibb.co/s1JsHGF/5175303.jpg",
+  "title": "Carpenter for woodwork, furniture repair, fixing minor issues, repairing whole furniture and all kind of wooden work",
+  "description": "I am a talented carpenter with 7 years of experience in woodwork and furniture repair. I can make or fix any wooden item, such as tables, chairs, cabinets, shelves, doors, windows, or frames. I can also do carving, engraving, or inlaying. I use fine wood and craftsmanship. I work with precision and creativity.",
+  "area": "DHA",
+  "category": "Carpenter",
+  "price": 2500,
+  "deliveryTime": 7,
+  "rating": 80,
+  "user": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "createdAt": {
+    "$date": "2023-06-09T18:57:16.960Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T22:12:45.782Z"
+  },
+  "__v": 7,
+  "projects": [
+    {
+      "$oid": "648a104525a78f330369cf8f"
+    },
+    {
+      "$oid": "648b8c6750970a1bfcc4e603"
+    },
+    {
+      "$oid": "648b8cdd50970a1bfcc4e684"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "648980167caa33b670afeada"
+  },
+  "image": "https://i.ibb.co/zPW5FVP/abuzar-xheikh-lhfxi0-QADqg-unsplash.jpg",
+  "title": "Carpentry Work for a New House",
+  "description": "We are looking for a carpenter to build a new house in Lahore. The work will involve constructing walls, installing doors and windows, and building furniture.",
+  "area": "DHA Phase 5",
+  "category": "Carpenter",
+  "price": 50000,
+  "deliveryTime": 14,
+  "rating": 80,
+  "user": {
+    "$oid": "6432f466d5038423ea1f830a"
+  },
+  "createdAt": {
+    "$date": "2023-06-14T08:53:42.283Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-14T08:53:42.283Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648980d47caa33b670afeb0b"
+  },
+  "image": "https://i.ibb.co/BqvPFjP/careers-analysis-cooperation-data-development-concept.jpg",
+  "title": "Plumbing Work for a New House",
+  "description": "We are looking for a plumber to install plumbing systems in a new house in Lahore. The work will involve installing pipes, fixing leaks, and maintaining plumbing systems.",
+  "area": "Model Town",
+  "category": "Plumber",
+  "price": 30000,
+  "deliveryTime": 7,
+  "rating": 80,
+  "user": {
+    "$oid": "6432f466d5038423ea1f830a"
+  },
+  "createdAt": {
+    "$date": "2023-06-14T08:56:52.900Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-14T08:56:52.900Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6489813d7caa33b670afeb5d"
+  },
+  "image": "https://i.ibb.co/grcfvs5/IMG-1993.jpg",
+  "title": "Painting Work for a New House",
+  "description": "We are looking for a rang saaz to paint the interior and exterior of a new house in Lahore. The work will involve painting walls, ceilings, and other surfaces.",
+  "area": "Gulberg",
+  "category": "Rang Saaz",
+  "price": 40000,
+  "deliveryTime": 14,
+  "rating": 80,
+  "user": {
+    "$oid": "6432f466d5038423ea1f830a"
+  },
+  "createdAt": {
+    "$date": "2023-06-14T08:58:37.113Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-14T08:58:37.113Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648982197caa33b670afeb8d"
+  },
+  "image": "https://i.ibb.co/vdLD0PL/background.jpg",
+  "title": "Carpentry Work for a Renovation Project",
+  "description": "We are looking for a carpenter to renovate an old house in Lahore. The work will involve repairing furniture, installing new doors and windows, and constructing new furniture.",
+  "area": "Johar Town",
+  "category": "Carpenter",
+  "price": 60000,
+  "deliveryTime": 21,
+  "rating": 80,
+  "user": {
+    "$oid": "6432f466d5038423ea1f830a"
+  },
+  "createdAt": {
+    "$date": "2023-06-14T09:02:17.926Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-14T09:02:17.926Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648982667caa33b670afebb3"
+  },
+  "image": "https://i.ibb.co/8XqCnvX/furniture.jpg",
+  "title": "Masonry Work for a New Building",
+  "description": "We are looking for a mistri to construct a new building in Lahore. The work will involve constructing walls, laying bricks, and installing doors and windows.",
+  "area": "Bahria Town",
+  "category": "Mistri",
+  "price": 80000,
+  "deliveryTime": 30,
+  "rating": 80,
+  "user": {
+    "$oid": "6432f466d5038423ea1f830a"
+  },
+  "createdAt": {
+    "$date": "2023-06-14T09:03:34.728Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-14T09:03:34.728Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648982aa7caa33b670afebd4"
+  },
+  "image": "https://i.ibb.co/QvhpDMr/shed.jpg",
+  "title": "Plumbing Work for a Renovation Project",
+  "description": "We are looking for a plumber to renovate an old house in Lahore. The work will involve installing new plumbing systems and fixing leaks.",
+  "area": "Wapda Town",
+  "category": "Plumber",
+  "price": 20000,
+  "deliveryTime": 7,
+  "rating": 80,
+  "user": {
+    "$oid": "6432f466d5038423ea1f830a"
+  },
+  "createdAt": {
+    "$date": "2023-06-14T09:04:42.811Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-14T09:04:42.811Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648983137caa33b670afec04"
+  },
+  "image": "https://i.ibb.co/2KZV8x6/20221217-165614.jpg",
+  "title": "Carpentry Work for a Furniture Project",
+  "description": "We are looking for a carpenter to build custom furniture in Lahore. The work will involve constructing tables, chairs, and other furniture items.",
+  "area": "Defence Road",
+  "category": "Carpenter",
+  "price": 70000,
+  "deliveryTime": 21,
+  "rating": 80,
+  "user": {
+    "$oid": "6432f466d5038423ea1f830a"
+  },
+  "createdAt": {
+    "$date": "2023-06-14T09:06:27.672Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-14T09:06:27.672Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648983537caa33b670afec2a"
+  },
+  "image": "https://i.ibb.co/yn2KVBw/FB-IMG-1672764204856.jpg",
+  "title": "Masonry Work for a Renovation Project",
+  "description": "We are looking for a mistri to renovate an old building in Lahore. The work will involve repairing walls and laying bricks.",
+  "area": "Garden Town",
+  "category": "Mistri",
+  "price": 50000,
+  "deliveryTime": 14,
+  "rating": 80,
+  "user": {
+    "$oid": "6432f466d5038423ea1f830a"
+  },
+  "createdAt": {
+    "$date": "2023-06-14T09:07:31.212Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-14T09:07:31.212Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648983917caa33b670afec46"
+  },
+  "image": "https://i.ibb.co/D9yLh5S/FB-IMG-1669807068232.jpg",
+  "title": "Painting Work for a Renovation Project",
+  "description": "We are looking for a rang saaz to paint an old building in Lahore. The work will involve painting walls and ceilings.",
+  "area": "Shadman Colony",
+  "category": "Rang Saaz",
+  "price": 30000,
+  "deliveryTime": 7,
+  "rating": 80,
+  "user": {
+    "$oid": "6432f466d5038423ea1f830a"
+  },
+  "createdAt": {
+    "$date": "2023-06-14T09:08:33.914Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-14T09:08:33.914Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648983c07caa33b670afec6c"
+  },
+  "image": "https://i.ibb.co/s9FWQnx/IMG-20220919-WA0004.jpg",
+  "title": "Plumbing Work for an Office Building Project",
+  "description": "We are looking for a plumber to install plumbing systems in an office building in Lahore.",
+  "area": "Gulshan-e-Ravi",
+  "category": "Plumber",
+  "price": 50000,
+  "deliveryTime": 14,
+  "rating": 80,
+  "user": {
+    "$oid": "6432f466d5038423ea1f830a"
+  },
+  "createdAt": {
+    "$date": "2023-06-14T09:09:20.512Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-14T09:09:20.512Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648983ef7caa33b670afec88"
+  },
+  "image": "https://i.ibb.co/qMM9Byh/al-kabir-5-700x466.jpg",
+  "title": "Carpentry Work for an Office Furniture Project",
+  "description": "We are looking for a carpenter to build custom furniture items for an office building in Lahore.",
+  "area": "Allama Iqbal Town",
+  "category": "Carpenter",
+  "price": 100000,
+  "deliveryTime": 30,
+  "rating": 80,
+  "user": {
+    "$oid": "6432f466d5038423ea1f830a"
+  },
+  "createdAt": {
+    "$date": "2023-06-14T09:10:07.824Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-14T09:10:07.824Z"
+  },
+  "__v": 0
+}]

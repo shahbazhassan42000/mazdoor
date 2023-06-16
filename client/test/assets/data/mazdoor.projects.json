@@ -1,0 +1,200 @@
+[{
+  "_id": {
+    "$oid": "648a104525a78f330369cf8f"
+  },
+  "gig": {
+    "$oid": "6483760cb8a4c0ba63a8df0a"
+  },
+  "description": "Hi, I’m Shahbaz, a professional carpenter with over 10 years of experience in woodworking and furniture making. I love creating unique and functional pieces that suit your style and space.\n\nDo you need a bookshelf for your living room that can store your books, magazines, DVDs, and other items? Do you want a bookshelf that is sturdy, durable, and attractive? Do you have a specific design or idea in mind for your bookshelf?\n\nIf yes, then I’m the right person for you. I will build a custom wooden bookshelf for your living room that will match your decor and personality. I will use high-quality wood and materials that are eco-friendly and long-lasting. I will also apply the finish of your choice, such as paint, stain, varnish, or wax.",
+  "price": 1800,
+  "deliveryTime": 2,
+  "customer": {
+    "$oid": "6485d944e436e4fa1f2b0999"
+  },
+  "seller": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "status": "CANCELLED",
+  "createdAt": {
+    "$date": "2023-06-14T19:08:53.108Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T07:56:31.552Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648ac3e7870ec50f9adff2a7"
+  },
+  "gig": {
+    "$oid": "648218dfd60fcfba67e1b8fc"
+  },
+  "description": "ABC...",
+  "price": 800,
+  "deliveryTime": 1,
+  "customer": {
+    "$oid": "6485d944e436e4fa1f2b0999"
+  },
+  "seller": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "status": "DELIVERED",
+  "createdAt": {
+    "$date": "2023-06-15T07:55:20.067Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T21:42:15.758Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648af3d6870ec50f9adff3c6"
+  },
+  "gig": {
+    "$oid": "64830b09d0267e868431aae5"
+  },
+  "description": "xyz...",
+  "price": 1500,
+  "deliveryTime": 1,
+  "customer": {
+    "$oid": "6485d944e436e4fa1f2b0999"
+  },
+  "seller": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "status": "WITHDRAWN",
+  "createdAt": {
+    "$date": "2023-06-15T11:19:50.268Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T19:48:54.751Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648afa62c8177ac4385dead8"
+  },
+  "gig": {
+    "$oid": "648228820c46870a83adddf7"
+  },
+  "description": "abc...",
+  "price": 1800,
+  "deliveryTime": 2,
+  "customer": {
+    "$oid": "6485d944e436e4fa1f2b0999"
+  },
+  "seller": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "status": "CANCELLED",
+  "createdAt": {
+    "$date": "2023-06-15T11:47:47.003Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T11:48:43.377Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648b6ec868c98a335c47f405"
+  },
+  "gig": {
+    "$oid": "648316ff252e4e7412dba1b4"
+  },
+  "description": "123",
+  "price": 2000,
+  "deliveryTime": 5,
+  "customer": {
+    "$oid": "6485d944e436e4fa1f2b0999"
+  },
+  "seller": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "status": "ACTIVE",
+  "createdAt": {
+    "$date": "2023-06-15T20:04:24.752Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T20:13:00.733Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648b887f50970a1bfcc4e546"
+  },
+  "gig": {
+    "$oid": "64830b09d0267e868431aae5"
+  },
+  "description": "abc...xyz",
+  "price": 1500,
+  "deliveryTime": 1,
+  "customer": {
+    "$oid": "648b879550970a1bfcc4e4cf"
+  },
+  "seller": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "status": "OFFERED",
+  "createdAt": {
+    "$date": "2023-06-15T21:54:07.183Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T21:54:07.183Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648b8c6750970a1bfcc4e603"
+  },
+  "gig": {
+    "$oid": "6483760cb8a4c0ba63a8df0a"
+  },
+  "description": "className=\"text-xs text-white bg-yellow-500 hover:bg-yello",
+  "price": 10000,
+  "deliveryTime": 10,
+  "customer": {
+    "$oid": "648b8b4350970a1bfcc4e581"
+  },
+  "seller": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "status": "OFFERED",
+  "createdAt": {
+    "$date": "2023-06-15T22:10:47.059Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T22:10:47.059Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "648b8cdd50970a1bfcc4e684"
+  },
+  "gig": {
+    "$oid": "6483760cb8a4c0ba63a8df0a"
+  },
+  "description": "<span className={`${project?.status===\"ACTIVE\" && \"text-orange-500\"} ${project?.status===\"DELIVERED\" &&",
+  "price": 3500,
+  "deliveryTime": 3,
+  "customer": {
+    "$oid": "6485d944e436e4fa1f2b0999"
+  },
+  "seller": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "status": "OFFERED",
+  "createdAt": {
+    "$date": "2023-06-15T22:12:45.685Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T22:12:45.685Z"
+  },
+  "__v": 0
+}]
