@@ -1,0 +1,184 @@
+[{
+  "_id": {
+    "$oid": "648999f97caa33b670aff212"
+  },
+  "user1": {
+    "$oid": "6485d944e436e4fa1f2b0999"
+  },
+  "user2": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "messages": [
+    {
+      "$oid": "648999f97caa33b670aff214"
+    },
+    {
+      "$oid": "64899b137caa33b670aff25c"
+    },
+    {
+      "$oid": "64899bfd7caa33b670aff2d3"
+    },
+    {
+      "$oid": "64899c097caa33b670aff2fa"
+    },
+    {
+      "$oid": "64899c1b7caa33b670aff334"
+    },
+    {
+      "$oid": "64899c7d7caa33b670aff380"
+    },
+    {
+      "$oid": "64899c897caa33b670aff3a6"
+    },
+    {
+      "$oid": "64899cd37caa33b670aff3d0"
+    },
+    {
+      "$oid": "64899d4b7caa33b670aff41b"
+    },
+    {
+      "$oid": "6489ec62b3034e81368ea617"
+    },
+    {
+      "$oid": "648a104525a78f330369cf99"
+    },
+    {
+      "$oid": "648a12ca25a78f330369d038"
+    },
+    {
+      "$oid": "648ac3e8870ec50f9adff2b1"
+    },
+    {
+      "$oid": "648af3d6870ec50f9adff3d0"
+    },
+    {
+      "$oid": "648afa63c8177ac4385deae2"
+    },
+    {
+      "$oid": "648b6ec868c98a335c47f40f"
+    },
+    {
+      "$oid": "648b8cdd50970a1bfcc4e68e"
+    }
+  ],
+  "createdAt": {
+    "$date": "2023-06-14T10:44:09.766Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T22:12:45.882Z"
+  },
+  "__v": 20,
+  "lastMessage": {
+    "$oid": "648b8cdd50970a1bfcc4e68e"
+  }
+},
+{
+  "_id": {
+    "$oid": "64899c987caa33b670aff3b6"
+  },
+  "user1": {
+    "$oid": "6485d944e436e4fa1f2b0999"
+  },
+  "user2": {
+    "$oid": "6486fe84757fb1eaf2f6c3c6"
+  },
+  "messages": [
+    {
+      "$oid": "64899c987caa33b670aff3b8"
+    }
+  ],
+  "createdAt": {
+    "$date": "2023-06-14T10:55:20.411Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-14T10:55:20.455Z"
+  },
+  "__v": 1,
+  "lastMessage": {
+    "$oid": "64899c987caa33b670aff3b8"
+  }
+},
+{
+  "_id": {
+    "$oid": "648b85db50970a1bfcc4e4b8"
+  },
+  "user1": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "user2": {
+    "$oid": "6486fe84757fb1eaf2f6c3c6"
+  },
+  "messages": [
+    {
+      "$oid": "648b85db50970a1bfcc4e4ba"
+    }
+  ],
+  "createdAt": {
+    "$date": "2023-06-15T21:42:51.416Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T21:42:51.487Z"
+  },
+  "__v": 1,
+  "lastMessage": {
+    "$oid": "648b85db50970a1bfcc4e4ba"
+  }
+},
+{
+  "_id": {
+    "$oid": "648b883350970a1bfcc4e4f7"
+  },
+  "user1": {
+    "$oid": "648b879550970a1bfcc4e4cf"
+  },
+  "user2": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "messages": [
+    {
+      "$oid": "648b883350970a1bfcc4e4f9"
+    },
+    {
+      "$oid": "648b887f50970a1bfcc4e550"
+    }
+  ],
+  "createdAt": {
+    "$date": "2023-06-15T21:52:51.745Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T21:54:07.297Z"
+  },
+  "__v": 2,
+  "lastMessage": {
+    "$oid": "648b887f50970a1bfcc4e550"
+  }
+},
+{
+  "_id": {
+    "$oid": "648b8c3350970a1bfcc4e5a7"
+  },
+  "user1": {
+    "$oid": "648b8b4350970a1bfcc4e581"
+  },
+  "user2": {
+    "$oid": "64830316f33c37ea79ef8731"
+  },
+  "messages": [
+    {
+      "$oid": "648b8c3350970a1bfcc4e5a9"
+    },
+    {
+      "$oid": "648b8c6750970a1bfcc4e60d"
+    }
+  ],
+  "createdAt": {
+    "$date": "2023-06-15T22:09:55.493Z"
+  },
+  "updatedAt": {
+    "$date": "2023-06-15T22:10:47.214Z"
+  },
+  "__v": 2,
+  "lastMessage": {
+    "$oid": "648b8c6750970a1bfcc4e60d"
+  }
+}]

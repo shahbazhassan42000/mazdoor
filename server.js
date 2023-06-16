@@ -1,5 +1,4 @@
 import express from "express";
-import * as path from "path";
 import dotenv from "dotenv";
 import http from "http";
 import bodyParser from "body-parser";
@@ -8,6 +7,8 @@ import morganBody from "morgan-body";
 import routes from "./routes/index.js";
 import middlewares from "./middlewares/index.js";
 import dbConnect from "./utils/db.js";
+import path from 'path';
+
 
 dotenv.config();
 
@@ -15,7 +16,7 @@ dotenv.config();
 const app = express();
 app.server = http.createServer(app);
 
-const {errorHandler} = middlewares.errorHandler;
+const { errorHandler } = middlewares.errorHandler;
 
 // middleware
 app.use(cors());
@@ -43,8 +44,7 @@ app.use('/api', routes);
 if (process.env.NODE_ENV === 'production') {
     //*Set static folder up in production
     app.use(express.static('client/build'));
-
-    app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'client', 'build','index.html')));
+    app.get('*', (req, res) => res.sendFile(path.resolve('client', 'build', 'index.html')));
 }
 
 // global error handler function

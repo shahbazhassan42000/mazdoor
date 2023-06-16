@@ -335,7 +335,7 @@ export const filterUser = (user) => {
 };
 
 const sendVerificationEmail = async (email, id, token) => {
-  const URL = `${process.env.CLIENT_URL}/api/users/verification/${id}/verify/${token}`;
+  const URL = `${process.env.BASE_URL}/users/verification/${id}/verify/${token}`;
   const subject = "Email Verification";
   const text = `Please verify your email by clicking on the link: ${URL}`;
   await sendEmail(email, subject, text);
