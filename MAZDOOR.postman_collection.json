@@ -1,0 +1,727 @@
+{
+	"info": {
+		"_postman_id": "2b0e35f0-3802-4f11-b0fc-004ea243cbcf",
+		"name": "MAZDOOR",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20570574"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Check Email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"user\":{\r\n    \"email\":\"shahbaz.hassan.1143@gmail.com\"\r\n}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/check-email",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"check-email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": {\r\n        \"image\": \"https://i.ibb.co/x3nt3dc/Shahbaz.jpg\",\r\n        \"name\": \"SHAHBAZ\",\r\n        \"CNIC\": \"3520253615671\",\r\n        \"phone\": \"923354058294\",\r\n        \"username\": \"shahbaz\",\r\n        \"email\": \"shahbazhassan42000@gmail.com\",\r\n        \"role\": \"ADMIN\",\r\n        \"linkedin\": \"https://www.linkedin.com/in/shahbaz43/\",\r\n        \"password\": \"Hum-2977\",\r\n        \"age\": 24,\r\n        \"area\": \"Askari Cantt\",\r\n        \"cardExpiry\": \"06/2027\",\r\n        \"cardName\": \"SHAHBAZ\",\r\n        \"cardNumber\": \"0000111122223333\",\r\n        \"city\": \"Lahore\",\r\n        \"cvv\": \"123\",\r\n        \"paymentMethod\": \"Both\",\r\n        \"mobAccName\": \"Easypaisa\",\r\n        \"mobAccNumber\": \"923354058294\",\r\n        \"state\": \"Punjab\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/signup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var token = JSON.parse(responseBody);\r",
+									"\r",
+									"if(token){\r",
+									"    postman.setEnvironmentVariable('token', token);\r",
+									"}\r",
+									"\r",
+									"tests['Environment variable \"token\" has been set'] = environment.token === token;\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"user\":{\r\n    \"username\":\"shahbaz\",\r\n    \"password\":\"8991\"\r\n}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users by Role",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/getUserByRole/?role=LABOR",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"getUserByRole",
+								""
+							],
+							"query": [
+								{
+									"key": "role",
+									"value": "LABOR"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Delete User by id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/users/648961c07caa33b670afe92c",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"648961c07caa33b670afe92c"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "64207b39cb0edcf008d01467",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get  all users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User by id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"user\":{\r\n    \"_id\":\"6485aa80bb07bcebef588fb6\",\r\n    \"age\": 23\r\n}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User by token",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/users/getByToken",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"getByToken"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "LaborsType",
+					"item": [
+						{
+							"name": "Get All Types",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/laborsType",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"laborsType"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Type",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Electrition\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/laborsType",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"laborsType"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Type By Name",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/laborsType/mazdoor",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"laborsType",
+										"mazdoor"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Gig",
+					"item": [
+						{
+							"name": "Get All GIGs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/gigs/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"gigs",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create GIG",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"gig\":{\r\n        \"title\":\"test2\",\r\n        \"description\":\"test...\",\r\n        \"price\":1200,\r\n        \"category\":\"MAZDOOR\",\r\n        \"deliveryTime\":3,\r\n        \"area\":\"Bhatti Chowk\",\r\n        \"image\":\"https://i.ibb.co/Jkvv0Lj/1762227.png\",\r\n        \"user\":\"6433c067f3292865631a0aa7\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/gigs",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"gigs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE GIG BY ID",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/gigs/6482191fe0f3bd26f6601ec8",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"gigs",
+										"6482191fe0f3bd26f6601ec8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Conversation",
+					"item": [
+						{
+							"name": "Create Conversation",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"conversation\":{\r\n        \"user1\":\"6485d944e436e4fa1f2b0999\",\r\n        \"user2\":\"64830316f33c37ea79ef8731\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/conversations",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"conversations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "All Conversations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/conversations",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"conversations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Conversation by iD",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/conversations/6487973aad1e4532d3c178c3",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"conversations",
+										"6487973aad1e4532d3c178c3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Conversation by User ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/conversations/userID/64830316f33c37ea79ef8731",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"conversations",
+										"userID",
+										"64830316f33c37ea79ef8731"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Message",
+					"item": [
+						{
+							"name": "Create Message",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"message\":{\r\n        \"sender\":\"6486fe84757fb1eaf2f6c3c6\",\r\n        \"receiver\":\"64830316f33c37ea79ef8731\",\r\n        \"message\":\"abc..\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/messages",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"messages"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "All Messages",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/messages",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"messages"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "By Conversation ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/messages/conversationID/64892295dd164ae3b82dbd55",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"messages",
+										"conversationID",
+										"64892295dd164ae3b82dbd55"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a Message",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/messages/648e24e8b54ee8bf4a42e8b6",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"messages",
+										"648e24e8b54ee8bf4a42e8b6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Project",
+					"item": [
+						{
+							"name": "Get All Projects",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/projects",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"projects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Project",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"project\":{\r\n        \"gig\":\"6483760cb8a4c0ba63a8df0a\",\r\n        \"customer\":\"6485d944e436e4fa1f2b0999\",\r\n        \"seller\":\"64830316f33c37ea79ef8731\",\r\n        \"price\":\"1800\",\r\n        \"deliveryTime\":\"2\",\r\n        \"description\":\"Hi, I’m Shahbaz, a professional carpenter with over 10 years of experience in woodworking and furniture making. I love creating unique and functional pieces that suit your style and space. Do you need a bookshelf for your living room that can store your books, magazines, DVDs, and other items? Do you want a bookshelf that is sturdy, durable, and attractive? Do you have a specific design or idea in mind for your bookshelf? If yes, then I’m the right person for you. I will build a custom wooden bookshelf for your living room that will match your decor and personality. I will use high-quality wood and materials that are eco-friendly and long-lasting. I will also apply the finish of your choice, such as paint, stain, varnish, or wax.\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/projects",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"projects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Project By ID",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/projects/648a114625a78f330369cfd7",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"648a114625a78f330369cfd7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get  Project By ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/projects/648a104525a78f330369cf8f",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"648a104525a78f330369cf8f"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Project by ID",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"project\":{\r\n        \"status\":\"waiting\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/projects/648a104525a78f330369cf8f",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"648a104525a78f330369cf8f"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Projects By User ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/projects/user/64830316f33c37ea79ef8731",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"user",
+										"64830316f33c37ea79ef8731"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
