@@ -47,6 +47,9 @@ export default {
           await sendVerificationEmail(user.email, user._id, token.token);
           return res.status(400).json("An email has been sent to your email address. Please verify your email address to login.");
         }
+        if (user.role !== "ADMIN" && user.status === "blocked") {
+          return res.status(400).json("Your account has been blocked by admin. Please contact admin for more details.");
+        }
         const jwtToken = user.generateJWT();
         return res.status(200).json(jwtToken);
       } else {

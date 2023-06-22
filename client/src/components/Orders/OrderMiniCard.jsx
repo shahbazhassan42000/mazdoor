@@ -22,7 +22,7 @@ export const OrderMiniCard = ({ project, user,tab }) => {
     };
     return (
         <section className="flex px-4 mb-2">
-            <div className="text-sm font-semibold text-lightGray  w-[160px]">
+            <div className="text-sm font-semibold text-lightGray w-[160px]">
                 <div className="flex items-center gap-2">
                     <div className="flex justify-center items-center h-[45px] w-[45px]">
                         <img

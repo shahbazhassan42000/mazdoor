@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import loadingGif from "../../assets/gifs/loading.gif"
 import { a11yProps, TabPanel } from '../../utils/helpers';
+import { UserTable } from './UserTable';
 
 
 export const Users = () => {
@@ -50,10 +51,10 @@ export const Users = () => {
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
-                   
+                    <UserTable tab="LABORS" user={user} users={users?.LABOR} setLoading={setLoading} />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    
+                    <UserTable tab="CUSTOMER" users={users?.CUSTOMER} setLoading={setLoading} />
                 </TabPanel>
             
              {loading && <div className="popup-overlay !absolute">
