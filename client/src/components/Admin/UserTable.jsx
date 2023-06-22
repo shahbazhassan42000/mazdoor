@@ -9,11 +9,8 @@ export const UserTable = ({ tab, users ,setLoading}) => {
     const handleHeaderClick = (column) => {
 
         setLoading(true);
-        // Copy the data array
         const newData = [...users];
-        // Sort the data array based on the column value
         newData.sort((a, b) => {
-            // Use localeCompare() to compare strings in a case-insensitive and locale-aware way
             if (a[column].localeCompare(b[column]) > 0) {
                 return sortOrder === "asc" ? 1 : -1;
             } else if (a[column].localeCompare(b[column]) < 0) {
@@ -22,12 +19,10 @@ export const UserTable = ({ tab, users ,setLoading}) => {
                 return 0;
             }
         });
-        // Set the sorted data and toggle the sorting order
+    
         setSortedData(newData);
         setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-        // Set the sorted column name
         setSortedColumn(column);
-
         setLoading(false);
     };
 
