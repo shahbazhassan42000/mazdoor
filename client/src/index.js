@@ -18,6 +18,7 @@ import { GigPreview } from "./components/Gig/GigPreview";
 import { Gigs } from "./components/Gig/Gigs";
 import { Inbox } from "./components/Chat/Inbox";
 import { Orders } from "./components/Orders/Orders";
+import { Users } from "./components/Admin/Users";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,16 +28,19 @@ const router = createBrowserRouter(
     >
       <Route errorElement={<Error />}>
         <Route path="/" element={<HomePageRender />} />
-        <Route path="/dashboard/:tab" element={<ProtectedRoute children={<Dashboard />} />} />
-        <Route path="/dashboard/:tab/:id" element={<ProtectedRoute children={<Dashboard />} />} />
-        <Route path="/dashboard/:tab/create-gig" element={<ProtectedRoute children={<CreateGig />} />} />
-        <Route path="/labor/:id" element={<ProtectedRoute children={<LaborProfile />} />} />
-        <Route path="/gig/:id" element={<ProtectedRoute children={<GigPreview />} />} />
-        <Route path="/gigs" element={<ProtectedRoute children={<Gigs />} />} />
-        <Route path="/inbox" element={<ProtectedRoute children={<Inbox />} />} />
-        <Route path="/inbox/:id" element={<ProtectedRoute children={<Inbox />} />} />
-        <Route path="/orders" element={<ProtectedRoute children={<Orders />} />} />
+        <Route path="/dashboard/:tab" element={<ProtectedRoute access="any" children={<Dashboard />} />} />
+        <Route path="/dashboard/:tab/:id" element={<ProtectedRoute access="any" children={<Dashboard />} />} />
+        <Route path="/dashboard/:tab/create-gig" element={<ProtectedRoute access="LABOR" children={<CreateGig />} />} />
+        <Route path="/labor/:id" element={<ProtectedRoute access="any" children={<LaborProfile />} />} />
+        <Route path="/gig/:id" element={<ProtectedRoute access="any" children={<GigPreview />} />} />
+        <Route path="/gigs" element={<ProtectedRoute access="any" children={<Gigs />} />} />
+        <Route path="/inbox" element={<ProtectedRoute access="any" children={<Inbox />} />} />
+        <Route path="/inbox/:id" element={<ProtectedRoute access="any" children={<Inbox />} />} />
+        <Route path="/orders" element={<ProtectedRoute access="any" children={<Orders />} />} />
         <Route path="/users/verification/:id/verify/:token" element={<EmailVerify />} />
+        {/* Admin routes */}
+        <Route path="/users" element={<ProtectedRoute access="ADMIN" children={<Users />} />} />
+
       </Route>
       <Route path="*" element={<Error />} />
     </Route>

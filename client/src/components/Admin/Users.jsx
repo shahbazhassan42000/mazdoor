@@ -3,23 +3,22 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { OrderTable } from './OrderTable';
 import loadingGif from "../../assets/gifs/loading.gif"
 import { a11yProps, TabPanel } from '../../utils/helpers';
 
 
-export const Orders = () => {
+export const Users = () => {
     const [value, setValue] = useState(0);
     const user = useSelector((state) => state.mazdoorStore.user);
-    const projects= useSelector((state) => state.mazdoorStore.projects);
+    const users= useSelector((state) => state.mazdoorStore.users);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        if (user && projects) {
+        if (user && users) {
             setLoading(false);
         } else {
             setLoading(true);
         }
-    }, [user, projects]);
+    }, [user, users]);
     
 
     const handleChange = (event, newValue) => {
@@ -30,7 +29,7 @@ export const Orders = () => {
         <section className="px-20 py-10 bg-lightBg2 flex flex-col">
             {/* Header */}
             <header className="flex mb-5">
-                <h1 className="text-3xl text-lightBlack font-semibold">Manage Orders</h1>
+                <h1 className="text-3xl text-lightBlack font-semibold">Manage Users</h1>
             </header>
             {/* Main */}
             <main className='relative'>
@@ -45,32 +44,16 @@ export const Orders = () => {
                             }
 
                         }}
-                        value={value} onChange={handleChange} aria-label="basic tabs example">
-                        <Tab label="OFFERED" {...a11yProps(0)} />
-                        <Tab label="ACTIVE" {...a11yProps(1)} />
-                        <Tab label="DELIVERED" {...a11yProps(2)} />
-                        <Tab label="COMPLETED" {...a11yProps(3)} />
-                        <Tab label="CANCELLED" {...a11yProps(4)} />
-                        <Tab label="WITHDRAWN" {...a11yProps(5)} />
+                        value={value} onChange={handleChange} aria-label="users-managing">
+                        <Tab label={`LABORS [${users?.LABOR ?users?.LABOR?.length : 0}]`} {...a11yProps(0)} />
+                        <Tab label={`CUSTOMERS [${users?.CUSTOMER ?users?.CUSTOMER?.length : 0}]`} {...a11yProps(1)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
-                    <OrderTable tab="OFFERED" user={user} projects={projects["OFFERED"]} />
+                   
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <OrderTable tab="ACTIVE" user={user} projects={projects["ACTIVE"]} />
-                </TabPanel>
-                <TabPanel value={value} index={2}>
-                    <OrderTable tab="DELIVERED" user={user} projects={projects["DELIVERED"]} />
-                </TabPanel>
-                <TabPanel value={value} index={3}>
-                    <OrderTable tab="COMPLETED" user={user} projects={projects["COMPLETED"]} />
-                </TabPanel>
-                <TabPanel value={value} index={4}>
-                    <OrderTable tab="CANCELLED" user={user} projects={projects["CANCELLED"]}/>
-                </TabPanel>
-                <TabPanel value={value} index={5}>
-                    <OrderTable tab="WITHDRAWN" user={user} projects={projects["WITHDRAWN"]}/>
+                    
                 </TabPanel>
             
              {loading && <div className="popup-overlay !absolute">

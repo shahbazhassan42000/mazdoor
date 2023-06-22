@@ -19,7 +19,7 @@ const MainHeader = () => {
           <Notification />
           <Msg />
           <i className="not-italic text-[24px] fa-regular fa-heart hover:text-[#EB5757] cursor-pointer"></i>
-          {user?.role !== "ADMIN" &&
+          {/* {user?.role !== "ADMIN" && */}
             <i className="not-italic">
               <Link
                 to="/orders"
@@ -27,7 +27,7 @@ const MainHeader = () => {
                 Orders
               </Link>
             </i>
-          }
+          {/* } */}
           <ProfileCircle />
         </div>
       </ul>

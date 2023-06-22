@@ -23,16 +23,38 @@ export const DashboardMain = () => {
           </Link>
         </div>
       }
-      {user?.role === "CUSTOMER" &&
-        <div className="flex gap-5 justify-center items-center">
-            <Link
-                to="/gigs"
-                className="primary-btn"
-              >
-            View Gigs
-          </Link>
+      <div className="flex gap-10 justify-center">
+        {user?.role !== "LABOR" &&
+          <div className="flex gap-5 justify-center items-center">
+              <Link
+                  to="/gigs"
+                  className="primary-btn"
+                >
+              View Gigs
+            </Link>
+          </div>
+        }
+        {user?.role === "ADMIN" &&
+          <div className="flex gap-5 justify-center items-center">
+              <Link
+                  to="/orders"
+                  className="primary-btn"
+                >
+              Manage Orders
+            </Link>
+          </div>
+        }
+        {user?.role === "ADMIN" &&
+          <div className="flex gap-5 justify-center items-center">
+              <Link
+                  to="/users"
+                  className="primary-btn"
+                >
+              Manage Users
+            </Link>
+          </div>
+          }
         </div>
-      }
     </section>
   );
 };

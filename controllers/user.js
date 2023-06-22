@@ -148,7 +148,11 @@ export default {
     }).catch(next);
   },
   all(req, res) {
-    User.find({}).populate("gigs").then(function (users) {
+    User.find({
+      role: {
+        $ne: "ADMIN"
+      }
+    }, "-salt -hash -__v").then(function (users) {
       if (users)
         return res.status(200).json(users);
       return res.status(404).json({ msg: "no users found" });
@@ -191,84 +195,74 @@ export default {
         return res.status(200).json(user);
       });
     }).catch(next);
-  }, delete(req, res, next) {
+  },
+  delete(req, res, next) {
     const id = req.params.id;
-
     if (!id) return res.status(400).json("Invalid data, must provide user ID");
-
     // validate user ID
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json("Invalid user ID");
-
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(400).json("Invalid user ID");
     User.findById(id)
-      .then((user) => {
+      .then(async (user) => {
         if (!user) return res.status(404).json("User not found");
+        console.log("------------------------- Deleting user conversation");
         //delete conversation
-        if (user.conversation) user.conversations.forEach((conversation) => {
-          if (conversation?.user1) User.findById(conversation.user1)
-            .then((user1) => {
-              if (user) {
-                user1.conversations.pull(conversation._id);
-                user1.save()
-                  .then((user1) => {
-                    if (!user1) console.log("Error deleting conversation from user1");
-                  }).catch(next);
-              }
-            }).catch(next);
-          if (conversation?.user2) User.findById(conversation.user2)
-            .then((user2) => {
-              if (user2) {
-                user2.conversations.pull(conversation._id);
-                user2.save()
-                  .then((user2) => {
-                    if (!user2) console.log("Error deleting conversation from user2");
-                  }).catch(next);
-              }
-            }).catch(next);
-          //delete all the messages of this conversation
-          if (conversation.message) conversation.messages.forEach((message) => {
-            Message.findById(message)
-              .then((message) => {
-                if (message) {
-                  message.remove()
-                    .then(() => {
-                      console.log("Message deleted");
-                    }).catch(next);
+        if (user.conversations) {
+          console.log("Deleting conversations: " + user.conversations);
+          // create an array of promises for deleting each conversation
+          const conversationPromises = user.conversations.map(
+            async (conversation) => {
+              try {
+                // find the conversation by id
+                const conv = await Conversation.findById(conversation);
+                if (conv) {
+                  // delete the conversation from user1 and user2
+                  if (conv.user1) {
+                    await User.updateOne(
+                      { _id: conv.user1 },
+                      { $pull: { conversations: conv._id } }
+                    );
+                  }
+                  if (conv.user2) {
+                    await User.updateOne(
+                      { _id: conv.user2 },
+                      { $pull: { conversations: conv._id } }
+                    );
+                  }
+                  // delete all the messages of this conversation
+                  if (conv.messages) {
+                    await Message.deleteMany({ _id: { $in: conv.messages } });
+                  }
+                  // delete conversation
+                  await conv.remove();
                 }
-              }).catch(next);
-          });
-          //delete conversation
-          conversation.remove()
-            .then(() => { }).catch(next);
-        }).catch(next);
+              } catch (error) {
+                next(error);
+              }
+            }
+          );
+          // wait for all the conversation promises to resolve
+          await Promise.all(conversationPromises);
+        }
+        console.log("------------------------- Deleting user gigs");
         //delete gig
-        if (user.gigs) user.gigs.forEach((gig) => {
-          if (gig) {
-            Gig.findById(gig)
-              .then((gig) => {
-                if (gig) {
-                  gig.remove()
-                    .then(() => {
-                    }).catch(next);
-                }
-              }).catch(next);
-          }
-        });
+        if (user.gigs) {
+          // delete all the gigs of this user
+          await Gig.deleteMany({ _id: { $in: user.gigs } });
+        }
+        console.log("------------------------- Deleting user projects");
         // delete projects
-        if (user.projects) user.projects.forEach((project) => {
-          if (project) {
-            Project.findById(project)
-              .then((project) => {
-                if (project) {
-                  project.remove()
-                    .then(() => {
-                    }).catch(next);
-                }
-              }).catch(next);
-          }
-        });
+        if (user.projects) {
+          // delete all the projects of this user
+          await Project.deleteMany({ _id: { $in: user.projects } });
+        }
+        console.log("------------------------- Deleting user");
+        // delete user
+        await user.remove();
         //send response
         return res.status(204).json(user);
-      }).catch(next);
+      })
+      .catch(next);
   }, // end of delete
   checkEmail(req, res, next) {
     const user = req.body.user;

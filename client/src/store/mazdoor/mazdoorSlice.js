@@ -6,6 +6,7 @@ const mazdoorSlice = createSlice({
   name: "mazdoors",
   initialState: {
     user: token,
+    users: {},
     loading: true,
     profileCompleted: { status: false, percent: 10 },
     labors: [],
@@ -46,6 +47,18 @@ const mazdoorSlice = createSlice({
     },
     gigsReceived(state, action) {
       state.gigs = action.payload;
+    },
+    usersReceived(state, action) {
+      // mapped users on user role as key and user itself as value
+      state.users = action.payload.reduce((acc, user) => {
+        if (acc[user.role]) {
+          acc[user.role].push(user);
+        } else {
+          acc[user.role] = [user];
+        }
+        return acc;
+      }
+        , {});
     },
     conversationsReceived(state, action) {
       const conversations = action.payload;
@@ -117,6 +130,7 @@ const {
   conversationsReceived,
   projectsReceived,
   userReceived,
+  usersReceived,
   redirectToLogin,
   laborTypesReceived
 } = mazdoorSlice.actions;
@@ -129,6 +143,7 @@ export {
   laborReceived,
   teamReceived,
   userReceived,
+  usersReceived,
   gigsReceived,
   conversationsReceived,
   projectsReceived,
@@ -188,6 +203,21 @@ export const loadProjects = (_id) => apiCallBegan({
   headers,
   method: "get",
   onSuccess: projectsReceived.type
+});
+
+export const loadAllProjects = () => apiCallBegan({
+  url: `${apiURL}${projectsURL}`,
+  headers,
+  method: "get",
+  onSuccess: projectsReceived.type
+});
+
+
+export const loadAllUsers = () => apiCallBegan({
+  url: `${apiURL}users`,
+  headers,
+  method: "get",
+  onSuccess: usersReceived.type
 });
 
 
