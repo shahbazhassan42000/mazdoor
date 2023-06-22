@@ -1,12 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.2d447753.css",
-    "main.js": "/static/js/main.6756f9b1.js",
+    "main.css": "/static/css/main.638eaed4.css",
+    "main.js": "/static/js/main.0df3aea7.js",
     "static/media/email-verified.gif": "/static/media/email-verified.6221b8b91cfdecabc431.gif",
     "static/media/manBlowingAMan.gif": "/static/media/manBlowingAMan.f73a7200d740c35b8b07.gif",
     "static/media/invalid-link.gif": "/static/media/invalid-link.15c0d4e21164b0d572ed.gif",
     "static/media/404.gif": "/static/media/404.79d4143169438a957233.gif",
     "static/media/customer.gif": "/static/media/customer.914a70b125d1c6c17b34.gif",
+    "static/media/loading_plain.gif": "/static/media/loading_plain.29bc9b756bb2e877b6f4.gif",
     "static/media/8t4M.gif": "/static/media/8t4M.fa630d1041d462b5fd94.gif",
     "static/media/fa-solid-900.ttf": "/static/media/fa-solid-900.2877d54f94f30c5d563c.ttf",
     "static/media/gig-placeholder-hover.png": "/static/media/gig-placeholder-hover.d6b0f9dcb037e737ac55.png",
@@ -36,11 +37,11 @@
     "static/media/msg-sent.svg": "/static/media/msg-sent.84a6d799a77008bb39728c0c6a88d9a2.svg",
     "static/media/notification.ttf?s3g3t9": "/static/media/notification.c5d9251ea82e42f75381.ttf",
     "index.html": "/index.html",
-    "main.2d447753.css.map": "/static/css/main.2d447753.css.map",
-    "main.6756f9b1.js.map": "/static/js/main.6756f9b1.js.map"
+    "main.638eaed4.css.map": "/static/css/main.638eaed4.css.map",
+    "main.0df3aea7.js.map": "/static/js/main.0df3aea7.js.map"
   },
   "entrypoints": [
-    "static/css/main.2d447753.css",
-    "static/js/main.6756f9b1.js"
+    "static/css/main.638eaed4.css",
+    "static/js/main.0df3aea7.js"
   ]
 }
