@@ -36,7 +36,7 @@ export const UserTable = ({ tab, users ,setLoading}) => {
             <div className='flex items-center p-4 border-b'>
                 <h1 className='text-md text-darkBlack font-semibold uppercase'>{tab} profiles</h1>
             </div>
-            <header className="flex px-5 border-b gap-1 py-2 sticky top-0 bg-white">
+            <header className="flex px-5 border-b gap-1 py-2 sticky top-0 bg-white z-50">
                 <h2
                     onClick={() => handleHeaderClick("name")}
                     className={`text-sm font-semibold text-lightGray w-[160px] cursor-pointer hover:text-darkBlack ${sortedColumn === "name" && "!text-darkBlack"}`}>
