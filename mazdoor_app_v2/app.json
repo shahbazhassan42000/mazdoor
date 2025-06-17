@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "Mazdoor",
+    "slug": "mazdoor",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/mazdoor.png",
+    "scheme": "mazdoor",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/mazdoor.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.shahbaz.mazdoor",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/mazdoor.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/mazdoor.png"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "c0cad60b-38a1-4876-bf57-1fa99f4dbda1"
+      }
+    }
+  }
+}

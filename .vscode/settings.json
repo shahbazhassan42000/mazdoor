@@ -2,5 +2,6 @@
     "cSpell.words": [
         "clientinstall",
         "postbuild"
-    ]
+    ],
+    "java.compile.nullAnalysis.mode": "automatic"
 }
