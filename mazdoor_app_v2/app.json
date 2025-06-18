@@ -30,7 +30,8 @@
       "favicon": "./assets/images/mazdoor.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true
