@@ -102,9 +102,9 @@ const styles = StyleSheet.create({
     color: Colors.white,
   },
   main_image: {
-    width: "85%",
-    height: "13%",
-    marginTop: 50,
+    width: "80%",
+    height: 52,
+    marginTop: 60,
     alignSelf: "center",
     marginBottom: 53,
   },

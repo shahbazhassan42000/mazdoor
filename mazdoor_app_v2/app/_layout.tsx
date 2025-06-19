@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import { Stack } from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Provider } from "react-redux";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import {
@@ -13,6 +14,7 @@ import {
 } from "@react-navigation/native";
 // Alias Imports
 import "@/i18n/index";
+import { store } from "@/store";
 import { useColorScheme } from "@/components/useColorScheme";
 
 export {
@@ -53,12 +55,14 @@ const RootLayoutNav = () => {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        />
+      </ThemeProvider>
+    </Provider>
   );
 };

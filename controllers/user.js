@@ -280,6 +280,7 @@ export default {
   },
   getUsersByRole(req, res, next) {
     const role = req.query.role;
+    console.log("Getting users by role: " + role);
     // sort by _id
     User.find({ role }).sort({ _id: 1 }).populate("gigs").then((users) => {
       if (users) {

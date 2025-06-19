@@ -1,11 +1,11 @@
 // Native Imports
-import { ImageBackgroundComponent, StyleSheet, Image } from "react-native";
+import { StyleSheet, Image } from "react-native";
 // 3rd Party Imports
 import { useTranslation } from "react-i18next";
 // Alias Imports
-import { View, Text } from "@/components/Themed";
 import Colors from "@/constants/Colors";
 import { IMAGES } from "@/constants/images";
+import { Text, View } from "@/components/Themed";
 
 const Services = () => {
   const { t } = useTranslation();
@@ -32,7 +32,27 @@ const Services = () => {
         {"\n"}
         {t("easy_to_access_desc_2")}
       </Text>
-      <Image source={IMAGES.services_2} style={styles.servicesImg} />
+      <Image source={IMAGES.services_2} style={styles.service_2} />
+      {/* Service 3 */}
+      <Text style={[styles.typography2, styles.title]}>
+        {t("free_of_cost")}
+      </Text>
+      <Text style={[styles.typography3, styles.description]}>
+        {t("free_of_cost_desc_1")}
+        {"\n"}
+        {t("free_of_cost_desc_2")}
+      </Text>
+      <Image source={IMAGES.services_3} style={styles.servicesImg} />
+      {/* Service 4 */}
+      <Text style={[styles.typography2, styles.title]}>
+        {t("best_quality")}
+      </Text>
+      <Text style={[styles.typography3, styles.description]}>
+        {t("best_quality_desc_1")}
+        {"\n"}
+        {t("best_quality_desc_2")}
+      </Text>
+      <Image source={IMAGES.services_4} style={styles.service_4} />
     </View>
   );
 };
@@ -48,11 +68,24 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   title: {
-    textAlign: "center",
     marginTop: 10,
+    textAlign: "center",
   },
   description: {
     marginTop: 5,
+    textAlign: "center",
+  },
+  service_2: {
+    width: 118,
+    height: 118,
+    marginTop: 33,
+  },
+  service_4: {
+    width: 152,
+    height: 234,
+    marginTop: 33,
+    alignSelf: "flex-end",
+    marginRight: 40,
   },
   servicesImg: {
     width: 200,

@@ -3,7 +3,9 @@
         "clientinstall",
         "gifs",
         "mazdoor",
-        "postbuild"
+        "mazdoors",
+        "postbuild",
+        "wajahat"
     ],
     "java.compile.nullAnalysis.mode": "automatic"
 }

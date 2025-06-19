@@ -1,16 +1,18 @@
 // Native Imports
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 // Alias Imports
 import Home from "@/components/containers/home";
-import { View } from "@/components/Themed";
+import Colors from "@/constants/Colors";
 import Services from "@/components/containers/services";
+import LaborCarousel from "@/components/containers/labor_carousal";
 
 const Index = () => {
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Home />
       <Services />
-    </View>
+      <LaborCarousel />
+    </ScrollView>
   );
 };
 
@@ -20,5 +22,6 @@ const styles = StyleSheet.create({
   container: {
     textAlign: "left",
     justifyContent: "center",
+    backgroundColor: Colors.white,
   },
 });
