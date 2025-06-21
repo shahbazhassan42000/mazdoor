@@ -1,11 +1,10 @@
 // Native Imports
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, Text, View } from "react-native";
 // 3rd Party Imports
 import { useTranslation } from "react-i18next";
 // Alias Imports
 import Colors from "@/constants/Colors";
 import { IMAGES } from "@/constants/images";
-import { Text, View } from "@/components/Themed";
 
 const Services = () => {
   const { t } = useTranslation();

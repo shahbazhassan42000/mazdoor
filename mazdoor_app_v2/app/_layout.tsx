@@ -7,15 +7,9 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Provider } from "react-redux";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
 // Alias Imports
 import "@/i18n/index";
 import { store } from "@/store";
-import { useColorScheme } from "@/components/useColorScheme";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -52,17 +46,13 @@ const RootLayout = () => {
 export default RootLayout;
 
 const RootLayoutNav = () => {
-  const colorScheme = useColorScheme();
-
   return (
     <Provider store={store}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-          }}
-        />
-      </ThemeProvider>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      />
     </Provider>
   );
 };

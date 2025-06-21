@@ -1,10 +1,9 @@
 // Native Imports
-import { StyleSheet } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 // Alias Imports
-import { Text, View } from "@/components/Themed";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/store/hooks/hooks";
 import { LaborActionCreator } from "@/store/reducers";
+import { useAppDispatch, useAppSelector } from "@/store/hooks/hooks";
 
 const LaborCarousel = () => {
   const dispatch = useAppDispatch();
