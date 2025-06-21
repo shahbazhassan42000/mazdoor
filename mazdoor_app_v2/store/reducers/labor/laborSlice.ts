@@ -1,19 +1,20 @@
 // slices/userSlice.ts
-import { createSlice } from "@reduxjs/toolkit";
+import { INTERFACES } from "@/models";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Labor {
-  labors: string[];
+  labors: INTERFACES.Labor[];
 }
 
 const initialState: Labor = {
-  labors: ["one", "two", "three"],
+  labors: [],
 };
 
 const laborSlice = createSlice({
   name: "laborSlice",
   initialState,
   reducers: {
-    setLabors: (state, action) => {
+    setLabors: (state, action: PayloadAction<INTERFACES.Labor[]>) => {
       state.labors = action.payload;
     },
     resetAll: () => initialState,

@@ -1,10 +1,8 @@
 // Native Imports
 import { ScrollView, StyleSheet } from "react-native";
 // Alias Imports
-import Home from "@/components/containers/home";
 import Colors from "@/constants/Colors";
-import Services from "@/components/containers/services";
-import LaborCarousel from "@/components/containers/labor_carousal";
+import { Home, Services, LaborCarousel } from "@/components/containers";
 
 const Index = () => {
   return (
