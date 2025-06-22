@@ -1,11 +1,13 @@
 {
   "doorstep": "DoorStep",
   "mazdoors": "MAZDOORS",
+  "our_team": "Our Team",
   "mazdoor_at": "Mazdoor at",
   "in_getting": "In Getting",
   "free_of_cost": "Free of Cost",
   "best_quality": "Best Quality",
   "what_we_serve": "WHAT WE SERVE",
+  "meet_our_team": "Meet Our Team",
   "be_the_fastest": "Be The Fastest",
   "easy_to_access": "Easy to Access",
   "finding_partner": "Finding Partner",
@@ -17,7 +19,5 @@
   "best_quality_desc_2": "number one",
   "labor_that_is_always": "Labor that is always",
   "easy_to_access_desc_1": "You only need a few steps in",
-  "easy_to_access_desc_2": "getting Labor at doorstep",
-  "our_team": "Our Team",
-  "meet_our_team": "Meet Our Team"
+  "easy_to_access_desc_2": "getting Labor at doorstep"
 }

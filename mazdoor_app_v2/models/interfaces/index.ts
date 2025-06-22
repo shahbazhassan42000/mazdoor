@@ -1,3 +1,4 @@
-import { Labor } from "./labor/labor.interface";
+import { Labor } from "./labor.interface";
+import { Admin } from "./admin.interface";
 
-export { Labor };
+export { Labor, Admin };
