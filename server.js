@@ -51,7 +51,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use(errorHandler);
 app.server.listen(process.env.PORT);
 
-console.log(`Started on ${process.env.API_URL}:${process.env.PORT}`);
+console.log(`Started on ${process.env.BASE_URL}`);
 
 
 

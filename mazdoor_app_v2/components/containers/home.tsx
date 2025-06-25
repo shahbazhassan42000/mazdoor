@@ -2,12 +2,21 @@
 import { StyleSheet, Image, TouchableOpacity, View, Text } from "react-native";
 // 3rd Party Imports
 import { useTranslation } from "react-i18next";
+import { router } from "expo-router";
 // Alias Imports
 import Colors from "@/constants/Colors";
 import { IMAGES } from "@/constants/images";
 
 const Home = () => {
   const { t } = useTranslation();
+
+  const handleJoinPress = () => {
+    router.push("/signup");
+  };
+
+  const handleLoginPress = () => {
+    console.log("Login");
+  };
 
   return (
     <>
@@ -29,14 +38,25 @@ const Home = () => {
           <View style={styles.circle} />
         </View>
         {/* Login/Signup Button */}
-        <TouchableOpacity
-          style={[styles.primaryButton, styles.signinBtn]}
-          onPress={() => console.log("Login/Signup Pressed")}
-        >
-          <Text style={[styles.typography2, styles.whiteFont]}>
-            Find Mazdoor
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity
+            style={[styles.button, styles.primaryButton, styles.signinBtn]}
+            onPress={handleLoginPress}
+          >
+            <Text style={[styles.typography2, styles.whiteFont]}>
+              {t("login")}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, styles.secondaryButton, styles.signinBtn]}
+            onPress={handleJoinPress}
+          >
+            <Text style={[styles.typography2, styles.blackFont]}>
+              {t("join")}
+            </Text>
+          </TouchableOpacity>
+        </View>
+
         <Image source={IMAGES.labor1} style={styles.labor1} />
       </View>
     </>
@@ -61,13 +81,22 @@ const styles = StyleSheet.create({
     marginTop: 22,
     zIndex: 2,
   },
-  primaryButton: {
+  buttonsContainer: {
+    gap: 20,
+    flexDirection: "row",
+  },
+  button: {
     display: "flex",
     alignSelf: "flex-start",
-    borderRadius: 50,
-    paddingVertical: 14,
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  secondaryButton: {
+    backgroundColor: Colors.secondary,
+  },
+  primaryButton: {
     backgroundColor: Colors.primary,
-    paddingHorizontal: 20,
   },
   circle: {
     top: 7,
@@ -99,6 +128,9 @@ const styles = StyleSheet.create({
   },
   whiteFont: {
     color: Colors.white,
+  },
+  blackFont: {
+    color: Colors.text,
   },
   main_image: {
     width: "80%",

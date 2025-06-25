@@ -7,9 +7,11 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Provider } from "react-redux";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { PaperProvider } from "react-native-paper";
 // Alias Imports
 import "@/i18n/index";
 import { store } from "@/store";
+import Colors from "@/constants/Colors";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -46,13 +48,25 @@ const RootLayout = () => {
 export default RootLayout;
 
 const RootLayoutNav = () => {
+  const paperTheme = {
+    colors: {
+      primary: Colors.primary,
+      secondary: Colors.secondary,
+      background: Colors.white,
+      surface: Colors.white,
+      text: Colors.text,
+    },
+  };
+
   return (
     <Provider store={store}>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      />
+      <PaperProvider theme={paperTheme}>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        />
+      </PaperProvider>
     </Provider>
   );
 };

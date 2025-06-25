@@ -4,4 +4,6 @@ export const URLS = {
 
   // routes
   getUserByRole: "getUserByRole",
+  checkEmail: "check-email",
+  register: "register",
 };
