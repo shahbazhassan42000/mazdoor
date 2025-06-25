@@ -89,7 +89,7 @@ const Signup: FC = () => {
         setCompletedSteps((prev) => [...prev, 2]);
         setCurrentStep(targetStep);
       } else {
-        setEmailError("This email is already taken");
+        setEmailError(t("email_already_taken"));
         return;
       }
     } else {
@@ -178,19 +178,17 @@ const Signup: FC = () => {
             // General error
             setSignupError(result.data.error);
           } else {
-            setSignupError("Registration failed. Please try again.");
+            setSignupError(t("registration_failed"));
           }
         } else if (typeof result.data === "string") {
           setSignupError(result.data);
         } else {
-          setSignupError("Registration failed. Please try again.");
+          setSignupError(t("registration_failed"));
         }
       }
     } catch (error) {
       console.error("Signup error:", error);
-      setSignupError(
-        "Network error. Please check your connection and try again."
-      );
+      setSignupError(t("network_error"));
     } finally {
       setIsLoading(false);
     }
@@ -209,7 +207,7 @@ const Signup: FC = () => {
         setCompletedSteps((prev) => [...prev, 2]);
         setCurrentStep(3);
       } else {
-        setEmailError("This email is already taken");
+        setEmailError(t("email_already_taken"));
       }
     } else if (currentStep === 3 && formData.username && formData.password) {
       await handleSignup();
@@ -226,10 +224,10 @@ const Signup: FC = () => {
 
   const renderStepper = () => {
     const steps = [
-      { number: 1, title: t("step_type") ?? "Type" },
-      { number: 2, title: t("step_email") ?? "Email" },
-      { number: 3, title: t("step_details") ?? "Details" },
-      { number: 4, title: t("step_confirm") ?? "Confirm" },
+      { number: 1, title: t("step_type") },
+      { number: 2, title: t("step_email") },
+      { number: 3, title: t("step_details") },
+      { number: 4, title: t("step_confirm") },
     ];
 
     return (
@@ -296,10 +294,10 @@ const Signup: FC = () => {
   const renderUserTypeSelection = () => (
     <View style={styles.formContainer}>
       <Text variant="headlineMedium" style={styles.title}>
-        {t("choose_account_type") ?? "Choose Account Type"}
+        {t("choose_account_type")}
       </Text>
       <Text variant="bodyMedium" style={styles.subtitle}>
-        {t("select_how_to_use") ?? "Select how you want to use Mazdoor"}
+        {t("select_how_to_use")}
       </Text>
 
       <View style={styles.radioContainer}>
@@ -318,10 +316,10 @@ const Signup: FC = () => {
           />
           <View style={styles.radioContent}>
             <Text variant="titleMedium" style={styles.radioTitle}>
-              {t("customer") ?? "Customer"}
+              {t("customer")}
             </Text>
             <Text variant="bodySmall" style={styles.radioDescription}>
-              {t("hire_workers") ?? "I want to hire workers for projects"}
+              {t("hire_workers")}
             </Text>
           </View>
         </TouchableOpacity>
@@ -341,10 +339,10 @@ const Signup: FC = () => {
           />
           <View style={styles.radioContent}>
             <Text variant="titleMedium" style={styles.radioTitle}>
-              {t("labor") ?? "Labor"}
+              {t("labor")}
             </Text>
             <Text variant="bodySmall" style={styles.radioDescription}>
-              {t("find_work") ?? "I want to find work opportunities"}
+              {t("find_work")}
             </Text>
           </View>
         </TouchableOpacity>
@@ -359,7 +357,7 @@ const Signup: FC = () => {
           textColor={Colors.primary}
           contentStyle={styles.buttonContent}
         >
-          {t("back") ?? "Back"}
+          {t("back")}
         </Button>
         <Button
           mode="contained"
@@ -370,7 +368,7 @@ const Signup: FC = () => {
           disabled={!formData.userType}
           contentStyle={styles.buttonContent}
         >
-          {t("next") ?? "Next"}
+          {t("next")}
         </Button>
       </View>
     </View>
@@ -379,14 +377,14 @@ const Signup: FC = () => {
   const renderEmailStep = () => (
     <View style={styles.formContainer}>
       <Text variant="headlineMedium" style={styles.title}>
-        {t("enter_your_email") ?? "Enter Your Email"}
+        {t("enter_your_email")}
       </Text>
       <Text variant="bodyMedium" style={styles.subtitle}>
-        {t("check_email_available") ?? "We'll check if this email is available"}
+        {t("check_email_available")}
       </Text>
 
       <TextInput
-        label={t("email_address") ?? "Email Address"}
+        label={t("email_address")}
         value={formData.email}
         onChangeText={(value) => handleInputChange("email", value)}
         mode="outlined"
@@ -407,7 +405,7 @@ const Signup: FC = () => {
           textColor={Colors.primary}
           contentStyle={styles.buttonContent}
         >
-          {t("back") ?? "Back"}
+          {t("back")}
         </Button>
         <Button
           mode="contained"
@@ -419,7 +417,7 @@ const Signup: FC = () => {
           loading={isLoading}
           contentStyle={styles.buttonContent}
         >
-          {t("check_email") ?? "Check Email"}
+          {t("check_email")}
         </Button>
       </View>
     </View>
@@ -428,14 +426,14 @@ const Signup: FC = () => {
   const renderDetailsStep = () => (
     <View style={styles.formContainer}>
       <Text variant="headlineMedium" style={styles.title}>
-        {t("account_details") ?? "Account Details"}
+        {t("account_details")}
       </Text>
       <Text variant="bodyMedium" style={styles.subtitle}>
-        {t("create_username_password") ?? "Create your username and password"}
+        {t("create_username_password")}
       </Text>
 
       <TextInput
-        label={t("username") ?? "Username"}
+        label={t("username")}
         value={formData.username}
         onChangeText={(value) => handleInputChange("username", value)}
         mode="outlined"
@@ -445,7 +443,7 @@ const Signup: FC = () => {
       />
 
       <TextInput
-        label={t("password") ?? "Password"}
+        label={t("password")}
         value={formData.password}
         onChangeText={(value) => handleInputChange("password", value)}
         mode="outlined"
@@ -465,7 +463,7 @@ const Signup: FC = () => {
           textColor={Colors.primary}
           contentStyle={styles.buttonContent}
         >
-          {t("back") ?? "Back"}
+          {t("back")}
         </Button>
         <Button
           mode="contained"
@@ -477,7 +475,7 @@ const Signup: FC = () => {
           loading={isLoading}
           contentStyle={styles.buttonContent}
         >
-          {t("create_account") ?? "Create Account"}
+          {t("create_account")}
         </Button>
       </View>
     </View>
@@ -486,18 +484,16 @@ const Signup: FC = () => {
   const renderConfirmationStep = () => (
     <View style={styles.formContainer}>
       <Text variant="headlineMedium" style={styles.title}>
-        {t("check_your_email") ?? "Check Your Email"}
+        {t("check_your_email")}
       </Text>
       <Text variant="bodyMedium" style={styles.subtitle}>
-        {t("confirmation_email_sent") ??
-          "A confirmation email has been sent to:"}
+        {t("confirmation_email_sent")}
       </Text>
       <Text variant="bodyLarge" style={styles.emailConfirmation}>
         {formData.email}
       </Text>
       <Text variant="bodyMedium" style={styles.confirmationText}>
-        {t("check_email_confirm") ??
-          "Please check your email and click the confirmation link to activate your account."}
+        {t("check_email_confirm")}
       </Text>
 
       <Button
@@ -508,7 +504,7 @@ const Signup: FC = () => {
         textColor={Colors.white}
         contentStyle={styles.buttonContent}
       >
-        {t("go_back_to_login") ?? "Go Back to Login"}
+        {t("go_back_to_login")}
       </Button>
     </View>
   );
@@ -532,7 +528,7 @@ const Signup: FC = () => {
     <Surface style={styles.container}>
       <Appbar.Header style={styles.header}>
         <Appbar.BackAction onPress={handleBackPress} />
-        <Appbar.Content title={t("signup") ?? "Sign Up"} />
+        <Appbar.Content title={t("signup")} />
       </Appbar.Header>
 
       <KeyboardAvoidingView
@@ -546,8 +542,7 @@ const Signup: FC = () => {
               {renderStepper()}
               <View style={styles.gestureHint}>
                 <Text variant="bodySmall" style={styles.gestureHintText}>
-                  {t("swipe_navigate_hint") ??
-                    "Swipe left/right or tap steps to navigate"}
+                  {t("swipe_navigate_hint")}
                 </Text>
               </View>
               {renderCurrentStep()}

@@ -69,5 +69,8 @@
   "step_email": "Email", 
   "step_details": "Details",
   "step_confirm": "Confirm",
-  "password_requirements": "Password must be at least 8 characters, one uppercase, one digit, one alphabet and one special character"
+  "password_requirements": "Password must be at least 8 characters, one uppercase, one digit, one alphabet and one special character",
+  "email_already_taken": "This email is already taken",
+  "registration_failed": "Registration failed. Please try again.",
+  "network_error": "Network error. Please check your connection and try again."
 }
