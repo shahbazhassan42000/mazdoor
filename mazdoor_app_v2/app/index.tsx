@@ -2,7 +2,15 @@
 import { ScrollView, StyleSheet } from "react-native";
 // Alias Imports
 import Colors from "@/constants/Colors";
-import { Home, Services, LaborCarousel, TeamCarousel } from "@/components/containers";
+import {
+  Home,
+  Hero,
+  AboutUs,
+  Services,
+  TeamCarousel,
+  LaborCarousel,
+  Footer,
+} from "@/components/containers";
 
 const Index = () => {
   return (
@@ -11,6 +19,9 @@ const Index = () => {
       <Services />
       <LaborCarousel />
       <TeamCarousel />
+      <AboutUs />
+      <Hero />
+      <Footer />
     </ScrollView>
   );
 };

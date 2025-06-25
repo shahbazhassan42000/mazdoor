@@ -5,10 +5,10 @@ import PagerView from "react-native-pager-view";
 import { useTranslation } from "react-i18next";
 // Alias Imports
 import Colors from "@/constants/Colors";
+import { TeamCard } from "@/components/molecules";
 import { useEffect } from "react";
 import { LaborActionCreator } from "@/store/reducers";
 import { useAppDispatch, useAppSelector } from "@/store/hooks/hooks";
-import { TeamCard } from "@/components/molecules";
 
 const TeamCarousel = () => {
   const { t } = useTranslation();

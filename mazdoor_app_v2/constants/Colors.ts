@@ -11,6 +11,8 @@ export default {
   orange: "#EB7357",
   secondary: "#F2C94C",
   background: "#E0E0E0",
+  peachLight: "#FFDDCC4D",
+  peachLight2: "#FFDDCC40",
   background2: "#F3F3F3",
   tabIconDefault: "#CCCCCC",
   tabIconSelected: tintColorLight,

@@ -36,3 +36,4 @@ dist/
 config/dev.js
 config/prod.js
 src/env
+mazdoor_app_v2/.vscode/settings.json
