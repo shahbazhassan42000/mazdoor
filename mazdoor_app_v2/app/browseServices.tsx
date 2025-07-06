@@ -25,6 +25,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import { useAppDispatch, useAppSelector } from "@/store/hooks/hooks";
 import { LaborActionCreator } from "@/store/reducers";
+import { Labor } from "@/models/interfaces/labor.interface";
 
 // Constants
 const CORE_VALUES = {
@@ -192,13 +193,29 @@ const BrowseServices: FC = () => {
   };
 
   /**
+   * Handle labor card press to navigate to detail screen
+   * @param labor - The selected labor data
+   */
+  const handleLaborCardPress = (labor: Labor): void => {
+    console.log("Setting selected labor:", labor.id);
+    // Set the selected labor in Redux
+    dispatch(LaborActionCreator.setSelectedLabor(labor));
+    // Navigate to labor detail screen
+    router.push("/laborDetail");
+  };
+
+  /**
    * Render labor card for list view
    * @param labor - The labor data
    * @returns JSX element for labor card
    */
-  const renderLaborCard = (labor: any): React.JSX.Element => {
+  const renderLaborCard = (labor: Labor): React.JSX.Element => {
     return (
-      <TouchableOpacity style={styles.laborerCard} activeOpacity={0.8}>
+      <TouchableOpacity
+        style={styles.laborerCard}
+        activeOpacity={0.8}
+        onPress={() => handleLaborCardPress(labor)}
+      >
         <View style={styles.laborerHeader}>
           <Avatar.Image
             size={56}
@@ -244,9 +261,13 @@ const BrowseServices: FC = () => {
    * @param labor - The labor data
    * @returns JSX element for labor grid card
    */
-  const renderLaborGridCard = (labor: any): React.JSX.Element => {
+  const renderLaborGridCard = (labor: Labor): React.JSX.Element => {
     return (
-      <TouchableOpacity style={styles.laborGridCard} activeOpacity={0.8}>
+      <TouchableOpacity
+        style={styles.laborGridCard}
+        activeOpacity={0.8}
+        onPress={() => handleLaborCardPress(labor)}
+      >
         <Avatar.Image
           size={48}
           source={{ uri: labor.image || "https://via.placeholder.com/48" }}
@@ -399,9 +420,6 @@ const BrowseServices: FC = () => {
             <>
               {/* Header Section */}
               <View style={styles.headerSection}>
-                <Text variant="headlineSmall" style={styles.title}>
-                  {t("browse_services_title")}
-                </Text>
                 <Text variant="bodyMedium" style={styles.subtitle}>
                   {t("find_perfect_labor")}
                 </Text>

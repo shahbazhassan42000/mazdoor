@@ -5,6 +5,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface Labor {
   team: Admin[];
   labors: LaborInterface[];
+  selectedLabor?: LaborInterface;
   laborTypes: string[];
   isLoading: boolean;
   error: string | null;
@@ -13,6 +14,7 @@ interface Labor {
 const initialState: Labor = {
   team: [],
   labors: [],
+  selectedLabor: undefined,
   laborTypes: [],
   isLoading: false,
   error: null,
@@ -22,6 +24,12 @@ const laborSlice = createSlice({
   name: "laborSlice",
   initialState,
   reducers: {
+    setSelectedLabor: (
+      state,
+      action: PayloadAction<LaborInterface | undefined>
+    ) => {
+      state.selectedLabor = action.payload;
+    },
     setLabors: (state, action: PayloadAction<LaborInterface[]>) => {
       state.labors = action.payload;
     },

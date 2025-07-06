@@ -48,3 +48,22 @@ export const clearLaborData = () => {
     dispatch(laborActions.resetAll());
   };
 };
+
+/**
+ * Set selected labor
+ * @param labor - The labor to select
+ */
+export const setSelectedLabor = (labor: Labor) => {
+  return (dispatch: AppDispatch) => {
+    dispatch(laborActions.setSelectedLabor(labor));
+  };
+};
+
+/**
+ * Clear selected labor
+ */
+export const clearSelectedLabor = () => {
+  return (dispatch: AppDispatch) => {
+    dispatch(laborActions.setSelectedLabor(undefined));
+  };
+};

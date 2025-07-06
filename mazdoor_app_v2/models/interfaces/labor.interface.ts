@@ -1,4 +1,5 @@
 import { ENUMS } from "@/models";
+import { Conversation, Project, Gig } from "@/models/interfaces/index";
 
 export interface Labor {
   id: string;
@@ -20,5 +21,8 @@ export interface Labor {
   createdAt: string;
   updatedAt: string;
   startingWage: number;
+  gigs: Gig[];
+  projects: Project[];
+  conversations: Conversation[];
   profileCompleted: boolean;
 }
