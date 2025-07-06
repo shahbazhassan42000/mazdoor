@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
+  RefreshControl,
 } from "react-native";
 // 3rd Party Imports
 import { useTranslation } from "react-i18next";
@@ -22,6 +23,7 @@ import {
   Avatar,
   Divider,
   ActivityIndicator,
+  Portal,
 } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 // Alias Imports
@@ -29,9 +31,23 @@ import Colors from "@/constants/Colors";
 import { useAppDispatch, useAppSelector } from "@/store/hooks/hooks";
 import { LaborActionCreator } from "@/store/reducers";
 
+// Constants
+const CORE_VALUES = {
+  cardPadding: 16,
+  cardMargin: 12,
+  borderRadius: 16,
+  iconSize: 56,
+  iconRadius: 28,
+  iconImageSize: 28,
+  sectionPadding: 20,
+  headerPadding: 24,
+};
+
 const BrowseServices: FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const [refreshing, setRefreshing] = useState(false);
+
   useEffect(() => {
     dispatch(LaborActionCreator.fetchLabors());
   }, []);
@@ -50,11 +66,192 @@ const BrowseServices: FC = () => {
   };
 
   /**
+   * Handle pull to refresh
+   */
+  const handleRefresh = (): void => {
+    setRefreshing(true);
+    dispatch(LaborActionCreator.fetchLabors());
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  };
+
+  /**
    * Handle retry action on error
    */
-
   const handleRetry = (): void => {
     dispatch(LaborActionCreator.fetchLabors());
+  };
+
+  /**
+   * Format category name for display
+   * @param categoryType - The category type to format
+   * @returns Formatted category name
+   */
+  const formatCategoryName = (categoryType: string): string => {
+    return categoryType
+      .split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+  };
+
+  /**
+   * Get appropriate icon for category type
+   * @param categoryType - The category type
+   * @returns Icon name for the category
+   */
+  const getCategoryIcon = (categoryType: string): string => {
+    const lowerCaseType = categoryType.toLowerCase();
+
+    if (
+      lowerCaseType.includes("construction") ||
+      lowerCaseType.includes("builder")
+    ) {
+      return "hammer-outline";
+    } else if (
+      lowerCaseType.includes("electric") ||
+      lowerCaseType.includes("electrical")
+    ) {
+      return "flash-outline";
+    } else if (
+      lowerCaseType.includes("plumb") ||
+      lowerCaseType.includes("water")
+    ) {
+      return "water-outline";
+    } else if (
+      lowerCaseType.includes("paint") ||
+      lowerCaseType.includes("decorator")
+    ) {
+      return "brush-outline";
+    } else if (
+      lowerCaseType.includes("garden") ||
+      lowerCaseType.includes("landscap")
+    ) {
+      return "leaf-outline";
+    } else if (
+      lowerCaseType.includes("clean") ||
+      lowerCaseType.includes("maid")
+    ) {
+      return "sparkles-outline";
+    } else if (
+      lowerCaseType.includes("mechanic") ||
+      lowerCaseType.includes("repair")
+    ) {
+      return "build-outline";
+    } else if (
+      lowerCaseType.includes("driver") ||
+      lowerCaseType.includes("transport")
+    ) {
+      return "car-outline";
+    } else if (
+      lowerCaseType.includes("cook") ||
+      lowerCaseType.includes("chef")
+    ) {
+      return "restaurant-outline";
+    } else if (
+      lowerCaseType.includes("security") ||
+      lowerCaseType.includes("guard")
+    ) {
+      return "shield-outline";
+    } else {
+      return "construct-outline";
+    }
+  };
+
+  /**
+   * Get labor count for a specific category
+   * @param categoryType - The category type to count
+   * @returns The number of labors in that category
+   */
+  const getLaborCountByCategory = (categoryType: string): number => {
+    return labors.filter((labor) => labor.type === categoryType).length;
+  };
+
+  /**
+   * Handle category card press
+   * @param categoryType - The selected category type
+   */
+  const handleCategoryPress = (categoryType: string): void => {
+    // TODO: Navigate to filtered results or handle category selection
+    console.log("Selected category:", categoryType);
+  };
+
+  /**
+   * Render category card
+   * @param categoryType - The category type to render
+   * @param index - The index of the category
+   * @returns JSX element for the category card
+   */
+  const renderCategoryCard = (
+    categoryType: string,
+    index: number
+  ): React.JSX.Element => {
+    const laborCount = getLaborCountByCategory(categoryType);
+    const cardColors = [
+      Colors.primary,
+      Colors.secondary,
+      Colors.orange,
+      Colors.yellow,
+    ];
+    const cardColor = cardColors[index % cardColors.length];
+    const iconName = getCategoryIcon(categoryType);
+
+    return (
+      <TouchableOpacity
+        key={categoryType}
+        style={[
+          styles.categoryCard,
+          {
+            borderLeftWidth: 4,
+            borderLeftColor: cardColor,
+            backgroundColor: Colors.white,
+          },
+        ]}
+        onPress={() => handleCategoryPress(categoryType)}
+        activeOpacity={0.85}
+        delayPressIn={0}
+        delayPressOut={100}
+      >
+        <View
+          style={[
+            styles.categoryIconContainer,
+            {
+              backgroundColor: cardColor,
+              shadowColor: cardColor,
+              shadowOffset: { width: 0, height: 4 },
+              shadowOpacity: 0.3,
+              shadowRadius: 8,
+              elevation: 6,
+            },
+          ]}
+        >
+          <Ionicons
+            name={iconName as any}
+            size={CORE_VALUES.iconImageSize}
+            color={Colors.white}
+          />
+        </View>
+
+        <View style={styles.categoryCardContent}>
+          <Text variant="titleMedium" style={styles.categoryTitle}>
+            {formatCategoryName(categoryType)}
+          </Text>
+
+          <View style={styles.categoryCountContainer}>
+            <Text variant="bodySmall" style={styles.categoryCount}>
+              {laborCount} {laborCount === 1 ? "Labor" : "Labors"} Available
+            </Text>
+            <View
+              style={[styles.countBadge, { backgroundColor: `${cardColor}20` }]}
+            >
+              <Text style={[styles.countBadgeText, { color: cardColor }]}>
+                {laborCount}
+              </Text>
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
   };
 
   return (
@@ -101,17 +298,55 @@ const BrowseServices: FC = () => {
         <View style={styles.content}>
           {/* Header Section */}
           <View style={styles.headerSection}>
-            <Text variant="headlineSmall" style={styles.title}>
-              {t("browse_services_title")}
-            </Text>
             <Text variant="bodyMedium" style={styles.subtitle}>
               {t("find_perfect_labor")}
             </Text>
-
-            {/* Search Bar */}
           </View>
 
-          {/* Filters and Content */}
+          {/* Categories Section */}
+          <ScrollView
+            style={styles.scrollContent}
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={handleRefresh}
+                colors={[Colors.primary]}
+                tintColor={Colors.primary}
+              />
+            }
+          >
+            <View style={styles.categoriesSection}>
+              {isLoading && laborTypes.length === 0 ? (
+                <View style={styles.categoryLoadingContainer}>
+                  <ActivityIndicator size="large" color={Colors.primary} />
+                  <Text variant="bodyMedium" style={styles.loadingText}>
+                    Loading categories...
+                  </Text>
+                </View>
+              ) : laborTypes.length > 0 ? (
+                <View style={styles.categoryCardsContainer}>
+                  {laborTypes.map((categoryType, index) =>
+                    renderCategoryCard(categoryType, index)
+                  )}
+                </View>
+              ) : (
+                <View style={styles.emptyState}>
+                  <Ionicons
+                    name="construct-outline"
+                    size={64}
+                    color={Colors.textGray}
+                  />
+                  <Text variant="titleMedium" style={styles.emptyTitle}>
+                    No Categories Available
+                  </Text>
+                  <Text variant="bodyMedium" style={styles.emptySubtitle}>
+                    Categories will appear here when they are loaded
+                  </Text>
+                </View>
+              )}
+            </View>
+          </ScrollView>
         </View>
       )}
     </Surface>
@@ -123,20 +358,25 @@ export default BrowseServices;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.background2,
   },
   header: {
     backgroundColor: Colors.white,
-    elevation: 2,
+    elevation: 4,
+    shadowColor: Colors.text,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   loadingContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 32,
+    padding: 40,
+    backgroundColor: Colors.background2,
   },
   loadingText: {
-    marginTop: 16,
+    marginTop: 20,
     fontSize: 16,
     color: Colors.textGray,
     textAlign: "center",
@@ -145,7 +385,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 32,
+    padding: 40,
+    backgroundColor: Colors.background2,
   },
   errorTitle: {
     fontSize: 18,
@@ -168,19 +409,22 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerSection: {
-    padding: 16,
+    paddingHorizontal: CORE_VALUES.headerPadding,
+    paddingVertical: CORE_VALUES.sectionPadding,
     backgroundColor: Colors.white,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.background,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: "700",
     color: Colors.text,
-    marginBottom: 4,
+    marginBottom: 8,
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: 16,
     color: Colors.textGray,
-    marginBottom: 16,
+    lineHeight: 24,
   },
   searchInput: {
     backgroundColor: Colors.white,
@@ -188,6 +432,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flex: 1,
+    backgroundColor: Colors.background2,
   },
   categoryContainer: {
     paddingHorizontal: 16,
@@ -214,9 +459,9 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary,
   },
   categoryIconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: CORE_VALUES.iconSize,
+    height: CORE_VALUES.iconSize,
+    borderRadius: CORE_VALUES.iconRadius,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 8,
@@ -242,10 +487,36 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
   sectionTitle: {
-    fontSize: 16,
-    fontWeight: "600",
+    fontSize: 24,
+    fontWeight: "700",
     color: Colors.text,
-    marginBottom: 12,
+    marginBottom: 8,
+  },
+  sectionHeader: {
+    paddingHorizontal: CORE_VALUES.headerPadding,
+    paddingVertical: CORE_VALUES.sectionPadding,
+    backgroundColor: Colors.white,
+    marginBottom: 8,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    shadowColor: Colors.text,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  sectionSubtitle: {
+    fontSize: 16,
+    color: Colors.textGray,
+    lineHeight: 24,
+  },
+  categoryLoadingContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 40,
+  },
+  categoryCardsContainer: {
+    paddingHorizontal: 8,
   },
   chipScrollContainer: {
     paddingRight: 16,
@@ -385,18 +656,72 @@ const styles = StyleSheet.create({
   emptyState: {
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 48,
+    paddingVertical: 60,
+    paddingHorizontal: CORE_VALUES.headerPadding,
   },
   emptyTitle: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: Colors.text,
+    marginTop: 20,
+    marginBottom: 12,
+    textAlign: "center",
+  },
+  emptySubtitle: {
+    fontSize: 16,
+    color: Colors.textGray,
+    textAlign: "center",
+    lineHeight: 24,
+  },
+  categoryCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: CORE_VALUES.sectionPadding,
+    marginHorizontal: CORE_VALUES.cardPadding,
+    marginBottom: CORE_VALUES.cardMargin,
+    borderRadius: CORE_VALUES.borderRadius,
+    elevation: 4,
+    shadowColor: Colors.text,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+    backgroundColor: Colors.white,
+  },
+  categoryCardContent: {
+    flex: 1,
+    marginLeft: CORE_VALUES.cardPadding,
+  },
+  categoryTitle: {
     fontSize: 18,
     fontWeight: "600",
     color: Colors.text,
-    marginTop: 16,
-    marginBottom: 8,
+    marginBottom: 6,
+    textTransform: "capitalize",
   },
-  emptySubtitle: {
+  categoryCount: {
     fontSize: 14,
     color: Colors.textGray,
-    textAlign: "center",
+    fontWeight: "500",
+  },
+  categoryCountContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  countBadge: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+    minWidth: 32,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  countBadgeText: {
+    fontSize: 14,
+    fontWeight: "700",
+  },
+  categoriesSection: {
+    paddingTop: 0,
+    paddingBottom: CORE_VALUES.headerPadding,
   },
 });
