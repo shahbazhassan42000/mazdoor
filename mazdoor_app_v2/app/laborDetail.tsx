@@ -259,9 +259,16 @@ const LaborDetail: FC = () => {
         animationType="slide"
         transparent={true}
         onRequestClose={handleGigModalClose}
+        presentationStyle="overFullScreen"
       >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContainer}>
+        <Pressable style={styles.modalOverlay} onPress={handleGigModalClose}>
+          <Pressable
+            style={styles.modalContainer}
+            onPress={(e) => e.stopPropagation()}
+          >
+            {/* Drag Handle */}
+            <View style={styles.modalDragHandle} />
+
             <View style={styles.modalHeader}>
               <Text variant="headlineSmall" style={styles.modalTitle}>
                 {t("gig_details")}
@@ -276,7 +283,10 @@ const LaborDetail: FC = () => {
 
             <ScrollView
               style={styles.modalContent}
-              showsVerticalScrollIndicator={false}
+              showsVerticalScrollIndicator={true}
+              contentContainerStyle={styles.modalContentContainer}
+              scrollEnabled={true}
+              bounces={true}
             >
               <View style={styles.modalImageContainer}>
                 <Image
@@ -317,6 +327,15 @@ const LaborDetail: FC = () => {
                     {selectedGig.deliveryTime} {t("days")}
                   </Text>
                 </View>
+
+                <View style={styles.modalSection}>
+                  <Text variant="titleMedium" style={styles.modalSectionTitle}>
+                    {t("category")}
+                  </Text>
+                  <Text variant="bodyMedium" style={styles.modalDescription}>
+                    {selectedGig.category}
+                  </Text>
+                </View>
               </View>
             </ScrollView>
 
@@ -332,8 +351,8 @@ const LaborDetail: FC = () => {
                 {t("lets_discuss")}
               </Button>
             </View>
-          </View>
-        </View>
+          </Pressable>
+        </Pressable>
       </Modal>
     );
   };
@@ -899,26 +918,40 @@ const styles = StyleSheet.create({
   modalOverlay: {
     flex: 1,
     backgroundColor: "rgba(0, 0, 0, 0.5)",
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "flex-end",
+    alignItems: "stretch",
   },
   modalContainer: {
     backgroundColor: Colors.white,
-    borderRadius: 20,
-    width: "90%",
-    maxHeight: "80%",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    width: "100%",
+    maxHeight: "90%",
+    minHeight: "60%",
     overflow: "hidden",
     elevation: 10,
     shadowColor: Colors.text,
-    shadowOffset: { width: 0, height: 10 },
+    shadowOffset: { width: 0, height: -5 },
     shadowOpacity: 0.3,
     shadowRadius: 20,
+    paddingBottom: 0,
+  },
+  modalDragHandle: {
+    width: 40,
+    height: 4,
+    backgroundColor: Colors.textGray,
+    borderRadius: 2,
+    alignSelf: "center",
+    marginTop: 12,
+    marginBottom: 8,
+    opacity: 0.3,
   },
   modalHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
     borderBottomWidth: 1,
     borderBottomColor: Colors.background2,
   },
@@ -934,13 +967,19 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 10,
+  },
+  modalContentContainer: {
+    paddingBottom: 60,
+    flexGrow: 1,
+    minHeight: 600,
   },
   modalImageContainer: {
     width: "100%",
     height: 200,
     marginBottom: 20,
-    borderRadius: 16,
+    borderRadius: 12,
     overflow: "hidden",
     backgroundColor: Colors.background2,
   },
@@ -950,7 +989,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background2,
   },
   modalInfo: {
-    alignItems: "center",
+    width: "100%",
+    alignItems: "stretch",
   },
   modalGigTitle: {
     fontSize: 24,
@@ -981,7 +1021,7 @@ const styles = StyleSheet.create({
   },
   modalSection: {
     width: "100%",
-    marginBottom: 20,
+    marginBottom: 24,
   },
   modalSectionTitle: {
     fontSize: 18,
@@ -994,20 +1034,36 @@ const styles = StyleSheet.create({
     color: Colors.textGray,
     lineHeight: 24,
     textAlign: "left",
+    paddingHorizontal: 4,
   },
   modalDeliveryTime: {
     fontSize: 16,
     color: Colors.primary,
     fontWeight: "600",
+    backgroundColor: Colors.background2,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    textAlign: "center",
+    alignSelf: "flex-start",
   },
   modalFooter: {
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
     borderTopWidth: 1,
     borderTopColor: Colors.background2,
+    backgroundColor: Colors.white,
+    marginTop: "auto",
   },
   discussButton: {
-    paddingVertical: 12,
+    paddingVertical: 14,
     borderRadius: 12,
+    elevation: 2,
+    shadowColor: Colors.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   emptyGigsContainer: {
     alignItems: "center",
