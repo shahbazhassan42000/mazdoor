@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1",
+    "name": "Mistri",
+    "nameKey": "category_mistri",
+    "description": "Skilled construction workers",
+    "descriptionKey": "category_mistri_desc",
+    "icon": "hammer",
+    "color": "#FF6B6B",
+    "laborCount": 15
+  },
+  {
+    "id": "2", 
+    "name": "Carpenter",
+    "nameKey": "category_carpenter",
+    "description": "Wood working specialists",
+    "descriptionKey": "category_carpenter_desc",
+    "icon": "tools",
+    "color": "#4ECDC4",
+    "laborCount": 8
+  },
+  {
+    "id": "3",
+    "name": "Plumber", 
+    "nameKey": "category_plumber",
+    "description": "Water and pipe specialists",
+    "descriptionKey": "category_plumber_desc",
+    "icon": "water",
+    "color": "#45B7D1",
+    "laborCount": 12
+  },
+  {
+    "id": "4",
+    "name": "Electrician",
+    "nameKey": "category_electrician", 
+    "description": "Electrical work experts",
+    "descriptionKey": "category_electrician_desc",
+    "icon": "flash",
+    "color": "#F7DC6F",
+    "laborCount": 6
+  },
+  {
+    "id": "5",
+    "name": "Painter",
+    "nameKey": "category_painter",
+    "description": "Wall and house painting",
+    "descriptionKey": "category_painter_desc", 
+    "icon": "brush",
+    "color": "#BB8FCE",
+    "laborCount": 10
+  },
+  {
+    "id": "6",
+    "name": "Cleaner",
+    "nameKey": "category_cleaner",
+    "description": "House and office cleaning",
+    "descriptionKey": "category_cleaner_desc",
+    "icon": "broom", 
+    "color": "#85C1E9",
+    "laborCount": 20
+  }
+]

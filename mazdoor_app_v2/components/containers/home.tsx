@@ -15,7 +15,7 @@ const Home = () => {
   };
 
   const handleLoginPress = () => {
-    console.log("Login");
+    router.push("/login");
   };
 
   return (
