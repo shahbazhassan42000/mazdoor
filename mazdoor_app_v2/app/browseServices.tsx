@@ -134,12 +134,12 @@ const BrowseServices: FC = () => {
       lowerCaseType.includes("clean") ||
       lowerCaseType.includes("maid")
     ) {
-      return "sparkles-outline";
+      return "home-outline";
     } else if (
       lowerCaseType.includes("mechanic") ||
       lowerCaseType.includes("repair")
     ) {
-      return "build-outline";
+      return "hammer-outline";
     } else if (
       lowerCaseType.includes("driver") ||
       lowerCaseType.includes("transport")
@@ -156,7 +156,7 @@ const BrowseServices: FC = () => {
     ) {
       return "shield-outline";
     } else {
-      return "construct-outline";
+      return "hammer-outline";
     }
   };
 
@@ -198,11 +198,7 @@ const BrowseServices: FC = () => {
    */
   const renderLaborCard = (labor: any): React.JSX.Element => {
     return (
-      <TouchableOpacity
-        key={labor.id}
-        style={styles.laborerCard}
-        activeOpacity={0.8}
-      >
+      <TouchableOpacity style={styles.laborerCard} activeOpacity={0.8}>
         <View style={styles.laborerHeader}>
           <Avatar.Image
             size={56}
@@ -250,11 +246,7 @@ const BrowseServices: FC = () => {
    */
   const renderLaborGridCard = (labor: any): React.JSX.Element => {
     return (
-      <TouchableOpacity
-        key={labor.id}
-        style={styles.laborGridCard}
-        activeOpacity={0.8}
-      >
+      <TouchableOpacity style={styles.laborGridCard} activeOpacity={0.8}>
         <Avatar.Image
           size={48}
           source={{ uri: labor.image || "https://via.placeholder.com/48" }}
@@ -299,7 +291,6 @@ const BrowseServices: FC = () => {
 
     return (
       <TouchableOpacity
-        key={categoryType}
         style={[
           styles.categoryCard,
           {
@@ -439,14 +430,16 @@ const BrowseServices: FC = () => {
                     </View>
                   ) : laborTypes.length > 0 ? (
                     <View style={styles.categoryCardsContainer}>
-                      {laborTypes.map((categoryType, index) =>
-                        renderCategoryCard(categoryType, index)
-                      )}
+                      {laborTypes.map((categoryType, index) => (
+                        <View key={index}>
+                          {renderCategoryCard(categoryType, index)}
+                        </View>
+                      ))}
                     </View>
                   ) : (
                     <View style={styles.emptyState}>
                       <Ionicons
-                        name="construct-outline"
+                        name="hammer-outline"
                         size={64}
                         color={Colors.textGray}
                       />
@@ -503,19 +496,23 @@ const BrowseServices: FC = () => {
                 {filteredLabors.length > 0 ? (
                   viewMode === "list" ? (
                     <View style={styles.laborersListContainer}>
-                      {filteredLabors.map((labor) => renderLaborCard(labor))}
+                      {filteredLabors.map((labor, index) => (
+                        <View key={index}>{renderLaborCard(labor)}</View>
+                      ))}
                     </View>
                   ) : (
                     <View style={styles.laborersGridContainer}>
-                      {filteredLabors.map((labor) =>
-                        renderLaborGridCard(labor)
-                      )}
+                      {filteredLabors.map((labor, index) => (
+                        <View key={index} style={styles.gridItemWrapper}>
+                          {renderLaborGridCard(labor)}
+                        </View>
+                      ))}
                     </View>
                   )
                 ) : (
                   <View style={styles.emptyState}>
                     <Ionicons
-                      name="people-outline"
+                      name="person-outline"
                       size={64}
                       color={Colors.textGray}
                     />
@@ -845,12 +842,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: CORE_VALUES.cardPadding,
     paddingVertical: 8,
   },
-  laborGridCard: {
+  gridItemWrapper: {
     width: "48%",
+    marginBottom: CORE_VALUES.cardMargin,
+  },
+  laborGridCard: {
+    width: "100%",
     backgroundColor: Colors.white,
     borderRadius: CORE_VALUES.borderRadius,
     padding: CORE_VALUES.cardPadding,
-    marginBottom: CORE_VALUES.cardMargin,
     alignItems: "center",
     elevation: 2,
     shadowColor: Colors.text,
