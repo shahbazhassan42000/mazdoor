@@ -47,6 +47,8 @@ const BrowseServices: FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [refreshing, setRefreshing] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<"list" | "grid">("list");
 
   useEffect(() => {
     dispatch(LaborActionCreator.fetchLabors());
@@ -57,6 +59,11 @@ const BrowseServices: FC = () => {
   const labors = useAppSelector((state) => state.laborSlice.labors);
   const laborTypes = useAppSelector((state) => state.laborSlice.laborTypes);
   const isLoading = useAppSelector((state) => state.laborSlice.isLoading);
+
+  // Filtered labors based on selected category
+  const filteredLabors = selectedCategory
+    ? labors.filter((labor) => labor.type === selectedCategory)
+    : labors;
 
   /**
    * Handle back button press
@@ -172,8 +179,107 @@ const BrowseServices: FC = () => {
    * @param categoryType - The selected category type
    */
   const handleCategoryPress = (categoryType: string): void => {
-    // TODO: Navigate to filtered results or handle category selection
-    console.log("Selected category:", categoryType);
+    setSelectedCategory(categoryType);
+  };
+
+  /**
+   * Handle view mode toggle
+   */
+  const handleViewModeToggle = (): void => {
+    setViewMode(viewMode === "list" ? "grid" : "list");
+  };
+
+  /**
+   * Handle clear filter
+   */
+  const handleClearFilter = (): void => {
+    setSelectedCategory(null);
+  };
+
+  /**
+   * Render labor card for list view
+   * @param labor - The labor data
+   * @returns JSX element for labor card
+   */
+  const renderLaborCard = (labor: any): React.JSX.Element => {
+    return (
+      <TouchableOpacity
+        key={labor.id}
+        style={styles.laborerCard}
+        activeOpacity={0.8}
+      >
+        <View style={styles.laborerHeader}>
+          <Avatar.Image
+            size={56}
+            source={{ uri: labor.image || "https://via.placeholder.com/56" }}
+            style={styles.laborerAvatar}
+          />
+          <View style={styles.laborerInfo}>
+            <Text variant="titleMedium" style={styles.laborerName}>
+              {labor.name}
+            </Text>
+            <Text variant="bodyMedium" style={styles.laborerCategory}>
+              {formatCategoryName(labor.type)}
+            </Text>
+            <Text variant="bodySmall" style={styles.laborerArea}>
+              {labor.area}, {labor.city}
+            </Text>
+          </View>
+          <View style={styles.laborerRating}>
+            <View style={styles.ratingContainer}>
+              <Ionicons name="star" size={16} color={Colors.yellow} />
+              <Text style={styles.ratingText}>{labor.rating.toFixed(1)}</Text>
+            </View>
+            <View style={[styles.availabilityBadge, styles.availableBadge]}>
+              <Text style={[styles.availabilityText, styles.availableText]}>
+                Available
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        <Divider style={styles.divider} />
+
+        <View style={styles.laborerDetails}>
+          <Text style={styles.experienceText}>Starting from</Text>
+          <Text style={styles.hourlyRate}>${labor.startingWage}/hour</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  /**
+   * Render labor card for grid view
+   * @param labor - The labor data
+   * @returns JSX element for labor grid card
+   */
+  const renderLaborGridCard = (labor: any): React.JSX.Element => {
+    return (
+      <TouchableOpacity
+        key={labor.id}
+        style={styles.laborGridCard}
+        activeOpacity={0.8}
+      >
+        <Avatar.Image
+          size={48}
+          source={{ uri: labor.image || "https://via.placeholder.com/48" }}
+          style={styles.laborGridAvatar}
+        />
+        <Text variant="titleSmall" style={styles.laborGridName}>
+          {labor.name}
+        </Text>
+        <Text variant="bodySmall" style={styles.laborGridCategory}>
+          {formatCategoryName(labor.type)}
+        </Text>
+        <View style={styles.laborGridRating}>
+          <Ionicons name="star" size={12} color={Colors.yellow} />
+          <Text style={styles.laborGridRatingText}>
+            {labor.rating.toFixed(1)}
+          </Text>
+        </View>
+        <Text style={styles.laborGridRate}>${labor.startingWage}/hr</Text>
+      </TouchableOpacity>
+    );
   };
 
   /**
@@ -259,6 +365,12 @@ const BrowseServices: FC = () => {
       <Appbar.Header style={styles.header}>
         <Appbar.BackAction onPress={handleBackPress} />
         <Appbar.Content title={t("browse_services_title")} />
+        {selectedCategory && (
+          <Appbar.Action
+            icon={viewMode === "list" ? "view-grid" : "view-list"}
+            onPress={handleViewModeToggle}
+          />
+        )}
       </Appbar.Header>
 
       {/* Loading State */}
@@ -296,57 +408,142 @@ const BrowseServices: FC = () => {
       {/* Main Content - only show when not loading and no error */}
       {!isLoading && !error && (
         <View style={styles.content}>
-          {/* Header Section */}
-          <View style={styles.headerSection}>
-            <Text variant="bodyMedium" style={styles.subtitle}>
-              {t("find_perfect_labor")}
-            </Text>
-          </View>
+          {!selectedCategory ? (
+            // Categories View
+            <>
+              {/* Header Section */}
+              <View style={styles.headerSection}>
+                <Text variant="headlineSmall" style={styles.title}>
+                  {t("browse_services_title")}
+                </Text>
+                <Text variant="bodyMedium" style={styles.subtitle}>
+                  {t("find_perfect_labor")}
+                </Text>
+              </View>
 
-          {/* Categories Section */}
-          <ScrollView
-            style={styles.scrollContent}
-            showsVerticalScrollIndicator={false}
-            refreshControl={
-              <RefreshControl
-                refreshing={refreshing}
-                onRefresh={handleRefresh}
-                colors={[Colors.primary]}
-                tintColor={Colors.primary}
-              />
-            }
-          >
-            <View style={styles.categoriesSection}>
-              {isLoading && laborTypes.length === 0 ? (
-                <View style={styles.categoryLoadingContainer}>
-                  <ActivityIndicator size="large" color={Colors.primary} />
-                  <Text variant="bodyMedium" style={styles.loadingText}>
-                    Loading categories...
-                  </Text>
-                </View>
-              ) : laborTypes.length > 0 ? (
-                <View style={styles.categoryCardsContainer}>
-                  {laborTypes.map((categoryType, index) =>
-                    renderCategoryCard(categoryType, index)
+              {/* Categories Section */}
+              <ScrollView
+                style={styles.scrollContent}
+                showsVerticalScrollIndicator={false}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                    colors={[Colors.primary]}
+                    tintColor={Colors.primary}
+                  />
+                }
+              >
+                <View style={styles.categoriesSection}>
+                  <View style={styles.sectionHeader}>
+                    <Text variant="headlineSmall" style={styles.sectionTitle}>
+                      Service Categories
+                    </Text>
+                    <Text variant="bodyMedium" style={styles.sectionSubtitle}>
+                      Choose from our wide range of services
+                    </Text>
+                  </View>
+
+                  {isLoading && laborTypes.length === 0 ? (
+                    <View style={styles.categoryLoadingContainer}>
+                      <ActivityIndicator size="large" color={Colors.primary} />
+                      <Text variant="bodyMedium" style={styles.loadingText}>
+                        Loading categories...
+                      </Text>
+                    </View>
+                  ) : laborTypes.length > 0 ? (
+                    <View style={styles.categoryCardsContainer}>
+                      {laborTypes.map((categoryType, index) =>
+                        renderCategoryCard(categoryType, index)
+                      )}
+                    </View>
+                  ) : (
+                    <View style={styles.emptyState}>
+                      <Ionicons
+                        name="construct-outline"
+                        size={64}
+                        color={Colors.textGray}
+                      />
+                      <Text variant="titleMedium" style={styles.emptyTitle}>
+                        No Categories Available
+                      </Text>
+                      <Text variant="bodyMedium" style={styles.emptySubtitle}>
+                        Categories will appear here when they are loaded
+                      </Text>
+                    </View>
                   )}
                 </View>
-              ) : (
-                <View style={styles.emptyState}>
-                  <Ionicons
-                    name="construct-outline"
-                    size={64}
-                    color={Colors.textGray}
-                  />
-                  <Text variant="titleMedium" style={styles.emptyTitle}>
-                    No Categories Available
+              </ScrollView>
+            </>
+          ) : (
+            // Filtered Results View
+            <>
+              {/* Applied Filter Section */}
+              <View style={styles.filterSection}>
+                <View style={styles.appliedFilterContainer}>
+                  <Text variant="titleMedium" style={styles.appliedFilterTitle}>
+                    Applied Filter:
                   </Text>
-                  <Text variant="bodyMedium" style={styles.emptySubtitle}>
-                    Categories will appear here when they are loaded
-                  </Text>
+                  <Chip
+                    selected
+                    style={styles.appliedFilterChip}
+                    textStyle={styles.appliedFilterText}
+                    icon={getCategoryIcon(selectedCategory)}
+                    onClose={handleClearFilter}
+                    closeIcon="close"
+                  >
+                    {formatCategoryName(selectedCategory)}
+                  </Chip>
                 </View>
-              )}
-            </View>
-          </ScrollView>
+                <Text variant="bodyMedium" style={styles.resultsCount}>
+                  {filteredLabors.length}{" "}
+                  {filteredLabors.length === 1 ? "Labor" : "Labors"} Found
+                </Text>
+              </View>
+
+              {/* Results Section */}
+              <ScrollView
+                style={styles.scrollContent}
+                showsVerticalScrollIndicator={false}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                    colors={[Colors.primary]}
+                    tintColor={Colors.primary}
+                  />
+                }
+              >
+                {filteredLabors.length > 0 ? (
+                  viewMode === "list" ? (
+                    <View style={styles.laborersListContainer}>
+                      {filteredLabors.map((labor) => renderLaborCard(labor))}
+                    </View>
+                  ) : (
+                    <View style={styles.laborersGridContainer}>
+                      {filteredLabors.map((labor) =>
+                        renderLaborGridCard(labor)
+                      )}
+                    </View>
+                  )
+                ) : (
+                  <View style={styles.emptyState}>
+                    <Ionicons
+                      name="people-outline"
+                      size={64}
+                      color={Colors.textGray}
+                    />
+                    <Text variant="titleMedium" style={styles.emptyTitle}>
+                      No Labors Found
+                    </Text>
+                    <Text variant="bodyMedium" style={styles.emptySubtitle}>
+                      No labors available in the selected category
+                    </Text>
+                  </View>
+                )}
+              </ScrollView>
+            </>
+          )}
         </View>
       )}
     </Surface>
@@ -723,5 +920,90 @@ const styles = StyleSheet.create({
   categoriesSection: {
     paddingTop: 0,
     paddingBottom: CORE_VALUES.headerPadding,
+  },
+  // Filter Section Styles
+  filterSection: {
+    backgroundColor: Colors.white,
+    paddingHorizontal: CORE_VALUES.headerPadding,
+    paddingVertical: CORE_VALUES.cardPadding,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.background,
+  },
+  appliedFilterContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 8,
+  },
+  appliedFilterTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: Colors.text,
+    marginRight: 12,
+  },
+  appliedFilterChip: {
+    backgroundColor: Colors.primary,
+  },
+  appliedFilterText: {
+    color: Colors.white,
+    fontWeight: "600",
+  },
+  resultsCount: {
+    fontSize: 14,
+    color: Colors.textGray,
+    fontWeight: "500",
+  },
+  // Grid View Styles
+  laborersGridContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    paddingHorizontal: CORE_VALUES.cardPadding,
+    paddingVertical: 8,
+  },
+  laborGridCard: {
+    width: "48%",
+    backgroundColor: Colors.white,
+    borderRadius: CORE_VALUES.borderRadius,
+    padding: CORE_VALUES.cardPadding,
+    marginBottom: CORE_VALUES.cardMargin,
+    alignItems: "center",
+    elevation: 2,
+    shadowColor: Colors.text,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  laborGridAvatar: {
+    marginBottom: 8,
+  },
+  laborGridName: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: Colors.text,
+    textAlign: "center",
+    marginBottom: 4,
+  },
+  laborGridCategory: {
+    fontSize: 12,
+    color: Colors.primary,
+    textAlign: "center",
+    marginBottom: 6,
+  },
+  laborGridRating: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 6,
+  },
+  laborGridRatingText: {
+    fontSize: 12,
+    fontWeight: "600",
+    color: Colors.text,
+    marginLeft: 4,
+  },
+  laborGridRate: {
+    fontSize: 14,
+    fontWeight: "700",
+    color: Colors.primary,
+    textAlign: "center",
   },
 });
