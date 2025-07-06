@@ -5,17 +5,13 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Image,
-  FlatList,
   RefreshControl,
 } from "react-native";
 // 3rd Party Imports
 import { useTranslation } from "react-i18next";
 import { router } from "expo-router";
 import {
-  TextInput,
   Button,
-  Card,
   Text,
   Appbar,
   Surface,
@@ -23,7 +19,6 @@ import {
   Avatar,
   Divider,
   ActivityIndicator,
-  Portal,
 } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 // Alias Imports
@@ -34,13 +29,13 @@ import { LaborActionCreator } from "@/store/reducers";
 // Constants
 const CORE_VALUES = {
   cardPadding: 16,
-  cardMargin: 12,
-  borderRadius: 16,
-  iconSize: 56,
-  iconRadius: 28,
-  iconImageSize: 28,
-  sectionPadding: 20,
-  headerPadding: 24,
+  cardMargin: 10,
+  borderRadius: 12,
+  iconSize: 48,
+  iconRadius: 24,
+  iconImageSize: 24,
+  sectionPadding: 16,
+  headerPadding: 20,
 };
 
 const BrowseServices: FC = () => {
@@ -435,15 +430,6 @@ const BrowseServices: FC = () => {
                 }
               >
                 <View style={styles.categoriesSection}>
-                  <View style={styles.sectionHeader}>
-                    <Text variant="headlineSmall" style={styles.sectionTitle}>
-                      Service Categories
-                    </Text>
-                    <Text variant="bodyMedium" style={styles.sectionSubtitle}>
-                      Choose from our wide range of services
-                    </Text>
-                  </View>
-
                   {isLoading && laborTypes.length === 0 ? (
                     <View style={styles.categoryLoadingContainer}>
                       <ActivityIndicator size="large" color={Colors.primary} />
@@ -607,21 +593,21 @@ const styles = StyleSheet.create({
   },
   headerSection: {
     paddingHorizontal: CORE_VALUES.headerPadding,
-    paddingVertical: CORE_VALUES.sectionPadding,
+    paddingVertical: CORE_VALUES.cardPadding,
     backgroundColor: Colors.white,
     borderBottomWidth: 1,
     borderBottomColor: Colors.background,
   },
   title: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: "700",
     color: Colors.text,
-    marginBottom: 8,
+    marginBottom: 6,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 15,
     color: Colors.textGray,
-    lineHeight: 24,
+    lineHeight: 22,
   },
   searchInput: {
     backgroundColor: Colors.white,
@@ -631,30 +617,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background2,
   },
-  categoryContainer: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
-  categoryGridContainer: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
-  categoryGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-  },
-  categoryGridItem: {
-    width: "48%",
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 12,
-    borderWidth: 2,
-    borderColor: "transparent",
-  },
-  categoryGridItemSelected: {
-    borderColor: Colors.primary,
-  },
   categoryIconContainer: {
     width: CORE_VALUES.iconSize,
     height: CORE_VALUES.iconSize,
@@ -662,50 +624,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 8,
-  },
-  categoryGridTitle: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: Colors.text,
-    marginBottom: 4,
-  },
-  categoryGridDescription: {
-    fontSize: 12,
-    color: Colors.textGray,
-    marginBottom: 4,
-  },
-  categoryGridCount: {
-    fontSize: 10,
-    color: Colors.primary,
-    fontWeight: "500",
-  },
-  sortContainer: {
-    paddingHorizontal: 16,
-    paddingBottom: 12,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: "700",
-    color: Colors.text,
-    marginBottom: 8,
-  },
-  sectionHeader: {
-    paddingHorizontal: CORE_VALUES.headerPadding,
-    paddingVertical: CORE_VALUES.sectionPadding,
-    backgroundColor: Colors.white,
-    marginBottom: 8,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    shadowColor: Colors.text,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  sectionSubtitle: {
-    fontSize: 16,
-    color: Colors.textGray,
-    lineHeight: 24,
   },
   categoryLoadingContainer: {
     alignItems: "center",
@@ -715,40 +633,21 @@ const styles = StyleSheet.create({
   categoryCardsContainer: {
     paddingHorizontal: 8,
   },
-  chipScrollContainer: {
-    paddingRight: 16,
-  },
-  categoryChip: {
-    marginRight: 8,
-    backgroundColor: Colors.background,
-  },
-  categoryChipSelected: {
-    backgroundColor: Colors.primary,
-  },
-  sortChip: {
-    marginRight: 8,
-    backgroundColor: Colors.background,
-  },
-  sortChipSelected: {
-    backgroundColor: Colors.primary,
-  },
-  chipText: {
-    fontSize: 12,
-    color: Colors.text,
-  },
-  chipTextSelected: {
-    color: Colors.white,
-  },
-  resultsSection: {
-    padding: 16,
-  },
   laborersListContainer: {
-    paddingTop: 8,
+    paddingHorizontal: CORE_VALUES.cardPadding,
+    paddingVertical: 8,
   },
   laborerCard: {
-    marginBottom: 16,
+    marginBottom: 12,
+    marginHorizontal: 4,
     backgroundColor: Colors.white,
+    borderRadius: CORE_VALUES.borderRadius,
+    padding: CORE_VALUES.cardPadding,
     elevation: 2,
+    shadowColor: Colors.text,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   laborerHeader: {
     flexDirection: "row",
@@ -828,20 +727,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: Colors.primary,
   },
-  skillsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginBottom: 16,
-  },
-  skillChip: {
-    marginRight: 6,
-    marginBottom: 4,
-    backgroundColor: Colors.peachLight,
-  },
-  skillText: {
-    fontSize: 10,
-    color: Colors.text,
-  },
   actionButtons: {
     flexDirection: "row",
     gap: 8,
@@ -873,30 +758,30 @@ const styles = StyleSheet.create({
   categoryCard: {
     flexDirection: "row",
     alignItems: "center",
-    padding: CORE_VALUES.sectionPadding,
+    padding: CORE_VALUES.cardPadding,
     marginHorizontal: CORE_VALUES.cardPadding,
     marginBottom: CORE_VALUES.cardMargin,
     borderRadius: CORE_VALUES.borderRadius,
-    elevation: 4,
+    elevation: 3,
     shadowColor: Colors.text,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.12,
-    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
     backgroundColor: Colors.white,
   },
   categoryCardContent: {
     flex: 1,
-    marginLeft: CORE_VALUES.cardPadding,
+    marginLeft: 12,
   },
   categoryTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "600",
     color: Colors.text,
-    marginBottom: 6,
+    marginBottom: 4,
     textTransform: "capitalize",
   },
   categoryCount: {
-    fontSize: 14,
+    fontSize: 12,
     color: Colors.textGray,
     fontWeight: "500",
   },
@@ -906,20 +791,20 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   countBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-    minWidth: 32,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
+    minWidth: 28,
     alignItems: "center",
     justifyContent: "center",
   },
   countBadgeText: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: "700",
   },
   categoriesSection: {
-    paddingTop: 0,
-    paddingBottom: CORE_VALUES.headerPadding,
+    paddingTop: 8,
+    paddingBottom: CORE_VALUES.cardPadding,
   },
   // Filter Section Styles
   filterSection: {
