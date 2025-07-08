@@ -26,6 +26,8 @@ import Colors from "@/constants/Colors";
 import { useAppDispatch, useAppSelector } from "@/store/hooks/hooks";
 import { LaborActionCreator } from "@/store/reducers";
 import { Labor } from "@/models/interfaces/labor.interface";
+import { getUserData } from "@/utils/authStorage";
+import { ENUMS } from "@/models";
 
 // Constants
 const CORE_VALUES = {
@@ -45,10 +47,24 @@ const BrowseServices: FC = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
+  const [currentUser, setCurrentUser] = useState<any>(null);
 
   useEffect(() => {
     dispatch(LaborActionCreator.fetchLabors());
+    loadCurrentUser();
   }, []);
+
+  /**
+   * Load current user data from storage
+   */
+  const loadCurrentUser = async (): Promise<void> => {
+    try {
+      const userData = await getUserData();
+      setCurrentUser(userData);
+    } catch (error) {
+      console.error("Error loading current user:", error);
+    }
+  };
 
   // Redux state
   const error = useAppSelector((state) => state.laborSlice.error);
@@ -56,10 +72,21 @@ const BrowseServices: FC = () => {
   const laborTypes = useAppSelector((state) => state.laborSlice.laborTypes);
   const isLoading = useAppSelector((state) => state.laborSlice.isLoading);
 
-  // Filtered labors based on selected category
-  const filteredLabors = selectedCategory
-    ? labors.filter((labor) => labor.type === selectedCategory)
-    : labors;
+  // Filtered labors based on selected category and exclude current user if they are LABOR
+  const filteredLabors = (() => {
+    let filtered = selectedCategory
+      ? labors.filter((labor) => labor.type === selectedCategory)
+      : labors;
+
+    // Remove current user from labors list if they are a LABOR
+    if (currentUser && currentUser.role === ENUMS.Role.LABOR) {
+      filtered = filtered.filter(
+        (labor) => labor.username !== currentUser.username
+      );
+    }
+
+    return filtered;
+  })();
 
   /**
    * Handle back button press
@@ -74,6 +101,7 @@ const BrowseServices: FC = () => {
   const handleRefresh = (): void => {
     setRefreshing(true);
     dispatch(LaborActionCreator.fetchLabors());
+    loadCurrentUser(); // Reload current user data as well
     setTimeout(() => {
       setRefreshing(false);
     }, 1000);
@@ -164,10 +192,19 @@ const BrowseServices: FC = () => {
   /**
    * Get labor count for a specific category
    * @param categoryType - The category type to count
-   * @returns The number of labors in that category
+   * @returns The number of labors in that category (excluding current user if LABOR)
    */
   const getLaborCountByCategory = (categoryType: string): number => {
-    return labors.filter((labor) => labor.type === categoryType).length;
+    let filtered = labors.filter((labor) => labor.type === categoryType);
+
+    // Exclude current user if they are a LABOR
+    if (currentUser && currentUser.role === ENUMS.Role.LABOR) {
+      filtered = filtered.filter(
+        (labor) => labor.username !== currentUser.username
+      );
+    }
+
+    return filtered.length;
   };
 
   /**
