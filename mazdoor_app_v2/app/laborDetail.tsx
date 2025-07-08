@@ -261,11 +261,12 @@ const LaborDetail: FC = () => {
         onRequestClose={handleGigModalClose}
         presentationStyle="overFullScreen"
       >
-        <Pressable style={styles.modalOverlay} onPress={handleGigModalClose}>
+        <View style={styles.modalOverlay}>
           <Pressable
-            style={styles.modalContainer}
-            onPress={(e) => e.stopPropagation()}
-          >
+            style={styles.modalBackdrop}
+            onPress={handleGigModalClose}
+          />
+          <View style={styles.modalContainer}>
             {/* Drag Handle */}
             <View style={styles.modalDragHandle} />
 
@@ -283,10 +284,12 @@ const LaborDetail: FC = () => {
 
             <ScrollView
               style={styles.modalContent}
-              showsVerticalScrollIndicator={true}
               contentContainerStyle={styles.modalContentContainer}
-              scrollEnabled={true}
+              showsVerticalScrollIndicator={true}
               bounces={true}
+              alwaysBounceVertical={false}
+              keyboardShouldPersistTaps="handled"
+              scrollEventThrottle={16}
             >
               <View style={styles.modalImageContainer}>
                 <Image
@@ -323,19 +326,35 @@ const LaborDetail: FC = () => {
                   <Text variant="titleMedium" style={styles.modalSectionTitle}>
                     {t("delivery_time")}
                   </Text>
-                  <Text variant="bodyMedium" style={styles.modalDeliveryTime}>
-                    {selectedGig.deliveryTime} {t("days")}
-                  </Text>
+                  <View style={styles.modalDeliveryTimeContainer}>
+                    <Ionicons
+                      name="time-outline"
+                      size={16}
+                      color={Colors.primary}
+                    />
+                    <Text variant="bodyMedium" style={styles.modalDeliveryTime}>
+                      {selectedGig.deliveryTime} {t("days")}
+                    </Text>
+                  </View>
                 </View>
 
                 <View style={styles.modalSection}>
                   <Text variant="titleMedium" style={styles.modalSectionTitle}>
                     {t("category")}
                   </Text>
-                  <Text variant="bodyMedium" style={styles.modalDescription}>
-                    {selectedGig.category}
-                  </Text>
+                  <View style={styles.modalCategoryContainer}>
+                    <Ionicons
+                      name="folder-outline"
+                      size={16}
+                      color={Colors.primary}
+                    />
+                    <Text variant="bodyMedium" style={styles.modalCategoryText}>
+                      {selectedGig.category}
+                    </Text>
+                  </View>
                 </View>
+
+                {/* Extra spacing to ensure scrolling works */}
               </View>
             </ScrollView>
 
@@ -351,8 +370,8 @@ const LaborDetail: FC = () => {
                 {t("lets_discuss")}
               </Button>
             </View>
-          </Pressable>
-        </Pressable>
+          </View>
+        </View>
       </Modal>
     );
   };
@@ -921,13 +940,19 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "stretch",
   },
+  modalBackdrop: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
   modalContainer: {
     backgroundColor: Colors.white,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     width: "100%",
-    maxHeight: "90%",
-    minHeight: "60%",
+    height: "85%",
     overflow: "hidden",
     elevation: 10,
     shadowColor: Colors.text,
@@ -935,6 +960,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 20,
     paddingBottom: 0,
+    display: "flex",
+    flexDirection: "column",
   },
   modalDragHandle: {
     width: 40,
@@ -956,7 +983,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.background2,
   },
   modalTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "700",
     color: Colors.text,
   },
@@ -971,14 +998,12 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   modalContentContainer: {
-    paddingBottom: 60,
     flexGrow: 1,
-    minHeight: 600,
   },
   modalImageContainer: {
     width: "100%",
-    height: 200,
-    marginBottom: 20,
+    height: 180,
+    marginBottom: 16,
     borderRadius: 12,
     overflow: "hidden",
     backgroundColor: Colors.background2,
@@ -993,71 +1018,89 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
   },
   modalGigTitle: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "700",
     color: Colors.text,
     textAlign: "center",
-    marginBottom: 16,
-    lineHeight: 30,
+    marginBottom: 12,
+    lineHeight: 26,
   },
   modalPriceContainer: {
     alignItems: "center",
-    marginBottom: 24,
-    padding: 16,
+    marginBottom: 20,
+    padding: 12,
     backgroundColor: Colors.background2,
     borderRadius: 12,
     width: "100%",
   },
   modalPrice: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: "800",
     color: Colors.primary,
     marginBottom: 4,
   },
   modalPriceLabel: {
-    fontSize: 14,
+    fontSize: 12,
     color: Colors.textGray,
     fontWeight: "500",
   },
   modalSection: {
     width: "100%",
-    marginBottom: 24,
+    marginBottom: 20,
   },
   modalSectionTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "600",
     color: Colors.text,
     marginBottom: 8,
   },
   modalDescription: {
-    fontSize: 16,
+    fontSize: 14,
     color: Colors.textGray,
-    lineHeight: 24,
+    lineHeight: 20,
     textAlign: "left",
     paddingHorizontal: 4,
   },
   modalDeliveryTime: {
-    fontSize: 16,
+    fontSize: 14,
     color: Colors.primary,
     fontWeight: "600",
+    marginLeft: 6,
+  },
+  modalDeliveryTimeContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     backgroundColor: Colors.background2,
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,
-    textAlign: "center",
     alignSelf: "flex-start",
+  },
+  modalCategoryContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: Colors.background2,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    alignSelf: "flex-start",
+  },
+  modalCategoryText: {
+    fontSize: 14,
+    color: Colors.primary,
+    fontWeight: "600",
+    marginLeft: 6,
   },
   modalFooter: {
     paddingHorizontal: 20,
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingTop: 16,
+    paddingBottom: 16,
     borderTopWidth: 1,
     borderTopColor: Colors.background2,
     backgroundColor: Colors.white,
-    marginTop: "auto",
   },
   discussButton: {
-    paddingVertical: 14,
+    paddingVertical: 12,
     borderRadius: 12,
     elevation: 2,
     shadowColor: Colors.primary,
